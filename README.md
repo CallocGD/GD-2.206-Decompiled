@@ -12,3 +12,7 @@ See this [repo](https://github.com/CallocGD/Geometry-Dash-Miscellaneous-Decomp-T
 
 # FYI
 - If we end up decompiling this game 100% know that I will not be sharing assests to the game to prevent piracy.
+
+
+## NOTES
+I will be first attempting to write a program in python to track our progress using libclang to parse through the C++ functions. This will be tricky but should give everyone enough time to start making me the broma files and hooks we all desperately need.
