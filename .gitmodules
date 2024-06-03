@@ -1,0 +1,3 @@
+[submodule "cocos-headers"]
+	path = cocos-headers
+	url = https://github.com/CallocGD/cocos-headers
