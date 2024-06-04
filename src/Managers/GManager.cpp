@@ -1,72 +1,101 @@
 
 #include "includes.h"
+#include "cocos2dx/support/zip_support/ZipUtils.h"
 
 
-void GManager::dataLoaded(DS_Dictionary* p0)
-{
-    return;
-}
+/* Virtual Call */
+bool GManager::dataLoaded(DS_Dictionary *dsdict)
+{}
 
+/* Virtual Call */
+void GManager::encodeDataTo(DS_Dictionary* dsdict)
+{}
 
-void GManager::encodeDataTo(DS_Dictionary* p0)
-{
-    return;
-}
-
-
+/* Virtual Call */
 void GManager::firstLoad()
+{}
+
+
+std::string GManager::getcompressedString(){
+    return cocos2d::ZipUtils::compressString(getSaveString(), false, 0);
+}
+
+std::string GManager::getSaveString(){
+    DS_Dictionary* dsdict = new DS_Dictionary;
+    encodeDataTo(dsdict);
+    std::string saveString = dsdict->saveRootSubDictToString();
+    delete dsdict;
+    return saveString;
+}
+
+bool GManager::init(){
+    m_setup = true;
+    m_saved = false;
+    return true;
+}
+
+bool GManager::load() {
+   return loadDataFromFile(m_fileName);
+}
+
+bool GManager::loadDataFromFile(std::string &const fileName){
+    bool loadedData;
+    std::string backup;
+    /* I Think Robtop should've made dsdict into a RAII Styled variable TBH... */
+    DS_Dictionary *dsdict = new DS_Dictionary();
+    if (!tryLoadData(dsdict, fileName)) {
+        backup = fileName + "2.dat";
+        /* Create a backup */
+        if (tryLoadData(dsdict, backup)) {
+            dsdict->copyFile(backup.c_str(), fileName.c_str());
+            loadedData = true;
+        }
+        else {
+            /* Failed the second time so now try loading the backup file */
+            loadedData = tryLoadData(dsdict, fileName + ".dat.bak");
+        }
+        if (!loadedData) {
+            firstLoad();
+        }
+    }
+    loadedData = dataLoaded(dsdict);
+    delete dsdict;
+    return loadedData;
+}
+
+void GManager::loadFromCompressedString(std::string& compressedStr)
 {
-    return;
+    return loadFromString(cocos2d::ZipUtils::decompressString(compressedStr, false, 0));
+}   
+
+
+void GManager::loadFromString(std::string& compressedStr)
+{
+    loadFromString(cocos2d::ZipUtils::decompressString(compressedStr, false, 0));   
 }
 
 
 
-/* Unknown Return: GManager::getCompressedSaveString(){}; */
+bool GManager::saveData(DS_Dictionary *dsdict, std::string fileName){
+    return dsdict->saveRootSubDictToCompressedFile(fileName.c_str());
+}
 
-
-/* Unknown Return: GManager::getSaveString(){}; */
-
-bool GManager::init()
-{
-    return;
+void GManager::saveGMTo(std::string fileName){
+    DS_Dictionary *dsdict = new DS_Dictionary();
+    encodeDataTo(dsdict);
+    saveData(dsdict, fileName);
+    m_saved = true;
+    delete dsdict;
 }
 
 
 
-/* Unknown Return: GManager::load(){}; */
-
-void GManager::loadDataFromFile(std::string const& p0)
-{
-    return;
+void GManager::setup(){
+    m_setup = true;
+    load();
 }
 
 
-void GManager::loadFromCompressedString(std::string& p0)
-{
-    return;
+bool GManager::tryLoadData(DS_Dictionary *dsdict, std::string data){
+    return dsdict->loadRootSubDictFromCompressedFile(data.c_str());
 }
-
-
-void GManager::loadFromString(std::string& p0)
-{
-    return;
-}
-
-
-
-/* Unknown Return: GManager::saveData(DS_Dictionary* p0, std::string p1){}; */
-
-void GManager::saveGMTo(std::string p0)
-{
-    return;
-}
-
-
-void GManager::setup()
-{
-    return;
-}
-
-
-
-/* Unknown Return: GManager::tryLoadData(DS_Dictionary* p0, std::string const& p1){}; */
