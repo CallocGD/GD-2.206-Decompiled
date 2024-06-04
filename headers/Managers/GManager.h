@@ -52,17 +52,15 @@ public:
     /// @brief Loads our save data to our manager by filename
     /// @param fileName the filename we wish to load our data from
     /// @return  true if data was able to load successfully
-    bool loadDataFromFile(std::string fileName);
+    bool loadDataFromFile(std::string &const fileName);
 
     /// @brief Loads in our data from a compressed string
     /// @param compressedStr the compressed version of our savedata
-    /// @return weather or not loading succeeded
-    bool loadFromCompressedString(std::string compressedStr);
+    void loadFromCompressedString(std::string& compressedStr);
     
     /// @brief Loads data from string
     /// @param data the data we wish to load
-    /// @return weather or not loading succeeded
-    bool loadFromString(std::string data);
+    void loadFromString(std::string& data);
     
     /// @brief Attempts to save our data 
     void save();
