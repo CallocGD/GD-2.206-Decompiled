@@ -71,7 +71,11 @@ void GManager::loadFromCompressedString(std::string& compressedStr)
 
 void GManager::loadFromString(std::string& compressedStr)
 {
-    loadFromString(cocos2d::ZipUtils::decompressString(compressedStr, false, 0));   
+    DS_Dictionary *dsdict = new DS_Dictionary();
+    if (dsdict->loadRootSubDictFromString(compressedStr)) {
+        dataLoaded(dsdict);
+    }
+    delete dsdict;
 }
 
 
