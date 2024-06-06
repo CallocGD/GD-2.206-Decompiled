@@ -87,11 +87,11 @@ public:
     virtual bool initWithSpriteFrameName(char const* frame);
 
     /// @brief sets flipX to itself and it's followers
-    /// @param flipX the direction that the splite should be flipped to
+    /// @param flipX the direction that the sprite should be flipped to
     virtual void setFlipX(bool flipX);
     
     /// @brief sets flipY to itself and it's followers
-    /// @param flipY the direction that the splite should be flipped to
+    /// @param flipY the direction that the sprite should be flipped to
     virtual void setFlipY(bool flipY);
 
     cocos2d::CCArray* m_followers;
