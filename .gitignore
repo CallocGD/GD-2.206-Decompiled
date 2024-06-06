@@ -6,3 +6,5 @@
 vtables 
 # I put the geode-sdk bindings in to help automate some stuff
 bindings
+# My Scripts
+scripts
