@@ -4,3 +4,5 @@
 *.txt
 # I use these for moving things to ghidra
 vtables 
+# I put the geode-sdk bindings in to help automate some stuff
+bindings
