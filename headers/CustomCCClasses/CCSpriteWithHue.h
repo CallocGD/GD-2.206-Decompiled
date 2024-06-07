@@ -6,32 +6,41 @@
 
 class CCSpriteWithHue: public cocos2d::CCSprite {
 public:
-    static CCSpriteWithHue* create(std::string const& p0, cocos2d::CCRect const& p1);
-    static CCSpriteWithHue* create(std::string const& p0);
-    TodoReturn createWithSpriteFrame(cocos2d::CCSpriteFrame* p0);
-    TodoReturn createWithSpriteFrameName(std::string const& p0);
-    TodoReturn createWithTexture(cocos2d::CCTexture2D* p0, cocos2d::CCRect const& p1, bool p2);
-    TodoReturn createWithTexture(cocos2d::CCTexture2D* p0);
-    TodoReturn getAlpha();
-    TodoReturn getHue();
-    TodoReturn getUniformLocations();
-    TodoReturn initShader();
-    void setCustomLuminance(float p0, float p1, float p2);
-    void setEvenLuminance(float p0);
-    void setHue(float p0);
-    void setHueDegrees(float p0);
-    void setLuminance(float p0);
-    TodoReturn setupDefaultSettings();
-    TodoReturn updateColorMatrix();
-    TodoReturn updateHue(float p0);
+    CCSpriteWithHue(){};
+
+    static CCSpriteWithHue* create(std::string const& frame, cocos2d::CCRect const& rect);
+    static CCSpriteWithHue* create(std::string const& frame);
+    static CCSpriteWithHue* createWithSpriteFrame(cocos2d::CCSpriteFrame* frame);
+    static CCSpriteWithHue* createWithSpriteFrameName(std::string const& p0);
+    static CCSpriteWithHue* createWithTexture(cocos2d::CCTexture2D* texture, cocos2d::CCRect const& rect, bool rotate);
+    static CCSpriteWithHue* createWithTexture(cocos2d::CCTexture2D* texture);
+    float getAlpha();
+    float getHue();
+    void getUniformLocations();
+    bool initShader();
+    void setCustomLuminance(float r, float g, float b);
+    void setEvenLuminance(float lum);
+    void setHue(float hue);
+    void setHueDegrees(float degress);
+    void setLuminance(float lum);
+    void setupDefaultSettings();
+    void updateColorMatrix();
+    void updateHue(float hue);
     virtual void draw();
-    virtual bool initWithTexture(cocos2d::CCTexture2D* p0);
-    virtual bool initWithTexture(cocos2d::CCTexture2D* p0, cocos2d::CCRect const& p1);
-    virtual bool initWithTexture(cocos2d::CCTexture2D* p0, cocos2d::CCRect const& p1, bool p2);
+    virtual bool initWithTexture(cocos2d::CCTexture2D* texture);
+    virtual bool initWithTexture(cocos2d::CCTexture2D* texture, cocos2d::CCRect const& rect);
+    virtual bool initWithTexture(cocos2d::CCTexture2D* texture, cocos2d::CCRect const& rect, bool rotate);
     virtual bool initWithSpriteFrame(cocos2d::CCSpriteFrame* p0);
-    virtual TodoReturn getShaderName();
-    virtual TodoReturn shaderBody();
+    virtual std::string getShaderName();
+    virtual char* shaderBody();
     virtual void updateColor();
+
+    float m_hue;
+    float m_luminance[3];
+    float m_colorMatrix[3][3];	
+    float m_uHueLoc;
+    float m_uAlphaLoc;
+    float m_uLumLoc;
 };
 
 #endif /* __CCSPRITEWITHHUE_H__ */

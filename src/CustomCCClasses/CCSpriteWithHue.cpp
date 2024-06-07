@@ -3,50 +3,166 @@
 
 
 
-CCSpriteWithHue* CCSpriteWithHue::create(std::string const& p0, cocos2d::CCRect const& p1)
+CCSpriteWithHue* CCSpriteWithHue::create(std::string const& frame, cocos2d::CCRect const& rect)
 {
-    return;
+    CCSpriteWithHue* obj = new CCSpriteWithHue();
+    if (obj != nullptr){
+        memset(obj, 0 , sizeof(CCSpriteWithHue));
+        if (obj->initWithFile(frame.c_str(), rect)){
+            obj->autorelease();
+            return obj;
+        }
+    }
+    CC_SAFE_DELETE(obj);
+    return nullptr;
 }
 
 
-CCSpriteWithHue* CCSpriteWithHue::create(std::string const& p0)
+CCSpriteWithHue* CCSpriteWithHue::create(std::string const& frame)
 {
-    return;
+    CCSpriteWithHue* obj = new CCSpriteWithHue();
+    if (obj != nullptr){
+        memset(obj, 0 , sizeof(CCSpriteWithHue));
+        if (obj->initWithFile(frame.c_str())){
+            obj->autorelease();
+            return obj;
+        }
+    }
+    CC_SAFE_DELETE(obj);
+    return nullptr;
 }
 
 
 
-/* Unknown Return: CCSpriteWithHue::createWithSpriteFrame(cocos2d::CCSpriteFrame* p0){}; */
+CCSpriteWithHue* CCSpriteWithHue::createWithSpriteFrame(cocos2d::CCSpriteFrame* frame)
+{
+    CCSpriteWithHue* obj = new CCSpriteWithHue();
+    if (obj != nullptr){
+        memset(obj, 0 , sizeof(CCSpriteWithHue));
+        if (obj->initWithSpriteFrame(frame)){
+            obj->autorelease();
+            return obj;
+        }
+    }
+    CC_SAFE_DELETE(obj);
+    return nullptr;
+}
+
+CCSpriteWithHue* CCSpriteWithHue::createWithSpriteFrameName(std::string const& frame){
+    CCSpriteWithHue* obj = new CCSpriteWithHue();
+    if (obj != nullptr){
+        memset(obj, 0 , sizeof(CCSpriteWithHue));
+        if (obj->initWithSpriteFrameName(frame.c_str())){
+            obj->autorelease();
+            return obj;
+        }
+    }
+    CC_SAFE_DELETE(obj);
+    return nullptr;
+};
 
 
-/* Unknown Return: CCSpriteWithHue::createWithSpriteFrameName(std::string const& p0){}; */
+CCSpriteWithHue* CCSpriteWithHue::createWithTexture(cocos2d::CCTexture2D* texture, cocos2d::CCRect const& rect, bool rotate){
+    CCSpriteWithHue* obj = new CCSpriteWithHue();
+    if (obj != nullptr){
+        memset(obj, 0 , sizeof(CCSpriteWithHue));
+        if (obj->initWithTexture(texture, rect, rotate)){
+            obj->autorelease();
+            return obj;
+        }
+    }
+    CC_SAFE_DELETE(obj);
+    return nullptr;
+};
 
 
-/* Unknown Return: CCSpriteWithHue::createWithTexture(cocos2d::CCTexture2D* p0, cocos2d::CCRect const& p1, bool p2){}; */
+CCSpriteWithHue* CCSpriteWithHue::createWithTexture(cocos2d::CCTexture2D* texture){
+    CCSpriteWithHue* obj = new CCSpriteWithHue();
+    if (obj != nullptr){
+        memset(obj, 0 , sizeof(CCSpriteWithHue));
+        if (obj->initWithTexture(texture)){
+            obj->autorelease();
+            return obj;
+        }
+    }
+    CC_SAFE_DELETE(obj);
+    return nullptr;
+};
 
 
-/* Unknown Return: CCSpriteWithHue::createWithTexture(cocos2d::CCTexture2D* p0){}; */
+static unsigned int g_uNumberOfDraws = 0;
 
 void CCSpriteWithHue::draw()
 {
+    if ((!m_bDontDraw) && (_realOpacity)) {
+        cocos2d::ccGLEnable(m_eGLServerState);
+        getShaderProgram()->use();
+        getShaderProgram()->setUniformsForBuiltins();
+        cocos2d::ccGLBlendFunc(m_sBlendFunc.src, m_sBlendFunc.dst);
+        cocos2d::ccGLBindTexture2D(m_pobTexture->getName());
+        cocos2d::ccGLEnableVertexAttribs(7);
+        getShaderProgram()->setUniformLocationWithMatrix3fv(m_uHueLoc, m_colorMatrix[0], 1);
+        
+        /* Shit code robtop :/ */
+        getShaderProgram()->setUniformLocationWith1f(getAlpha(), getAlpha());
+        getShaderProgram()->setUniformLocationWith3f(m_uLumLoc, m_luminance[0], m_luminance[1], m_luminance[2]);
+        
+        /* Currently throws intellisense errors when trying to put these together... */
+        // glVertexAttribPointer(0,3,5126,0, 24, (void*)(m_sQuad.tl.vertices));
+        // glVertexAttribPointer(2,2,5126,0, 24, (void*)(m_sQuad.tl.texCoords));
+        // glVertexAttribPointer(1,4,5121,1, 24, (void*)(m_sQuad.tl.colors));
+        glDrawArrays(5,0,4);
+        g_uNumberOfDraws = g_uNumberOfDraws + 1;
+    }   
     return;
+}   
+
+
+
+float CCSpriteWithHue::getAlpha(){
+    return _displayedOpacity / 255.0;
 }
 
 
+float CCSpriteWithHue::getHue(){
+    return m_hue;
+}
 
-/* Unknown Return: CCSpriteWithHue::getAlpha(){}; */
-
-
-/* Unknown Return: CCSpriteWithHue::getHue(){}; */
-
-
-/* Unknown Return: CCSpriteWithHue::getShaderName(){}; */
-
-
-/* Unknown Return: CCSpriteWithHue::getUniformLocations(){}; */
+std::string CCSpriteWithHue::getShaderName(){
+    return "hue_program";
+}
 
 
-/* Unknown Return: CCSpriteWithHue::initShader(){}; */
+void CCSpriteWithHue::getUniformLocations(){
+    m_uHueLoc = glGetUniformLocation(getShaderProgram()->getProgram(),"u_hue");
+    m_uAlphaLoc = glGetUniformLocation(getShaderProgram()->getProgram(),"u_alpha");
+    m_uLumLoc = glGetUniformLocation(getShaderProgram()->getProgram(),"u_lum");
+}
+
+
+bool CCSpriteWithHue::initShader()
+{   
+    cocos2d::CCGLProgram *shaderProgram;
+    cocos2d::CCShaderCache *shaderCache;
+    std::string shaderName;
+    const char *vert;
+
+    shaderProgram = cocos2d::CCShaderCache::sharedShaderCache()->programForKey(getShaderName().c_str());
+    if (shaderProgram == nullptr) {
+        shaderProgram = new cocos2d::CCGLProgram();
+        shaderProgram->initWithVertexShaderByteArray( cocos2d::ccPositionTextureColor_vert, shaderBody());
+        shaderProgram->addAttribute("a_position",0);
+        shaderProgram->addAttribute("a_color",1);
+        shaderProgram->addAttribute("a_texCoord",2);
+        shaderProgram->link();
+        shaderProgram->updateUniforms();
+        cocos2d::CCShaderCache::sharedShaderCache()->addProgram(shaderProgram , getShaderName().c_str());
+        shaderProgram->release();
+    }
+    setShaderProgram(shaderProgram);
+    getUniformLocations();
+    updateColor();
+}
 
 bool CCSpriteWithHue::initWithSpriteFrame(cocos2d::CCSpriteFrame* p0)
 {
@@ -72,38 +188,48 @@ bool CCSpriteWithHue::initWithTexture(cocos2d::CCTexture2D* p0, cocos2d::CCRect 
 }
 
 
-void CCSpriteWithHue::setCustomLuminance(float p0, float p1, float p2)
+void CCSpriteWithHue::setCustomLuminance(float r, float g, float b )
 {
-    return;
+    m_luminance[0] = r;
+    m_luminance[1] = g;
+    m_luminance[2] = b;
+}
+
+void CCSpriteWithHue::setEvenLuminance(float value)
+{
+    m_luminance[0] = (value * 0.33);
+    m_luminance[1] = (value * 0.33);
+    m_luminance[2] = (value * 0.33);
+}
+
+void CCSpriteWithHue::setHue(float hue)
+{
+    m_hue = hue;
+    updateColorMatrix();
 }
 
 
-void CCSpriteWithHue::setEvenLuminance(float p0)
+void CCSpriteWithHue::setHueDegrees(float degrees)
 {
-    return;
+    /* what is this for-loop shit? */
+    for (; ((degrees < 0.0) << 0x1f) < 0; degrees += 360.0){}
+    setHue((degrees / 360.0) * 6.28f);
 }
 
 
-void CCSpriteWithHue::setHue(float p0)
+void CCSpriteWithHue::setLuminance(float lum)
 {
-    return;
+    m_luminance[0] = lum * 0.21;
+    m_luminance[1] = lum * 0.72;
+    m_luminance[2] = lum * 0.07;
 }
 
 
-void CCSpriteWithHue::setHueDegrees(float p0)
+void CCSpriteWithHue::setupDefaultSettings()
 {
-    return;
+    m_hue = 0.0f;
+    setLuminance(1.0f);
 }
-
-
-void CCSpriteWithHue::setLuminance(float p0)
-{
-    return;
-}
-
-
-
-/* Unknown Return: CCSpriteWithHue::setupDefaultSettings(){}; */
 
 
 char* CCSpriteWithHue::shaderBody(){
@@ -126,11 +252,12 @@ char* CCSpriteWithHue::shaderBody(){
 };
 
 
+
 void CCSpriteWithHue::updateColor()
 {
-    return;
+    cocos2d::CCSprite::updateColor();
+    updateColorMatrix();
 }
-
 
 
 
@@ -226,7 +353,7 @@ float** hueMatrix(float *(matrix)[3], float hue)
     return ret;
 }
 
-void premultiplyAlpha(float **matrix,float alpha){
+void premultiplyAlpha(float *(matrix)[3],float alpha){
     for (float **matrix_a = matrix; matrix_a != (matrix + 9); matrix_a += 3){
         matrix_a[0][0] = matrix_a[0][0] * alpha;
         matrix_a[0][1] = matrix_a[0][1] * alpha;
@@ -236,7 +363,16 @@ void premultiplyAlpha(float **matrix,float alpha){
 
 
 
-/* Unknown Return: CCSpriteWithHue::updateColorMatrix(){}; */
+void CCSpriteWithHue::updateColorMatrix()
+{
+    float *matrix[3];
+    *matrix = *m_colorMatrix;
+    hueMatrix(matrix, m_hue);
+    premultiplyAlpha(matrix, getAlpha());
+}
 
+void CCSpriteWithHue::updateHue(float hue)
+{
+    setHue(hue + 0.05f);
+}
 
-/* Unknown Return: CCSpriteWithHue::updateHue(float p0){}; */
