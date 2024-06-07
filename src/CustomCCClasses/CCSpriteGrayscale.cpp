@@ -40,7 +40,7 @@ std::string CCSpriteGrayscale::getShaderName(){
 const char * CCSpriteGrayscale::shaderBody()
 {
       return "\n    #ifdef GL_ES                                                                    \n"\
-        "    preci sion mediump float;                                                    \n"\
+        "    precision mediump float;                                                    \n"\
         "    #endif                                                                        \n"\
         "    \n"\
         "    varying vec4 v_fragmentColor;                                                 \n"\
