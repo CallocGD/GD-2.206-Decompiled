@@ -17,8 +17,8 @@ public:
     static CCSpriteGrayscale* createWithSpriteFrameName(std::string const& p0);
     TodoReturn createWithTexture(cocos2d::CCTexture2D* p0, cocos2d::CCRect const& p1, bool p2);
     TodoReturn createWithTexture(cocos2d::CCTexture2D* p0);
-    virtual TodoReturn getShaderName();
-    virtual TodoReturn shaderBody();
+    virtual std::string getShaderName();
+    virtual const char* shaderBody();
 };
 
 #endif /* __CCSPRITEGRAYSCALE_H__ */
