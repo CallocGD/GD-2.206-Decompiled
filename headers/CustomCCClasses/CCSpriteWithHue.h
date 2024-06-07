@@ -17,7 +17,7 @@ public:
     float getAlpha();
     float getHue();
     void getUniformLocations();
-    bool initShader();
+    void initShader();
     void setCustomLuminance(float r, float g, float b);
     void setEvenLuminance(float lum);
     void setHue(float hue);
@@ -32,7 +32,7 @@ public:
     virtual bool initWithTexture(cocos2d::CCTexture2D* texture, cocos2d::CCRect const& rect, bool rotate);
     virtual bool initWithSpriteFrame(cocos2d::CCSpriteFrame* p0);
     virtual std::string getShaderName();
-    virtual char* shaderBody();
+    virtual const char* shaderBody();
     virtual void updateColor();
 
     float m_hue;

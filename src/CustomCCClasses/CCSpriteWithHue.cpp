@@ -140,7 +140,7 @@ void CCSpriteWithHue::getUniformLocations(){
 }
 
 
-bool CCSpriteWithHue::initShader()
+void CCSpriteWithHue::initShader()
 {   
     cocos2d::CCGLProgram *shaderProgram;
     cocos2d::CCShaderCache *shaderCache;
@@ -232,7 +232,7 @@ void CCSpriteWithHue::setupDefaultSettings()
 }
 
 
-char* CCSpriteWithHue::shaderBody(){
+const char* CCSpriteWithHue::shaderBody(){
     return  "                                                               \n"\
             "    #ifdef GL_ES                                                    \n"\
             "    precision mediump float;                                    \n"\
