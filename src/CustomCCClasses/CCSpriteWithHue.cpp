@@ -227,11 +227,10 @@ float** hueMatrix(float *(matrix)[3], float hue)
 }
 
 void premultiplyAlpha(float **matrix,float alpha){
-    for (float **matrix_a = matrix; matrix_a != (matrix + 9); matrix_a += 9){
+    for (float **matrix_a = matrix; matrix_a != (matrix + 9); matrix_a += 3){
         matrix_a[0][0] = matrix_a[0][0] * alpha;
         matrix_a[0][1] = matrix_a[0][1] * alpha;
         matrix_a[0][2] = matrix_a[0][2] * alpha;
-        matrix_a += 3;
     }
 }
 
