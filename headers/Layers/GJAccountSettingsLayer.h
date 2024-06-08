@@ -31,7 +31,17 @@ public:
     }
 
     static GJAccountSettingsLayer* create(int accountID);
-    CCMenuItemToggler* createToggleButton(std::string p0, cocos2d::SEL_MenuHandler p1, bool p2, cocos2d::CCMenu* p3, cocos2d::CCPoint p4, float p5, float p6);
+    
+    CCMenuItemToggler* createToggleButton(
+        std::string p0, 
+        cocos2d::SEL_MenuHandler p1, 
+        bool p2, 
+        cocos2d::CCMenu* p3,
+        cocos2d::CCPoint p4, 
+        float p5, 
+        float p6
+    );
+    
     bool init(int accountID);
     void onClose(cocos2d::CCObject* sender);
     void onCommentSetting(cocos2d::CCObject* sender);
