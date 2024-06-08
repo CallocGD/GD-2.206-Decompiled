@@ -20,6 +20,17 @@
 #ifndef TodoReturn
     #define TodoReturn void*
 #endif /* TodoReturn */
+
+
+/* I Blame Geode for adding this -_- adding 
+this in to prevent intellisense from complaining 
+to me more , please try not to send me pull requests 
+with the gd namespace it's here to prevent class member 
+errors */
+
+namespace gd = std;
+
+
 /* Cells */
 
 #include "Cells/TableViewCell.h"
@@ -1210,6 +1221,17 @@ public:
     virtual TodoReturn onPlayback(SongInfoObject* p0);
 };
 
+
+class TextInputNodeDelegate {
+public:
+	virtual void textChanged(CCTextInputNode* textInputNode);
+	virtual void enterPressed(CCTextInputNode* textInputNode);
+	virtual bool allowTextInput(CCTextInputNode* textInputNode);
+	virtual bool textInputClosed(CCTextInputNode* textInputNode);
+	virtual bool textInputOpened(CCTextInputNode* textInputNode);
+	virtual void textInputReturn(CCTextInputNode* textInputNode);
+	virtual void textInputShouldOffset(CCTextInputNode* textInputNode, float offSet);
+};
 
 
 /* Enums are from https://github.com/geode-sdk/bindings/blob/main/bindings/include/Geode/Enums.hpp 
