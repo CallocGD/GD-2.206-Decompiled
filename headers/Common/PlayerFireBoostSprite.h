@@ -6,10 +6,14 @@
 
 class PlayerFireBoostSprite: public cocos2d::CCSprite {
 public:
+    PlayerFireBoostSprite(){
+        m_size = 1.0f;
+    }
+
     static PlayerFireBoostSprite* create();
     void animateFireIn();
     void animateFireOut();
-    TodoReturn loopFireAnimation();
+    void loopFireAnimation();
     virtual bool init();
     float m_size;
 };
