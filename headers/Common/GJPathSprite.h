@@ -11,12 +11,15 @@ class CCSpriteCOpacity;
 
 class GJPathSprite: public CCSpriteCOpacity {
 public:
-    static GJPathSprite* create(int p0);
-    TodoReturn addRankLabel(int p0);
-    TodoReturn addShardSprite();
-    TodoReturn changeToLockedArt();
-    bool init(int p0);
-    TodoReturn updateState();
+    GJPathSprite(){
+        m_pathNumber = 0;
+    }
+    static GJPathSprite* create(int pathNumber);
+    void addRankLabel(int ID);
+    void addShardSprite();
+    void changeToLockedArt();
+    bool init(int pathNumber);
+    void updateState();
     int m_pathNumber;
 };
 
