@@ -9,7 +9,7 @@ public:
     static AchievementBar* create(char const* title, char const* desc, char const* icon, bool quest);
     bool init(char const* title, char const* desc, char const* icon, bool quest);
     void show();
-    virtual void setOpacity(unsigned char p0);
+    virtual void setOpacity(unsigned char value);
 };
 
 #endif /* __ACHIEVEMENTBAR_H__ */
