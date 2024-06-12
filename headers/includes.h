@@ -1598,11 +1598,13 @@ enum class LevelLeaderboardMode {
 };
 enum class StatKey {};
 enum class TextStyleType {
+    Default = 0,
     Colored = 1,
     Instant = 2,
     Shake = 3,
     Delayed = 4
 };
+
 enum class InputValueType {};
 enum class GJInputStyle {};
 enum class GJDifficultyName {
@@ -1791,6 +1793,8 @@ enum class UpdateResponse {
     GameVerOutOfDate,
     UpdateSuccess,
 };
+
+
 
 enum class UnlockType {
     Cube = 0x1,
