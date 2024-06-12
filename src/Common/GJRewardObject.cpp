@@ -4,48 +4,71 @@
 
 bool GJRewardObject::canEncode()
 {
-    return;
+    return true;
 }
 
 
 GJRewardObject* GJRewardObject::create()
 {
-    return;
+    return create(SpecialRewardItem::None, 0, 0);
 }
 
 
-GJRewardObject* GJRewardObject::create(SpecialRewardItem p0, int p1, int p2)
+GJRewardObject* GJRewardObject::create(SpecialRewardItem specialRewardItem, int total, int itemID)
 {
-    return;
+    GJRewardObject* ro = new GJRewardObject();
+    if (ro != nullptr && ro->init(specialRewardItem, total, itemID)){
+        ro->autorelease();
+        return ro;
+    }
+    CC_SAFE_DELETE(ro);
+    return nullptr;
 }
 
 
 
-/* Unknown Return: GJRewardObject::createItemUnlock(UnlockType p0, int p1){}; */
+GJRewardObject* GJRewardObject::createItemUnlock(UnlockType itemtype, int itemID){
+    GJRewardObject *ro = create(SpecialRewardItem::CustomItem, 1, itemID);
+    ro->m_unlockType = itemtype;
+    return ro;
+};
 
 
-/* Unknown Return: GJRewardObject::createWithCoder(DS_Dictionary* p0){}; */
-
-void GJRewardObject::dataLoaded(DS_Dictionary* p0)
+GJRewardObject * GJRewardObject::createWithCoder(DS_Dictionary *dsdict)
 {
-    return;
+    auto ro = create();
+    ro->dataLoaded(dsdict);
+    return ro;
+}
+
+void __thiscall GJRewardObject::dataLoaded(DS_Dictionary *dsdict) {
+    m_specialRewardItem = static_cast<SpecialRewardItem>(dsdict->getIntegerForKey("1"));
+    m_itemID = dsdict->getIntegerForKey("2");
+    m_total = dsdict->getIntegerForKey("3");
+    m_unlockType = static_cast<UnlockType>(dsdict->getIntegerForKey("4"));
 }
 
 
-void GJRewardObject::encodeWithCoder(DS_Dictionary* p0)
+void GJRewardObject::encodeWithCoder(DS_Dictionary* dsdict)
 {
-    return;
-}
+    dsdict->setIntegerForKey("kCEK", 9);
+    dsdict->setIntegerForKey("1", static_cast<int>(m_specialRewardItem));
+    dsdict->setIntegerForKey("2", m_itemID);
+    dsdict->setIntegerForKey("3", m_total);
+    dsdict->setIntegerForKey("4", static_cast<int>(m_unlockType));
+}   
 
 
-bool GJRewardObject::init(SpecialRewardItem p0, int p1, int p2)
-{
-    return;
+bool GJRewardObject::init(SpecialRewardItem specialRewardItem, int total, int itemID){
+    this->m_specialRewardItem = specialRewardItem;
+    this->m_itemID = itemID;
+    this->m_total = total;
+    return true;
 }
 
 
 bool GJRewardObject::isSpecialType()
 {
-    return;
+    unsigned int item = (int)(m_specialRewardItem) - 1;
+    return (item < 0xe) && 1 << (item & 0xff) & 0x3e3f;
 }
-

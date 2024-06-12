@@ -7,13 +7,13 @@
 class GJRewardObject: public cocos2d::CCObject {
 public:
     static GJRewardObject* create();
-    static GJRewardObject* create(SpecialRewardItem p0, int p1, int p2);
-    TodoReturn createItemUnlock(UnlockType p0, int p1);
-    TodoReturn createWithCoder(DS_Dictionary* p0);
+    static GJRewardObject* create(SpecialRewardItem specialRewardItem, int total, int itemID);
+    static GJRewardObject* createItemUnlock(UnlockType p0, int p1);
+    static GJRewardObject* createWithCoder(DS_Dictionary* p0);
     void dataLoaded(DS_Dictionary* p0);
-    bool init(SpecialRewardItem p0, int p1, int p2);
+    bool init(SpecialRewardItem specialRewardItem, int total, int itemID);
     bool isSpecialType();
-    virtual void encodeWithCoder(DS_Dictionary* p0);
+    virtual void encodeWithCoder(DS_Dictionary* ds_dict);
     virtual bool canEncode();
     SpecialRewardItem m_specialRewardItem;
     UnlockType m_unlockType;
