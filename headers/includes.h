@@ -1811,6 +1811,7 @@ enum class UnlockType {
 };
 
 enum class SpecialRewardItem {
+    None = 0x0,
     FireShard = 0x1,
     IceShard = 0x2,
     PoisonShard = 0x3,
