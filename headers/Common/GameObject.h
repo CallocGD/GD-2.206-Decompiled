@@ -4,7 +4,6 @@
 
 #include "../includes.h"
 
-
 /* -- Predefined Subclasses -- */
 
 class CCSpritePlus;
@@ -78,7 +77,7 @@ public:
     TodoReturn getGroupDisabled();
     TodoReturn getGroupID(int p0);
     TodoReturn getGroupString();
-    TodoReturn getLastPosition();
+    cocos2d::CCPoint getLastPosition();
     TodoReturn getMainColor();
     TodoReturn getMainColorMode();
     TodoReturn getObjectDirection();
@@ -94,7 +93,7 @@ public:
     TodoReturn getScalePosDelta();
     TodoReturn getSecondaryColor();
     TodoReturn getSecondaryColorMode();
-    TodoReturn getSlopeAngle();
+    float getSlopeAngle();
     cocos2d::CCPoint* getStartPos(cocos2d::CCPoint* p0);
     GameObjectType getType();
     TodoReturn getUnmodifiedPosition();
@@ -163,7 +162,7 @@ public:
     TodoReturn slopeFloorTop();
     TodoReturn slopeWallLeft();
     TodoReturn slopeYPos(cocos2d::CCRect p0);
-    TodoReturn slopeYPos(float p0);
+    float slopeYPos(float p0);
     TodoReturn slopeYPos(GameObject* p0);
     TodoReturn spawnDefaultPickupParticle(GJBaseGameLayer* p0);
     TodoReturn updateBlendMode();
@@ -262,89 +261,181 @@ public:
     virtual void setObjectRectDirty(bool p0);
     virtual void setOrientedRectDirty(bool p0);
     virtual void setType(GameObjectType p0);
+    int getM_ID();
+
+    bool getUpSlope(); // Seems to be in robtop's code (Somewhere)
     /* PAD */
+
+    /* WARNING: Some names may not be accurate to the names Geode has in the bindings 
+     * (Hence why I have not done a complete pull request yet)
+     * and some items may have got lost due to decompiling problems on my end because of the long hours of trying 
+     * to solve this one if you or anyone you know of has a class member that should be renamed removed or shifted
+     * Don't be afraid to send me a pull request, I have not done the C++ Code yet for this one and
+     * I enjoy people who get out of their seat and want to help me with this effort. - Calloc */
 
     int m_innerSectionIndex;
     int m_outerSectionIndex;
     int m_middleSectionIndex;
     bool m_hasExtendedCollision;
-    /* PAD */
+    cocos2d::ccColor3B m_color;
+    bool m_usesBlackOpacity;
+    bool m_useObjectGlowColor;
+    float m_blackOpacity;
+    bool m_maybeIsBlending;
+    bool m_isEditor;
+    bool m_groupDisabled;
+    bool field23_0x227;
+    bool m_notLinked;
+    bool m_userCoinUpdated;
+    /* PAD 2 bits */
+    int m_colorMode;
+    GameObject *m_previousObjectState;
+    bool m_baseColorUsesHSV;
+    bool m_detailColorUsesHSV;
+    /* PAD 2 */
+    float m_currentPositionX;
+    float m_currentPositionY;
+    float m_rotation1;
+    float m_rotation2;
+    float m_rotation3;
+    float m_rotation4;
+    float m_scaleXInc;
+    float m_scaleYInc;
+    float m_realPositionX;
+    float m_realPositionY;
+    bool m_shouldLockX;
+    bool m_isFlipX;
+    bool m_isFlipY;
 
-    int m_activeMainColorID;
-    int m_activeDetailColorID;
-    /* PAD */
+    cocos2d::CCPoint m_obBoxOffset;
+    bool m_isOriented; 
+    cocos2d::CCPoint m_obBoxOffset2;
+    OBB2D *m_OBB2D;
+    bool m_oriented; // Unknown oriented Related somehow...
 
+    // NOTE: int m_activeMainColorID; int m_activeDetailColorID; Unsure where these ones go...
+
+    cocos2d::CCSprite* m_glow;
     cocos2d::CCSprite* m_glowSprite;
-    /* PAD */
-
-    float m_unk288;
-    float m_unk28c;
-    short m_unk290;
-    bool m_unk292;
-    /* PAD */
-
+    float m_spriteSizeWidth;
+    float m_spriteSizeHeight;
+    bool m_hasDetailFrame;
+    bool m_maybeActivated;
+    bool m_invisible;
+    cocos2d::CCParticleSystem *m_particles;
     std::string m_particleString;
-    /* PAD */
-
+    bool m_isParticle;
     bool m_particleUseObjectColor;
-    /* PAD */
-
+    bool m_isRingEffect;
+    cocos2d::CCPoint m_obPortalPosition;
+    bool m_particleDefaultScale;
+    int m_unk;
     int m_linkedGroup;
-    /* PAD */
-
+    cocos2d::CCRect m_objectTextureRect;
+    bool m_textureRectDirty;
+    bool m_objectPosXDirty;
+    bool m_unmodifiedPositionsDirty;
+    float m_objectTextureRectHeight;
+    cocos2d::CCRect m_transferedObjectRect;
+    bool m_objectRectDirty;
+    bool m_orientedBoxDirty;
+    bool m_positionUpdated;
+    bool m_isBlendable;
+    bool m_isObjectRect2Dirty;
+    bool m_isOrientedRectDirty;
+    bool m_hasBeenActivatedP1;
+    bool m_hasBeenActivatedP2;
+    int m_linkedGroup;
+    int field94_0x2e0;
+    short m_mainColorMode;
+    short m_mainChildColorMode;
+    bool m_shouldBlendBaseColor;
+    bool m_shouldBlendDetailColor;
+    bool m_hasChildren;
+    bool m_isAnimatedObject;
     cocos2d::CCSprite* m_colorSprite;
-    /* PAD */
-
+    int m_unk2;
+    float m_objectRaidius;
+    bool m_objectRectCanRotate;
+    float m_OBB2DHeight;
+    float m_unkHeight;
     int m_uniqueID;
+    int m_type;
+    GameObjectType m_previousType;
     GameObjectType m_objectType;
-    /* PAD */
-
+    float m_unmodifiedPositionX;
+    float m_unmodifiedPositionY;
+    int field119_0x31c;
     double m_realXPosition;
     double m_realYPosition;
     cocos2d::CCPoint m_startPosition;
-    /* PAD */
-
+    bool m_unkBoolean;
     bool m_hasNoAudioScale;
-    bool m_unk34a;
+    bool m_disabled;
     /* PAD */
-
-    float m_currentScaleX;
-    float m_currentScaleY;
-    /* PAD */
-
+    float m_defaultRotationX;
+    float m_defaultRotationY;
+    float m_defaultScaleX;
+    float m_defaultScaleY;
+    float m_UnknownScaleX;
+    float m_UnknownScaleY;
+    bool m_defaultFlipX;
+    bool m_defaultFlipY;
+    bool m_shouldHide;
+    bool m_isNotEditor;
+    int m_unused1;
+    bool m_unkBool;
+    short field142_0x360;
+    short field143_0x362;
     short m_enterChannel;
     short m_objectMaterial;
-    /* PAD */
-
-    bool m_hasNoGlow;
-    int m_targetColor;
+    short m_parentMode;
+    bool m_disableGlow;
+    int m_colorIdx;
     int m_objectID;
-    /* PAD */
-
+    bool m_dontTransfrom;
+    bool m_defaultDontFade;
+    bool m_ignoreEnter;
+    bool m_ignoreFade;
+    bool m_dontFadeTinted;
+    bool m_isTintObject;
+    bool m_isDetailOnly;
     short m_customColorType;
     bool m_isDontEnter;
     bool m_isDontFade;
-    bool m_hasNoEffects;
+    bool m_hideEffects;
     bool m_hasNoParticles;
-    /* PAD */
-
+    int m_defaultZOrder;
+    bool m_isPortal;
+    bool m_isShowing;
+    bool m_isAudioScale;
+    float m_minAudioScale;
+    float m_maxAudioScale;
+    bool m_noRotation;
     int m_property53;
-    /* PAD */
-
-    GJSpriteColor* m_baseColor;
-    GJSpriteColor* m_detailColor;
-    /* PAD */
-
+    bool m_doesntFade;
+    bool m_useGlowBGColor;
+    bool m_useGlowColor;
+    bool m_is1704;
+    float m_glowOpacityMultiplier;
+    bool m_upSlope;
+    int m_slopeType;
+    bool m_damaging;
+    float m_maybeColorOpacity;
+    GJSpriteColor *m_baseColor;
+    GJSpriteColor *m_detailColor;
+    bool m_isBlendingBatchNode;
+    int m_defaultZLayer;
     ZLayer m_zLayer;
     int m_zOrder;
-    /* PAD */
-
+    int m_customZLayer;
     bool m_isSelected;
-    /* PAD */
 
-    bool m_shouldUpdateColorSprite;
-    /* PAD */
-
+    /* No clue on what type m_textblock is... */
+    void *m_textblock;
+    cocos2d::CCPoint field212_0x3dc; // Unk Point
+    bool m_zLayerWasSet;
+    bool field214_0x3e5;
     bool m_hasGroupParent;
     bool m_hasAreaParent;
     float m_scaleX;
@@ -358,17 +449,29 @@ public:
     short m_opacityGroupCount;
     short m_editorLayer;
     short m_editorLayer2;
-    /* PAD */
+
 
     bool m_isNoTouch;
-    /* PAD */
-
+    cocos2d::CCSize m_size; // Maybe LastDefaultScale?
     cocos2d::CCPoint m_lastPosition;
-    /* PAD */
-
+    cocos2d::ccColor3B m_color2;
+    int m_classID;
+    bool m_isTrigger;
+    bool m_isTriggerGroup;
+    bool field250_0x43a;
+    bool m_ignoreEditorDuration;
+    bool m_isStoppableTrigger;
+    bool m_isEditorSpawnableTrigger;
+    bool m_dontCountTowardsLimit;
     bool m_isHighDetail;
-    /* PAD */
-
+    cocos2d::CCNode *m_colorSprite1;
+    cocos2d::CCNode *m_colorSprite2;
+    GJEffectManager *m_effectManager;
+    bool m_unkEffectObject;
+    bool m_isNotDamaging;
+    bool m_isStaticGroup;
+    bool m_unkRotation;
+    bool m_isPixelScaleObject;
     bool m_isPassable;
     bool m_isHide;
     bool m_isNonStickX;
@@ -379,12 +482,19 @@ public:
     bool m_isExtraSticky;
     bool m_isDontBoostY;
     bool m_isDontBoostX;
-    /* PAD */
-
+    bool m_is749;
+    bool field275_0x45c;
+    float m_unkScaleMod;
+    float m_scaleModX;
+    float m_scaleModY;
     int m_property155;
     int m_property156;
-    /* PAD */
-
+    unsigned char m_opacity;
+    int field288_0x478;
+    int field289_0x47c;
+    int field290_0x480;
+    bool m_isUIObject;
+    bool field293_0x486;
 };
 
 #endif /* __GAMEOBJECT_H__ */
