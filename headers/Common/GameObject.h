@@ -71,7 +71,7 @@ public:
     TodoReturn getBoxOffset();
     TodoReturn getColorFrame(std::string p0);
     TodoReturn getColorIndex();
-    gd::string getColorKey(bool p0, bool p1);
+    std::string getColorKey(bool p0, bool p1);
     TodoReturn getCustomZLayer();
     TodoReturn getGlowFrame(std::string p0);
     TodoReturn getGroupDisabled();
@@ -211,7 +211,7 @@ public:
     virtual void setStartPos(cocos2d::CCPoint p0);
     virtual void updateStartValues();
     virtual void customObjectSetup(std::vector<std::string>& p0, std::vector<void*>& p1);
-    virtual gd::string getSaveString(GJBaseGameLayer* p0);
+    virtual std::string getSaveString(GJBaseGameLayer* p0);
     virtual TodoReturn claimParticle();
     virtual TodoReturn unclaimParticle();
     virtual TodoReturn particleWasActivated();
