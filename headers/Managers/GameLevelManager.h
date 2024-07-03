@@ -15,9 +15,9 @@ public:
     void banUser(int p0);
     void blockUser(int p0);
     void cleanupDailyLevels();
-    bool createAndGetAccountComments(std::string p0, int p1);
-    bool createAndGetCommentsFull(std::string p0, int p1, bool p2);
-    bool createAndGetLevelComments(std::string p0, int p1);
+    cocos2d::CCArray* createAndGetAccountComments(std::string p0, int p1);
+    cocos2d::CCArray* createAndGetCommentsFull(std::string p0, int p1, bool p2);
+    cocos2d::CCArray* createAndGetLevelComments(std::string p0, int p1);
     cocos2d::CCArray* createAndGetLevelLists(std::string p0);
     cocos2d::CCArray* createAndGetLevels(std::string p0);
     cocos2d::CCArray* createAndGetMapPacks(std::string p0);
@@ -51,19 +51,19 @@ public:
     GJSmartTemplate* getActiveSmartTemplate();
     cocos2d::CCArray* getAllSmartTemplates();
     cocos2d::CCDictionary* getAllUsedSongIDs();
-    gd::string getBasePostString();
+    std::string getBasePostString();
     bool getBoolForKey(char const* p0);
-    gd::string getCommentKey(int ID, int page, int mode, CommentKeyType keytype);
+    std::string getCommentKey(int ID, int page, int mode, CommentKeyType keytype);
     cocos2d::CCArray* getCompletedLevels(bool p0);
     int getDailyID(GJTimedLevelType p0);
     double getDailyTimer(GJTimedLevelType p0);
     char const* getDeleteCommentKey(int p0, int p1, int p2);
     char const* getDeleteMessageKey(int p0, bool p1);
     char const* getDescKey(int p0);
-    gd::string getActiveDailyID(bool p0, bool p1, bool p2, bool p3, bool p4, bool p5, bool p6, bool p7);
+    std::string getActiveDailyID(bool p0, bool p1, bool p2, bool p3, bool p4, bool p5, bool p6, bool p7);
     char const* getDiffKey(int p0);
     bool getDiffVal(int p0);
-    gd::string getFolderName(int p0, bool p1);
+    std::string getFolderName(int p0, bool p1);
     char const* getFriendRequestKey(bool p0, int p1);
     void getFriendRequests(bool p0, int p1, int p2);
     char const* getGauntletKey(int p0);
@@ -77,7 +77,7 @@ public:
     int getHighestLevelOrder();
     int getIntForKey(char const* p0);
     void getLeaderboardScores(char const* p0);
-    gd::string getLengthStr(bool p0, bool p1, bool p2, bool p3, bool p4, bool p5);
+    std::string getLengthStr(bool p0, bool p1, bool p2, bool p3, bool p4, bool p5);
     const char * getLenKey(int len);
     bool getLenVal(int p0);
     void getLevelComments(int ID, int page, int total, int mode, CommentKeyType keytype);
@@ -101,7 +101,7 @@ public:
     char const* getMessagesKey(bool p0, int p1);
     void getNews();
     int getNextFreeTemplateID();
-    gd::string getNextLevelName(std::string p0);
+    std::string getNextLevelName(std::string p0);
     void getOnlineLevels(GJSearchObject* p0);
     char const* getPageInfo(char const* p0);
     char const* getPostCommentKey(int p0);
@@ -271,7 +271,7 @@ public:
     void storeUserNames(std::string usernameString);
     void submitUserInfo();
     void suggestLevelStars(int p0, int p1, int p2);
-    gd::string tryGetUsername(int p0);
+    std::string tryGetUsername(int p0);
     CommentType typeFromCommentKey(char const* p0);
     LikeItemType typeFromLikeKey(char const* p0);
     void unblockUser(int p0);
@@ -291,10 +291,10 @@ public:
     void uploadLevelList(GJLevelList* p0);
     void uploadUserMessage(int p0, std::string p1, std::string p2);
     int userIDForAccountID(int p0);
-    GJUserScore* userInfoForAccountID(int p0);
-    gd::string userNameForUserID(int p0);
+    GJUserScore* userInfoForAccountID(int accountID);
+    std::string userNameForUserID(int p0);
     void verifyLevelState(GJGameLevel* p0);
-    gd::string writeSpecialFilters(GJSearchObject* p0);
+    std::string writeSpecialFilters(GJSearchObject* p0);
     virtual bool init();
     /* PAD */
 
@@ -368,6 +368,7 @@ public:
 
     std::string m_unkStr3;
     cocos2d::CCString* m_unkStr4;
+    cocos2d::CCBool* m_networkTested;
 };
 
 #endif /* __GAMELEVELMANAGER_H__ */

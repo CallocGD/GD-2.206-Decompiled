@@ -1,76 +1,230 @@
+/* Simple rewrite of the GameLevelManager's code in alphabetical order... */
 
-#include "includes.h"
+#include "../headers/includes.h"
+/* Blame my .vscode file */
+#include "cocos-headers/cocos2dx/support/zip_support/ZipUtils.h"
+#include <cocos-ext.h>
+#include "GameToolbox.h"
+#include "rtsha1.h"
+
+
+/* To make things less Confusing and make the code more condensed... */
+#define Wmfd2893gb7 cocos2d::CCString::createWithFormat("%c%s%s%c%c%s", 'W', "mfd", "2893", 'g', 'b', "7")->getCString()
+#define xI25fpAapCQg cocos2d::CCString::createWithFormat("%c%s%s%c%c%s",'x',"I25","fpAa",'p','C',"Qg")->getCString()
+
+
+/* Robtop does not like to handle server stuff as far as I have been aware 
+ * thanks to some knowlege of some other people so I wrote this Macro to help 
+ * with formatting some of these http requests off without loosing any of the 
+ * compiled information and keeping this file as condensed as possible without 
+ * losing the Readability of the original code */
+#define FORMAT_HTTP_REQUEST(FORMAT, ...) getBasePostString() + cocos2d::CCString::createWithFormat(FORMAT, __VA_ARGS__)->getCString()
+
 
 
 void GameLevelManager::ProcessHttpRequest(std::string endpoint, std::string params, std::string tag, GJHttpType httpType)
 {
-    return;
+    if (GameManager::sharedState()->getGameVariable("0055"))
+    {
+        /* Seems to have had a typo on Robtop's End
+         * URL Should've been named: "https://www.boomlings.com/database/checkIfServerOnline.php"
+         * where "databas" should've been named "database"...*/
+        endpoint = "https://www.boomlings.com/databas/checkIfServerOnline.php";
+    };
+    cocos2d::extension::CCHttpRequest *request = new cocos2d::extension::CCHttpRequest();
+    request->setUrl(endpoint.c_str());
+    request->setRequestType(cocos2d::extension::CCHttpRequest::kHttpPost);
+    request->setResponseCallback(this, static_cast<cocos2d::extension::SEL_HttpResponse>(onProcessHttpRequestCompleted));
+    request->setUserData(NULL);
+    if (this != NULL)
+        retain();
+    request->setRequestData(params.c_str(), params.size());
+    request->setTag(tag.c_str());
+    // Should've been in here but isn't declared yet. TODO: Check 2.0 for function's name? 
+    // request->set_requestTypeGJ((int)httpType);
+    /* Send-Off */
+    cocos2d::extension::CCHttpClient::getInstance()->send(request);
+    request->release();
 }
 
 
-void GameLevelManager::acceptFriendRequest(int p0, int p1)
+
+
+void GameLevelManager::acceptFriendRequest(int targetAccountID, int requestID)
 {
-    return;
+    if (0 < targetAccountID && 0 < requestID)
+    {
+        auto key = cocos2d::CCString::createWithFormat("accFriendReq_%i_%i", targetAccountID, requestID)->getCString();
+        m_friendReqAndUserBlocks->setObject(cocos2d::CCNode::create(),key);
+        ProcessHttpRequest(
+            "https://www.boomlings.com/database/acceptGJFriendRequest20.php", 
+            FORMAT_HTTP_REQUEST("&targetAccountID=%i&requestID=%i&secret=%s", targetAccountID, requestID, Wmfd2893gb7), key, GJHttpType::AcceptFriendRequest);
+    }
 }
 
 
 int GameLevelManager::accountIDForUserID(int userID)
 {
-    return;
+    return m_accountIDtoUserIDDict->valueForKey(userID)->intValue();
 }
 
 
-void GameLevelManager::addDLToActive(char const* p0)
+void GameLevelManager::addDLToActive(const char *tag)
 {
-    return;
+    m_downloadObjects->setObject(cocos2d::CCNode::create(), tag);
 }
 
-
+\
 bool GameLevelManager::areGauntletsLoaded()
 {
-    return;
+    return m_gauntletLevels->count() > 0;
 }
 
-
-void GameLevelManager::banUser(int p0)
+/* iirc (If I remeber correctly) Only Eldermods Have this functinality enabled. */
+void GameLevelManager::banUser(int userID)
 {
     return;
 }
 
 
-void GameLevelManager::blockUser(int p0)
+
+void GameLevelManager::blockUser(int accountID)
 {
-    return;
+    if (accountID > 0)
+    {
+        /* If the user is now blocked in our blacklist do this...*/
+        auto blockedUserKey = cocos2d::CCString::createWithFormat("blockUser_%i", accountID)->getCString();
+        if (m_friendReqAndUserBlocks->objectForKey(blockedUserKey) == nullptr)
+        {
+            /* Set the user as being blocked... */
+            m_friendReqAndUserBlocks->setObject(cocos2d::CCNode::create(), blockedUserKey);
+            ProcessHttpRequest(
+                "https://www.boomlings.com/database/blockGJUser20.php", 
+                FORMAT_HTTP_REQUEST("&targetAccountID=%i&secret=%s", accountID, Wmfd2893gb7) , 
+                blockedUserKey, 
+                GJHttpType::BlockUser
+            );
+        }
+    }
 }
 
 
 void GameLevelManager::cleanupDailyLevels()
 {
-    return;
+    auto array = this->m_dailyLevels->allKeys();
+    /* There's some unknown names so I'm going to use these letters for the time being... */
+    unsigned int a = 0, b = 0, c, d, e;
+    for (unsigned int i= 0; i < array->count(); i++) {
+        unsigned int count = array->count(); 
+        const char* key = reinterpret_cast<cocos2d::CCString *>(array->objectAtIndex(i))->getCString();
+        GJGameLevel* level= reinterpret_cast<GJGameLevel*>(m_dailyLevels->objectForKey(key));
+        // TODO: Someone Please Rename this class memebers :/
+        // auto dailyID = level->m_dailyID_Random - level->m_dailyID_Seed;
+        // if (dailyID < 0x186a1) {
+        //     e = dailyID;
+        //     d = b;
+        //     c = a;
+        // }
+        // if (dailyID < c) {
+        //     level->m_levelNotDownloaded = true;
+        //     level->m_dontSave = true;
+        //     if (level->m_newNormalPercent_Random - level->m_newNormalPercent_Seed < 1) {
+        //         this->m_dailyLevels->removeObjectForKey(key);
+        //     }
+        //     e = a;
+        //     d = b;
+        // }
+        // a = e;
+        // b = d;
+    }
+}
+
+/* This exists Somewhere, the real questsion I have for Robtop is where did you put this code? - Calloc */
+cocos2d::CCArray * splittoCCArray(std::string str,char *delimiter)
+{
+    cocos2d::CCArray *array = cocos2d::CCArray::create();
+    size_t pos = str.find(delimiter,0);
+    size_t npos = str.size();
+    size_t start = 0;
+
+    while( true ) {
+        std::string substr = str.substr(start, pos - start);
+        if (substr != "" || start != npos) {
+            array->addObject(cocos2d::CCString::create(substr));
+        }
+        if (pos == 0xffffffff) break;
+        start = pos + 1;
+        pos = str.find(delimiter, start);
+    }
+    return array;
+}
+
+/* Whoever said these were bool in the geode bindings lied to you - Calloc */
+cocos2d::CCArray* GameLevelManager::createAndGetAccountComments(std::string commentData, int accountID)
+{
+    return createAndGetCommentsFull(commentData, accountID, true);
 }
 
 
-bool GameLevelManager::createAndGetAccountComments(std::string p0, int p1)
-{
-    return;
+cocos2d::CCArray* GameLevelManager::createAndGetCommentsFull(std::string data, int ID, bool profileComment)
+{   
+    GJComment* comment;
+    GJUserScore* user;
+    cocos2d::CCArray* comments = cocos2d::CCArray::create();
+    cocos2d::CCArray* raw_comments = splittoCCArray(data, "|");
+
+    for (unsigned int i = 0; i < raw_comments->count(); i++) {
+        std::string s = reinterpret_cast<cocos2d::CCString*>(raw_comments->objectAtIndex(i))->getCString();
+        if (profileComment){
+             comment = GJComment::create(responseToDict(s, true));
+            if (comment != nullptr){
+                comment->m_accountID = ID;
+                comments->addObject(comment);
+            }
+        } else {
+            auto UserAndComment = splittoCCArray(s,":");
+            if (UserAndComment->count() > 1){
+                /* Correct me if I'm wrong about stringAtIndex still existing with CCArray... */
+                comment = GJComment::create(responseToDict(UserAndComment->stringAtIndex(0)->getCString(), true));
+                user = GJUserScore::create(responseToDict(UserAndComment->stringAtIndex(1)->getCString(), true));
+                if (user != nullptr) {
+                    if (comment->m_userScore != user) {
+                        user->retain();
+                        if (comment->m_userScore != nullptr) {
+                            comment->m_userScore->release();
+                        }
+                        comment->m_userScore = user;
+                    }
+                }
+                storeUserName(comment->m_userID,comment->m_accountID, user->m_userName);
+            }
+            if (comment != nullptr){
+                comment->m_levelID = ID;
+                comments->addObject(comment);
+            }
+        }
+    }
+    return comments;
 }
 
 
-bool GameLevelManager::createAndGetCommentsFull(std::string p0, int p1, bool p2)
+cocos2d::CCArray* GameLevelManager::createAndGetLevelComments(std::string commentData, int levelID)
 {
-    return;
+    return createAndGetCommentsFull(commentData, levelID, false);
 }
 
 
-bool GameLevelManager::createAndGetLevelComments(std::string p0, int p1)
+cocos2d::CCArray* GameLevelManager::createAndGetLevelLists(std::string response)
 {
-    return;
-}
-
-
-cocos2d::CCArray* GameLevelManager::createAndGetLevelLists(std::string p0)
-{
-    return;
+    auto lists = cocos2d::CCArray::create();
+    cocos2d::CCArray* array = splittoCCArray(response,"|");
+    for (unsigned int i = 0; i < array->count(); i++) {
+        GJLevelList* obj = GJLevelList::create(responseToDict(reinterpret_cast<cocos2d::CCString*>(array->objectAtIndex(i))->getCString(),false));
+        if (obj != nullptr) {
+            lists->addObject(obj);
+        }
+    }
+    return lists;
 }
 
 
@@ -1285,8 +1439,23 @@ void GameLevelManager::parseRestoreData(std::string p0)
 
 void GameLevelManager::performNetworkTest()
 {
-    return;
-}
+    if (!m_networkTested->getValue())
+    {
+        bool v = m_networkTested->getValue(); v = true;
+        std::string postData = "temp";
+        cocos2d::extension::CCHttpRequest *request = new cocos2d::extension::CCHttpRequest();
+        request->setUrl("https://www.google.com");
+        /* Unknown Field Call where variable 0x74 is set to 1 */
+        request->setRequestType(cocos2d::extension::CCHttpRequest::kHttpPost);
+        request->setResponseCallback(this, static_cast<cocos2d::extension::SEL_HttpResponse>(onProcessHttpRequestCompleted));
+        request->setUserData(nullptr);
+        retain();
+        request->setRequestData(postData.c_str(), postData.size());
+        request->setTag("tag");
+        cocos2d::extension::CCHttpClient::getInstance()->send(request);
+        request->release();
+    }
+};
 
 
 void GameLevelManager::processOnDownloadLevelCompleted(std::string p0, std::string p1, bool p2)
