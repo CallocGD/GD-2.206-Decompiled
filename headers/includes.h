@@ -25,8 +25,11 @@
 /* I Blame Geode for adding this -_- adding 
 this in to prevent intellisense from complaining 
 to me more , please try not to send me pull requests 
-with the gd namespace it's here to prevent class member 
-errors */
+with the gd namespace it's here only if I'm lazily merging data in.
+
+If you send me pull requests with the namespace of gd in it I will disown you 
+- Calloc
+*/
 
 namespace gd = std;
 
