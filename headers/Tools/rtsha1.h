@@ -1,7 +1,7 @@
 #ifndef __RTSHA1_H__
 #define __RTSHA1_H__
 
-/* Source Code Was discovered by Acuroso */
+/* Source Code Was discovered by Acuruso */
 
 namespace rtsha1{
     void calc(void const* password, int password_size, unsigned char* hash);
