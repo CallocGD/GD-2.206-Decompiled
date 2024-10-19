@@ -110,9 +110,15 @@ void GJAccountManager::linkToAccount(std::string p0, std::string p1, int p2, int
 }
 
 
-void GJAccountManager::loginAccount(std::string p0, std::string p1)
-{
-    return;
+
+void GJAccountManager::loginAccount(std::string userName,std::string gjp2){
+    if (isDLActive("login_account")){
+        return;
+    addDLToActive("login_account");
+    std::string PostData = cocos2d::CCString::createWithFormat("udid=%s&userName=%s&gjp2=%s",GameManager::sharedState()->m_playerUDID ,userName, gjp2)->getCString(); 
+    PostData += "&secret=";
+    PostData += cocos2d::CCString::createWithFormat("%c%s%s%c%c%s",'W',"mfv","3899",'g','c',"9")->getCString();
+    ProcessHttpRequest("https://www.boomlings.com/database/accounts/loginGJAccount.php", PostData ,"LoginAccount", GJHttpType::LoginAccount);
 }
 
 
