@@ -21,10 +21,10 @@ public:
     /// @param httptype The Type of http request that was made
     bool init(bool success, std::string response, std::string tag, GJHttpType httptype);
 
-    bool success;
-    std::string response;
-    std::string tag;
-    GJHttpType httptype;
+    bool m_success;
+    std::string m_response;
+    std::string m_tag;
+    GJHttpType m_httptype;
 };
 
 #endif /* __GJHTTPRESULT_H__ */
