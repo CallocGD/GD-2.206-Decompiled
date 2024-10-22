@@ -8,6 +8,7 @@
     #include <windows.h>
 #endif /* _WIN32 */
 #include <cocos2d.h>
+#include <cocos-ext.h>
 #include <fmt/format.h>
 #include <fmod/fmod.h>
 #include <cstdlib>
@@ -20,6 +21,17 @@
 #ifndef TodoReturn
     #define TodoReturn void*
 #endif /* TodoReturn */
+
+#ifndef PASS
+    /* This Function will not be decompiled yet due to **Certain Defined Restraints** Specified by a given `Reason` */
+    #define PASS(Func, Reason) Func{};
+#endif
+
+#ifndef NOOP
+    /* This Function has No Operations Involved Hence it being cleverly named NOOP */
+    #define NOOP(Func) Func{};
+#endif
+
 
 
 /* I Blame Geode for adding this -_- adding 
