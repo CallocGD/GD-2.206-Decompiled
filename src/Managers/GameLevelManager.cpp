@@ -6,12 +6,14 @@
 #include <cocos-ext.h>
 #include "GameToolbox.h"
 #include "rtsha1.h"
+#include "GameLevelManager.h"
 
 
 /* To make things less Confusing and make the code more condensed... */
 #define Wmfd2893gb7 cocos2d::CCString::createWithFormat("%c%s%s%c%c%s", 'W', "mfd", "2893", 'g', 'b', "7")->getCString()
 #define xI25fpAapCQg cocos2d::CCString::createWithFormat("%c%s%s%c%c%s",'x',"I25","fpAa",'p','C',"Qg")->getCString()
 
+#define FORMAT_STR(FMT, ...) cocos2d::CCString::createWithFormat(FMT, __VA_ARGS__)->getCString()
 
 /* Robtop does not like to handle server stuff as far as I have been aware 
  * thanks to some knowlege of some other people so I wrote this Macro to help 
@@ -111,7 +113,7 @@ void GameLevelManager::blockUser(int accountID)
 
 void GameLevelManager::cleanupDailyLevels()
 {
-    auto array = this->m_dailyLevels->allKeys();
+    auto array = m_dailyLevels->allKeys();
     /* There's some unknown names so I'm going to use these letters for the time being... */
     unsigned int a = 0, b = 0, c, d, e;
     for (unsigned int i= 0; i < array->count(); i++) {
@@ -129,7 +131,7 @@ void GameLevelManager::cleanupDailyLevels()
         //     level->m_levelNotDownloaded = true;
         //     level->m_dontSave = true;
         //     if (level->m_newNormalPercent_Random - level->m_newNormalPercent_Seed < 1) {
-        //         this->m_dailyLevels->removeObjectForKey(key);
+        //         m_dailyLevels->removeObjectForKey(key);
         //     }
         //     e = a;
         //     d = b;
@@ -437,7 +439,16 @@ GJLevelList* GameLevelManager::getAllUsedSongIDs(int p0)
 
 std::string GameLevelManager::getBasePostString()
 {
-    return;
+    std::string postStr = cocos2d::CCString::createWithFormat("gameVersion=%i&binaryVersion=%i&udid=%s&uuid=%i",22, 42, GameManager::sharedState()->m_playerUDID,
+                      GameManager::sharedState()->m_playerUserIDSeed - GameManager::sharedState()->m_playerUserIDRand)->getCString();
+  
+    if (GJAccountManager::sharedState()->m_accountIDSeed - GJAccountManager::sharedState()->m_accountIDRand) {
+        postStr += FORMAT_STR(
+            "&accountID=%i&gjp2=%s",
+            GJAccountManager::sharedState()->m_accountIDSeed - GJAccountManager::sharedState()->m_accountIDRand, 
+            GJAccountManager::sharedState()->m_GJP2);
+    }
+    return postStr;
 }
 
 
@@ -513,9 +524,9 @@ char const* GameLevelManager::getFriendRequestKey(bool p0, int p1)
 }
 
 
-void GameLevelManager::getFriendRequests(bool p0, int p1, int p2)
+void GameLevelManager::getFriendRequests(bool sent,int page,int total)
 {
-    return;
+    
 }
 
 
@@ -525,45 +536,68 @@ void GameLevelManager::getGJChallenges()
 }
 
 
-void GameLevelManager::getGJDailyLevelState(GJTimedLevelType p0)
-{
-    return;
+void GameLevelManager::getGJDailyLevelState(GJTimedLevelType levelType){  
+    const char* key;
+    switch (levelType){
+        case GJTimedLevelType::Weekly:
+            key = "weekly_state";
+        case GJTimedLevelType::Event:
+            key = "event_state";
+        default:
+            key = "daily_state";
+    }
+    if (isDLActive(key)) return;
+    addDLToActive(key);
+    ProcessHttpRequest("https://www.boomlings.com/database/getGJDailyLevel.php", 
+    FORMAT_HTTP_REQUEST("&secret=%s&type=%i", Wmfd2893gb7, levelType), key, GJHttpType::GetGJDailyLevelState);
 }
 
 
-void GameLevelManager::getGJRewards(int p0)
-{
-    return;
-}
+PASS(void GameLevelManager::getGJRewards(int rewardID), "Not Enough Reasons to Do this one. Has Some unresolved Class Members in GameManager")
 
-
-void GameLevelManager::getGJUserInfo(int p0)
+void GameLevelManager::getGJUserInfo(int accountID)
 {
-    return;
+    const char* key = getUserInfoKey(accountID);
+    if (isDLActive(key)) return;
+    addDLToActive(key);
+
+    ProcessHttpRequest("https://www.boomlings.com/database/getGJUserInfo20.php", FORMAT_HTTP_REQUEST("&targetAccountID=%i&secret=%s", accountID, Wmfd2893gb7), key, GJHttpType::GetGJUserInfo);
+
 }
 
 
 char const* GameLevelManager::getGauntletKey(int p0)
 {
-    return;
+    return FORMAT_STR("%i", p0);
 }
 
-
-void GameLevelManager::getGauntletLevels(int p0)
-{
-    return;
+const char* GameLevelManager::getGauntletSearchKey(int gauntlet){
+    return FORMAT_STR("%i", gauntlet);
 }
 
-
-void GameLevelManager::getGauntlets()
+void GameLevelManager::getGauntletLevels(int gauntlet)
 {
-    return;
+    const char* key = getGauntletSearchKey(gauntlet);
+    if (isDLActive(key)) return;
+
+    addDLToActive(key);
+    std::string postStr = getBasePostString();
+    postStr += "&gauntlet=";
+    postStr += cocos2d::CCString::createWithFormat("%i",gauntlet)->getCString();
+    postStr += "&secret=";
+    postStr += Wmfd2893gb7;
+    /* Robtop, Why are you using http and not https here? :/ */
+    /* http://www.boomlings.com/database/getGJLevels21.php */
+    ProcessHttpRequest(LevelTools::base64DecodeString("aHR0cDovL3d3dy5ib29tbGluZ3MuY29tL2RhdGFiYXNlL2dldEdKTGV2ZWxzMjEucGhw"),postStr, key , GJHttpType::GetOnlineLevels); 
 }
 
-
-void GameLevelManager::getGauntletsearchKey(int p0)
-{
-    return;
+void GameLevelManager::getGauntlets(){
+    if (isDLActive("get_gauntlets")) return;
+    addDLToActive("get_gauntlets");
+    ProcessHttpRequest(
+        "https://www.boomlings.com/database/getGJGauntlets21.php",
+        getBasePostString() + FORMAT_STR("&secret=%s&special=1",Wmfd2893gb7), "get_gauntlets", GJHttpType::GetGauntlets
+    );
 }
 
 
@@ -573,154 +607,215 @@ int GameLevelManager::getHighestLevelOrder()
 }
 
 
-int GameLevelManager::getIntForKey(char const* p0)
+int GameLevelManager::getIntForKey(char const* key)
 {
-    return;
+    return m_searchFilters->valueForKey(key)->intValue();
 }
 
 
-void GameLevelManager::getLeaderboardScores(char const* p0)
-{
-    return;
-}
+PASS(void GameLevelManager::getLeaderboardScores(char const* p0), "UnSolved Vtables part of LeaderboardManagerDelegate")
+
 
 
 const char * GameLevelManager::getLenKey(int len)
 {
-    return;
+    return FORMAT_STR("Len%i", len);
 }
 
 
-bool GameLevelManager::getLenVal(int p0)
+bool GameLevelManager::getLenVal(int len)
 {
-    return;
+    return m_searchFilters->valueForKey(getLenKey(len))->boolValue();
 }
 
 
-std::string GameLevelManager::getLengthStr(bool p0, bool p1, bool p2, bool p3, bool p4, bool p5)
-{
-    return;
-}
+PASS(std::string GameLevelManager::getLengthStr(bool p0, bool p1, bool p2, bool p3, bool p4, bool p5), "Not in the mood to do this one yet...")
 
 
 void GameLevelManager::getLevelComments(int ID, int page, int total, int mode, CommentKeyType keytype)
 {
-    return;
+    std::string key = getCommentKey(ID,page,mode,keytype);
+    if (isDLActive(key.c_str())) return;
+    addDLToActive(key.c_str());
+    
+    std::string postStr = FORMAT_HTTP_REQUEST("&page=%i&total=%i&secret=%s&mode=%i", page, total, Wmfd2893gb7, mode);
+    postStr += (keytype == CommentKeyType::User) ? "&userID=" : "&levelID=";
+    postStr += FORMAT_STR("%i", ID);
+
+    int count = GameManager::sharedState()->getGameVariable("0088") ? 20: 10;
+    postStr += FORMAT_STR("&count=%i", (GameManager::sharedState()->getGameVariable("0094") && count != 10) ? count : count >>= 1);
+
+    ProcessHttpRequest(
+        (keytype == CommentKeyType::User) ? 
+            "https://www.boomlings.com/database/getGJCommentHistory.php":
+            "https://www.boomlings.com/database/getGJComments21.php" , 
+        postStr, key, GJHttpType::GetLevelComments);
 }
 
 
 const char* GameLevelManager::getLevelDownloadKey(int levelID, bool isGauntlet)
 {
-    return;
+    return FORMAT_STR("%i_%i", levelID, isGauntlet);
 }
 
 
 const char* GameLevelManager::getLevelKey(int levelID)
 {
-    return;
+    return FORMAT_STR("%i", levelID);
 }
 
 
-void GameLevelManager::getLevelLeaderboard(GJGameLevel* p0, LevelLeaderboardType p1, LevelLeaderboardMode p2)
-{
-    return;
-}
+PASS(void GameLevelManager::getLevelLeaderboard(GJGameLevel* p0, LevelLeaderboardType p1, LevelLeaderboardMode p2), "I'll do this one Later in the future")
+
 
 
 char const* GameLevelManager::getLevelLeaderboardKey(int p0, LevelLeaderboardType p1, LevelLeaderboardMode p2)
 {
-    return;
+    return FORMAT_STR("ll_%i_%i_%i", p0, p1, p2);
 }
 
 
-char const* GameLevelManager::getLevelListKey(int p0)
+char const* GameLevelManager::getLevelListKey(int ID)
 {
-    return;
+    return FORMAT_STR("%i", ID);
 }
 
 
-void GameLevelManager::getLevelLists(GJSearchObject* p0)
+void GameLevelManager::getLevelLists(GJSearchObject *searchObject)
 {
-    return;
+    const char *dl_key = searchObject->getKey();
+    if (isDLActive(dl_key)) return;
+    
+    addDLToActive(dl_key);
+    ProcessHttpRequest(
+        "https://www.boomlings.com/database/getGJLevelLists.php",
+        FORMAT_HTTP_REQUEST("&str=%s&type=%i&page=%i&secret=%s", 
+            searchObject->m_searchQuery, searchObject->m_searchType, searchObject->m_page, Wmfd2893gb7), 
+        dl_key, 
+        GJHttpType::GetLevelLists
+    );
 }
+
 
 
 void GameLevelManager::getLevelSaveData()
 {
-    return;
+    if (isDLActive("lvl_data")) return;
+    addDLToActive("lvl_data");
+    ProcessHttpRequest(
+        "https://www.boomlings.com/database/getSaveData.php", 
+        getBasePostString() + "&secret=" + Wmfd2893gb7,
+        "lvl_data", GJHttpType::GetLevelSaveData);
 }
 
 
-char const* GameLevelManager::getLikeAccountItemKey(LikeItemType p0, int p1, bool p2, int p3)
+PASS(char const* GameLevelManager::getLikeAccountItemKey(LikeItemType likeType, int , bool p2, int p3), "If Anyone wants to decompile this be my guest...")
+PASS(char const* GameLevelManager::getLikeItemKey(LikeItemType p0, int p1, bool p2, int p3), "If Anyone Wants to Decompile This one be my guest...")
+
+GJGameLevel * GameLevelManager::getLocalLevel(int ID)
 {
-    return;
+    GJGameLevel *level;
+    cocos2d::CCArray* localLevels = LocalLevelManager::sharedState()->m_localLevels;
+    for (unsigned int i = 0; i <= localLevels->count(); i++){
+        level = (GJGameLevel *)localLevels->objectAtIndex(i);
+        if (level->m_M_ID == ID) 
+            return level;
+    }
+    return nullptr;
+}
+
+GJGameLevel* GameLevelManager::getLocalLevelByName(std::string levelName)
+{
+    GJGameLevel *level;
+    cocos2d::CCArray* localLevels = LocalLevelManager::sharedState()->m_localLevels;
+    for (unsigned int i = 0; i <= localLevels->count(); i++){
+        level = (GJGameLevel *)localLevels->objectAtIndex(i);
+        if (level->m_levelName == levelName) 
+            return level;
+    }
+    return nullptr;
+}
+
+GJLevelList * GameLevelManager::getLocalLevelList(int ID)
+{
+    GJLevelList *List;
+    cocos2d::CCArray* localLists = LocalLevelManager::sharedState()->m_localLists;
+    for (unsigned int i = 0; i <= localLists->count(); i++){
+        List = (GJLevelList *)localLists->objectAtIndex(i);
+        if (List->m_M_ID == ID) 
+            return List;
+    }
+    return nullptr;
 }
 
 
-char const* GameLevelManager::getLikeItemKey(LikeItemType p0, int p1, bool p2, int p3)
+PASS(int GameLevelManager::getLowestLevelOrder(), "Confusing Assembly and Ghidra code")
+
+
+GJGameLevel * GameLevelManager::getMainLevel(int levelID, bool loaded)
 {
-    return;
-}
-
-
-GJGameLevel* GameLevelManager::getLocalLevel(int p0)
-{
-    return;
-}
-
-
-GJGameLevel* GameLevelManager::getLocalLevelByName(std::string p0)
-{
-    return;
-}
-
-
-int GameLevelManager::getLowestLevelOrder()
-{
-    return;
-}
-
-
-GJGameLevel* GameLevelManager::getMainLevel(int p0, bool p1)
-{
-    return;
+  
+    GJGameLevel* level = (GJGameLevel *)m_mainLevels->objectForKey(getLevelKey(levelID));
+    GJGameLevel* loadedLevel = LevelTools::getLevel(levelID,loaded);
+    if (loadedLevel == nullptr) {
+        loadedLevel = LevelTools::getLevel(levelID,false);
+        m_mainLevels->setObject(loadedLevel, getLevelKey(levelID));
+    }
+    else {
+        level->m_levelString = loadedLevel->m_levelString;
+        level->setStars(loadedLevel->m_stars_rand - loadedLevel->m_stars_seed);
+        level->m_requiredCoins = loadedLevel->m_requiredCoins;
+        level->m_levelName = loadedLevel->m_levelName;
+        level->m_audioTrack = loadedLevel->m_audioTrack;
+        level->setDemon(loadedLevel->m_demonRandom - loadedLevel->m_demonSeed);
+        level->m_twoPlayerMode = loadedLevel->m_twoPlayerMode;
+        level->m_difficulty = loadedLevel->m_difficulty;
+        level->m_capacityString = loadedLevel->m_capacityString;
+        level->setLevelID(levelID);
+        level->m_timestamp = loadedLevel->m_timestamp;
+        level->m_levelLength = loadedLevel->m_levelLength;
+    }
+    return level;
 }
 
 
 const char* GameLevelManager::getMapPackKey(int pack)
 {
-    return;
+    return FORMAT_STR("pack_%i", pack);
 }
 
 
-void GameLevelManager::getMapPacks(GJSearchObject* p0)
+void GameLevelManager::getMapPacks(GJSearchObject* searchObject)
 {
-    return;
+    const char* key = searchObject->getKey();
+    if (isDLActive(key)) return;
+    addDLToActive(key);
+    ProcessHttpRequest(
+        "https://www.boomlings.com/database/getGJMapPacks21.php", 
+        FORMAT_HTTP_REQUEST("&page=%i&secret=%s", searchObject->m_page, Wmfd2893gb7), 
+        key, GJHttpType::GetMapPacks);
 }
 
 
-char const* GameLevelManager::getMessageKey(int p0)
+char const* GameLevelManager::getMessageKey(int ID)
 {
-    return;
+    return FORMAT_STR("message_%i", ID);
 }
 
 
 char const* GameLevelManager::getMessagesKey(bool p0, int p1)
 {
-    return;
+    return FORMAT_STR("messages_%i_%i", p0, p1);
 }
 
 
 void GameLevelManager::getNews()
 {
-    return;
+    if (!m_newsObtained) m_newsObtained = true;
 }
 
 
-int GameLevelManager::getNextFreeTemplateID()
-{
-    return;
-}
+PASS(int GameLevelManager::getNextFreeTemplateID(), "Not Enough Things for Templates to be worked on yet...");
 
 
 std::string GameLevelManager::getNextLevelName(std::string p0)
@@ -1059,9 +1154,61 @@ int GameLevelManager::likeFromLikeKey(char const* p0)
 }
 
 
-void GameLevelManager::likeItem(LikeItemType p0, int p1, bool p2, int p3)
+
+std::string gen_random(int size){
+    cocos2d::CCString* rs = cocos2d::CCString::create("");
+    for (int i = 0; i < size; i++) {
+        rs = cocos2d::CCString::createWithFormat(
+            "%s%c", rs->getCString(), "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"[rand() % 0x3e]
+        );
+    }
+    return rs->getCString();
+}
+
+
+
+void GameLevelManager::likeItem(LikeItemType likeType, int itemID, bool like, int special)
 {
-    return;
+    unsigned char hash[40];
+    char hexString[20];
+    
+    if (likeType == LikeItemType::Level) {
+        GameManager::sharedState()->reportAchievementWithID("geometry.ach.like",100,false);
+    }
+  
+    if (hasLikedItemFullCheck(likeType, itemID, special)){
+        return;
+    }
+    markItemAsLiked(likeType,itemID, like, special);
+    std::string itemKey = getLikeItemKey(likeType, itemID, like, special);
+    std::string postStr = getBasePostString() + cocos2d::CCString::createWithFormat
+                       ("&itemID=%i&like=%i&type=%i&secret=%s&special=%i",itemID, like, likeType,
+    cocos2d::CCString::createWithFormat("%c%s%s%c%c%s", 'W',"mfd","2893",'g','b',"7")->getCString(), special)->getCString();    
+    postStr += "&rs=";
+
+    std::string rs = gen_random(10);
+
+    postStr += rs;
+
+    std::string rawchk = cocos2d::CCString::createWithFormat
+                       (
+                        "%i%i%i%i%s%i%s%i%s",
+                        special,
+                        itemID,
+                        like,
+                        likeType, 
+                        rs, 
+                        GJAccountManager::sharedState()->m_accountIDSeed - GJAccountManager::sharedState()->m_accountIDRand,
+                        GameManager::sharedState()->m_playerUDID, 
+                        GameManager::sharedState()->m_playerUserIDSeed - GameManager::sharedState()->m_playerUserIDRand,
+                        cocos2d::CCString::createWithFormat("%c%s%s%c%c%s",'y',"sg6","pUrt",'j','n',"0J")->getCString()
+                        )->getCString();
+    
+    rtsha1::calc(rawchk.data(), strlen(rawchk.data()), hash);
+    rtsha1::toHexString(hash, hexString);
+    postStr += "&chk="; 
+    postStr += cocos2d::ZipUtils::base64EncodeEnc(hexString, "58281");
+    ProcessHttpRequest("https://www.boomlings.com/database/likeGJItem211.php", postStr, itemKey , GJHttpType::LikeItem);
 }
 
 
