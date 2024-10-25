@@ -6,8 +6,8 @@
 
 class GameObjectCopy: public cocos2d::CCObject {
 public:
-    static GameObjectCopy* create(GameObject* p0);
-    bool init(GameObject* p0);
+    static GameObjectCopy* create(GameObject* gameObject);
+    bool init(GameObject* gameObject);
     void resetObject();
     GameObject* m_object;
     cocos2d::CCPoint m_position;
@@ -15,8 +15,8 @@ public:
     float m_rotationY;
     bool m_isFlipX;
     bool m_isFlipY;
-    float m_customScaleX;
-    float m_customScaleY;
+    float m_scaleX;
+    float m_scaleY;
 };
 
 #endif /* __GAMEOBJECTCOPY_H__ */
