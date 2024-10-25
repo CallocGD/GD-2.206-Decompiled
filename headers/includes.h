@@ -23,12 +23,12 @@
 #endif /* TodoReturn */
 
 #ifndef PASS
-    /* This Function will not be decompiled yet due to **Certain Defined Restraints** Specified by a given `Reason` */
-    #define PASS(Func, Reason) Func{};
+    /* Function will not be decompiled yet due to **Certain Defined Restraints** Specified by `Reason` */
+    #define PASS(Func, Reason) Func{return;};
 #endif
 
 #ifndef NOOP
-    /* This Function has No Operations Involved Hence it being cleverly named NOOP */
+    /* Function has No Operations Involved*/
     #define NOOP(Func) Func{};
 #endif
 
@@ -2059,7 +2059,7 @@ enum class GJHttpType {
     // Yet to be added by Robtop in 2.21
     // joinLobby = 0x39,
     // ExitMPLobby = 0x3a,
-
+    GetLevelLists = 0x3c,
     DeleteServerLevelList = 0x3e,
 };
 
@@ -2076,6 +2076,7 @@ enum class DialogAnimationType {
     FromRight = 3,
     FromTop = 4,
     // a 5th type is defined which acts exactly the same as FromTop
+    FromBottom = 5 
 };
 
 // Geode Addition
