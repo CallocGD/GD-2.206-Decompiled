@@ -8,7 +8,7 @@
 
 ## Tools Used
 See this [repo](https://github.com/CallocGD/Geometry-Dash-Miscellaneous-Decomp-Tools) I try to post new scripts regularly for ghidra and more in here.
-
+- [GD-Decomp-Deploy](https://github.com/CallocGD/GD-Decomp-Deploy) Built me this repository and all the currently found signatures since the repo's creation date.
 - Ghidra
 
 # FYI
