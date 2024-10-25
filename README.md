@@ -9,10 +9,16 @@
 ## Tools Used
 See this [repo](https://github.com/CallocGD/Geometry-Dash-Miscellaneous-Decomp-Tools) I try to post new scripts regularly for ghidra and more in here.
 
+- Ghidra
 
 # FYI
 - If we end up decompiling this game 100% know that I will not be sharing assests to the game to prevent piracy.
 
-
 ## NOTES
 I will be first attempting to write a program in python to track our progress using libclang to parse through the C++ functions. This will be tricky but should give everyone enough time to start making me the broma files and hooks we all desperately need.
+
+
+# Current TODOS
+- Making All Http/s Requests in the Game's Code Open source for programmers to easily see & replicate (Because GDDocs sometimes gets it wrong)
+- Decompiling GameObject 100% Where all of it's class members have been given accurate names
+- Not Currently in the Mood to move Previous code I've done excluding GameLevelManager however feel free to fork and make pull requests if you need those ones.
