@@ -1980,27 +1980,72 @@ void GameLevelManager::uploadAccountComment(std::string p0)
 }
 
 
-void GameLevelManager::uploadComment(std::string p0, CommentType p1, int p2, int p3)
+void GameLevelManager::uploadComment(std::string comment, CommentType commentType,int ID,int percent){
+
+    unsigned char hash[40];
+    char hexString[20];
+    
+    std::string encoded_comment = LevelTools::base64EncodeString(comment);
+    const char* key = (commentType == CommentType::Level) ? getPostCommentKey() : "acc_comment";
+    if (m_friendReqAndUserBlocks->objectForKey(key) != nullptr) return;
+    m_friendReqAndUserBlocks->setObject(cocos2d::CCNode::create(), key);
+    makeTimeStamp(key);
+
+    std::string playerName = GameManager::sharedState()->m_playerName;
+    std::string playerUDID = GameManager::sharedState()->m_playerUDID;
+    std::string postData = FORMAT_HTTP_REQUEST("&userName=%s&comment=%s&secret=%s", removeDelimiterChars(playerName, false), removeDelimiterChars(encoded_comment, true), Wmfd2893gb7);
+
+    if (commentType == CommentType::Level) {
+        postData += "&levelID=";
+        postData += FORMAT_STR("%i", ID);
+        if (percent){
+            postData += "&percent=";
+            postData += FORMAT_STR("%i", percent);
+        }
+    
+    } else {
+        postData += "&cType=";
+        // Percent can also be CType Apparently...
+        postData += FORMAT_STR("%i", percent);
+    }
+
+    /* CHK */
+    std::string rawchk = FORMAT_STR("%s%s%i%i%i", playerName, encoded_comment, ID, percent, commentType);
+    rawchk += FORMAT_STR("%c%s%s%c%c%s",'x',"PT6","iUrt",'w','s',"0J");
+    rtsha1::calc(rawchk.data(), strlen(rawchk.data()), hash);
+    rtsha1::toHexString(hash, hexString);
+    postData += "&chk";
+    postData += cocos2d::ZipUtils::base64EncodeEnc(hexString, "29481");
+
+    /* Send off */
+    ProcessHttpRequest((commentType == CommentType::Level) ? "https://www.boomlings.com/database/uploadGJComment21.php": "https://www.boomlings.com/database/uploadGJAccComment20.php", postData, key, GJHttpType::UploadComment);
+}
+
+
+void GameLevelManager::uploadFriendRequest(int accountID, std::string message)
+{
+    std::string encoded_message = LevelTools::base64EncodeString(message);
+    const char* key = FORMAT_STR("friendReq_%i",accountID);
+    if (m_friendReqAndUserBlocks->objectForKey(key) != nullptr) return;
+    m_friendReqAndUserBlocks->setObject(cocos2d::CCNode::create(), key);
+    makeTimeStamp(key);
+    ProcessHttpRequest(
+        "https://www.boomlings.com/database/uploadFriendRequest20.php", 
+        FORMAT_HTTP_REQUEST("&toAccountID=%i&comment=%s&secret=%s", accountID, encoded_message, Wmfd2893gb7), 
+        key, GJHttpType::UploadFriendRequest
+    );
+} 
+
+
+void GameLevelManager::uploadLevel(GJGameLevel* level)
 {
     return;
 }
 
 
-void GameLevelManager::uploadFriendRequest(int p0, std::string p1)
+void GameLevelManager::uploadLevelComment(int levelID, std::string comment,int percent)
 {
-    return;
-}
-
-
-void GameLevelManager::uploadLevel(GJGameLevel* p0)
-{
-    return;
-}
-
-
-void GameLevelManager::uploadLevelComment(int p0, std::string p1, int p2)
-{
-    return;
+    return uploadComment(comment, CommentType::Level, levelID, percent);
 }
 
 
@@ -2010,9 +2055,17 @@ void GameLevelManager::uploadLevelList(GJLevelList* p0)
 }
 
 
-void GameLevelManager::uploadUserMessage(int p0, std::string p1, std::string p2)
+void GameLevelManager::uploadUserMessage(int toAccountID, std::string subject, std::string body)
 {
-    return;
+    const char* key = getUploadMessageKey(toAccountID);
+    if (m_friendReqAndUserBlocks->objectForKey(key) != nullptr) return;
+    m_friendReqAndUserBlocks->setObject(cocos2d::CCNode::create(), key);
+    makeTimeStamp(key);
+    ProcessHttpRequest(
+         "https://www.boomlings.com/database/uploadGJMessage20.php",
+        FORMAT_HTTP_REQUEST("&toAccountID=%i&subject=%s&body=%s&secret=%s",toAccountID, LevelTools::base64EncodeString(subject), cocos2d::ZipUtils::base64EncodeEnc(body, "14251"), Wmfd2893gb7),
+        key, GJHttpType::UploadUserMessage
+    );
 }
 
 
@@ -2044,4 +2097,3 @@ std::string GameLevelManager::writeSpecialFilters(GJSearchObject* p0)
 {
     return;
 }
-
