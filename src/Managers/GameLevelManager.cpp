@@ -8,8 +8,10 @@
 #include "rtsha1.h"
 #include "GameLevelManager.h"
 
+/* You might be asking yourself why I choose to decompile GameLevelManager and this is due to the fact that the http api always is changing and too many
+people ask me how to make requests to the server and sometimes very specific ones. This gets old and annoying for me. */
 
-/* To make things less Confusing and make the code more condensed... */
+/* To make things less Confusing and make the code more condensed... Certain strings are defined as macros */
 #define Wmfd2893gb7 cocos2d::CCString::createWithFormat("%c%s%s%c%c%s", 'W', "mfd", "2893", 'g', 'b', "7")->getCString()
 #define Wmfv2898gc9 cocos2d::CCString::createWithFormat("%c%s%s%c%c%s", 'W', "mfd", "2893", 'g', 'c', "9")->getCString()
 
@@ -1935,32 +1937,93 @@ void GameLevelManager::purgeUnusedLevels()
 }
 
 
-void GameLevelManager::rateDemon(int p0, int p1, bool p2)
+void GameLevelManager::rateDemon(int levelID, int rating, bool mode)
 {
-    return;
+    
+    if (hasRatedDemon(levelID)) {
+      return;
+    }
+    markLevelAsRatedDemon(levelID);
+    std::string key = FORMAT_STR("rd_%i_%i",levelID,rating);
+    if (m_friendReqAndUserBlocks->objectForKey(key) != nullptr) {
+        return;
+    }
+    m_friendReqAndUserBlocks->setObject(cocos2d::CCNode::create(), key);
+    std::string postStr = getBasePostString() + FORMAT_STR("&levelID=%i&rating=%i&secret=%s",levelID,rating, FORMAT_STR("%c%s%s%c%c%s",'W',"mfp","3879",'g','c',"3"));
+    if (mode) {
+        postStr += "&mode=1";
+    }
+     
+
+    ProcessHttpRequest("https://www.boomlings.com/database/rateGJDemon21.php", postStr, key, GJHttpType::RateDemon);
+    return
+    
+   
 }
 
 
-void GameLevelManager::rateStars(int p0, int p1)
-{
-    return;
+void GameLevelManager::rateStars(int levelID, int stars)
+{   
+    unsigned char hash[40];
+    char hexString[20];
+    
+    if (hasRatedLevelStars(levelID))
+        return;
+
+    markLevelAsRatedStars(levelID);
+    std::string postStr = FORMAT_HTTP_REQUEST("&levelID=%i&stars=%i&secret=%s",levelID,stars, Wmfd2893gb7);
+    std::string rs = gen_random(10);
+    postStr += "&rs=" + rs;
+
+ 
+    std::string raw_chk = FORMAT_STR("%i%i%s%i%s%i%s",levelID,stars, rs,
+                       GJAccountManager::sharedState()->m_accountIDRand - GJAccountManager::sharedState()->m_accountIDSeed, 
+                       GameManager::sharedState()->m_playerUDID, 
+                       GameManager::sharedState()->m_playerUserIDRand - GameManager::sharedState()->m_playerUserIDSeed
+                       ,
+            FORMAT_STR("%c%s%s%c%c%s", 'y',"sg6","pUrt",'j','n',"0J"));
+
+   
+    rtsha1::calc(raw_chk.c_str(), strlen(raw_chk.c_str()), hash);
+    rtsha1::toHexString(hash, hexString);
+
+    ProcessHttpRequest(
+        "https://www.boomlings.com/database/rateGJStars211.php",
+        postStr + "&chk=" + cocos2d::ZipUtils::base64EncodeEnc(hexString, "58281"), 
+        FORMAT_STR("%i",levelID),
+        GJHttpType::RateStars
+    );
+
 }
 
 
-void GameLevelManager::readFriendRequest(int p0)
+void GameLevelManager::readFriendRequest(int messageID)
 {
-    return;
+    if (!messageID){
+        return;
+    }
+    std::string key = FORMAT_STR("readFriendReq_%i", messageID);
+    if (m_friendReqAndUserBlocks->objectForKey(key) != nullptr)
+        return; 
+    m_friendReqAndUserBlocks->setObject(cocos2d::CCNode::create(), key);
+    ProcessHttpRequest(
+        "https://www.boomlings.com/database/readGJFriendRequest20.php", 
+        FORMAT_HTTP_REQUEST("&requestID=%i&secret=%s", messageID, Wmfd2893gb7),
+        key, 
+        GJHttpType::ReadFriendRequest
+    );
 }
 
 
-void GameLevelManager::removeDLFromActive(char const* p0)
+void GameLevelManager::removeDLFromActive(char const* key)
 {
-    return;
+    m_downloadObjects->removeObjectForKey(key)
 }
 
 
 
-/* Unknown Return: GameLevelManager::removeDelimiterChars(std::string p0, bool p1){}; */
+
+/* Unknown Return: GameLevelManager::removeDelimiterChars(std::string string, bool snakeCase){}; */
 
 void GameLevelManager::removeFriend(int p0)
 {
