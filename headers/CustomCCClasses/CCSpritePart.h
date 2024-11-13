@@ -11,16 +11,20 @@ class CCSpritePlus;
 
 class CCSpritePart: public CCSpritePlus {
 public:
-    static CCSpritePart* create(cocos2d::CCTexture2D* p0);
-    TodoReturn createWithSpriteFrameName(char const* p0);
-    TodoReturn frameChanged(std::string p0);
-    TodoReturn getBeingUsed();
-    TodoReturn hideInactive();
-    TodoReturn markAsNotBeingUsed();
-    TodoReturn resetTextureRect();
-    void setBeingUsed(bool p0);
-    TodoReturn updateDisplayFrame(std::string p0);
-    virtual void setVisible(bool p0);
+    static CCSpritePart* create(cocos2d::CCTexture2D* texture);
+    static CCSpritePart* createWithSpriteFrameName(char const* frameName);
+    void frameChanged(std::string frame);
+    bool getBeingUsed();
+    void hideInactive();
+    void markAsNotBeingUsed();
+    void resetTextureRect();
+    void setBeingUsed(bool used);
+    void updateDisplayFrame(std::string frame);
+    virtual void setVisible(bool visible);
+    
+    bool m_isBeingUsed;
+    std::string m_spriteFrameName;
+    SpritePartDelegate* m_delegate;
 };
 
 #endif /* __CCSPRITEPART_H__ */
