@@ -169,8 +169,3 @@ bool OBB2D::overlaps1Way(OBB2D* other)
     }
     return true;
 };
-
-/* Unknown Return: OBB2D::overlaps(OBB2D* p0){}; */
-
-
-/* Unknown Return: OBB2D::overlaps1Way(OBB2D* p0){}; */
