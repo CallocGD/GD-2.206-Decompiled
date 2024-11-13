@@ -2,44 +2,68 @@
 #include "includes.h"
 
 
-// CCSpriteGrayscale* CCSpriteGrayscale::create(std::string const& p0, cocos2d::CCRect const& p1)
-// {
-//     return;
-// }
+static CCSpriteGrayscale* create(std::string const& file, cocos2d::CCRect const& rect){
+    auto ret = new CCSpriteGrayscale();
+    if (ret->initWithFile(file.c_str(), rect)) {
+        ret->autorelease();
+        return ret;
+    }
+    delete ret;
+    return nullptr;
+}
 
 
-// CCSpriteGrayscale* CCSpriteGrayscale::create(std::string const& p0)
-// {
-//     return;
-// }
+static CCSpriteGrayscale* create(std::string const& file) {
+    auto ret = new CCSpriteGrayscale();
+    if (ret->initWithFile(file.c_str())) {
+        ret->autorelease();
+        return ret;
+    }
+    delete ret;
+    return nullptr;
+}
 
+static CCSpriteGrayscale* createWithSpriteFrame(cocos2d::CCSpriteFrame* frame){
+    auto ret = new CCSpriteGrayscale();
+    if (ret->initWithSpriteFrame(frame)) {
+        ret->autorelease();
+        return ret;
+    }
+    delete ret;
+    return nullptr;
+}
 
-// CCSpriteGrayscale* CCSpriteGrayscale::createWithSpriteFrame(cocos2d::CCSpriteFrame* p0)
-// {
-//     return;
-// }
+static CCSpriteGrayscale* createWithSpriteFrameName(std::string const& frameName){
+    return createWithSpriteFrame(cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName->c_str()));
+};
 
+static CCSpriteGrayscale* createWithTexture(cocos2d::CCTexture2D* texture, cocos2d::CCRect const& rect, bool rotated) {
+    auto ret = new CCSpriteGrayscale();
+    if (ret->initWithTexture(texture, rect, rotated)) {
+        ret->autorelease();
+        return ret;
+    }
+    delete ret;
+    return nullptr;
+}
 
-// CCSpriteGrayscale* CCSpriteGrayscale::createWithSpriteFrameName(std::string const& p0)
-// {
-//     return;
-// }
-
-
-
-/* Unknown Return: CCSpriteGrayscale::createWithTexture(cocos2d::CCTexture2D* p0, cocos2d::CCRect const& p1, bool p2){}; */
-
-
-/* Unknown Return: CCSpriteGrayscale::createWithTexture(cocos2d::CCTexture2D* p0){}; */
-
+static CCSpriteGrayscale* createWithTexture(cocos2d::CCTexture2D* texture){
+    auto ret = new CCSpriteGrayscale();
+    if (ret->initWithTexture(texture)) {
+        ret->autorelease();
+        return ret;
+    }
+    delete ret;
+    return nullptr;
+}
 
 std::string CCSpriteGrayscale::getShaderName(){
-        return "grayscale_program";
+    return "grayscale_program";
 };
 
 const char * CCSpriteGrayscale::shaderBody()
 {
-      return "\n    #ifdef GL_ES                                                                    \n"\
+    return "\n    #ifdef GL_ES                                                                    \n"\
         "    precision mediump float;                                                    \n"\
         "    #endif                                                                        \n"\
         "    \n"\
