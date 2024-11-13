@@ -2,20 +2,30 @@
 #include "includes.h"
 
 
+
 CCNodeContainer* CCNodeContainer::create()
 {
-    return;
+    CCNodeContainer* node = new CCNodeContainer;
+    if (node->init()){
+        node->autorelease();
+        return node;
+    }
+    CC_SAFE_DELETE(node);
+    return nullptr;
 }
 
 
 bool CCNodeContainer::init()
 {
-    return;
+    return true;
 }
 
 
 void CCNodeContainer::visit()
 {
-    return;
+    if (getChildrenCount()) {
+        cocos2d::CCNode::visit();
+    }
 }
+
 
