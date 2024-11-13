@@ -6,17 +6,21 @@
 
 class ObjectManager: public cocos2d::CCNode {
 public:
-    TodoReturn animLoaded(char const* p0);
-    TodoReturn getDefinition(char const* p0);
-    TodoReturn getGlobalAnimCopy(char const* p0);
-    TodoReturn instance();
-    TodoReturn loadCopiedAnimations();
-    TodoReturn loadCopiedSets();
-    TodoReturn purgeObjectManager();
-    TodoReturn replaceAllOccurencesOfString(cocos2d::CCString* p0, cocos2d::CCString* p1, cocos2d::CCDictionary* p2);
-    void setLoaded(char const* p0);
-    TodoReturn setup();
+    cocos2d::CCObject* animLoaded(char const* anim);
+    cocos2d::CCObject* getDefinition(char const* definitionKey);
+    cocos2d::CCObject* getGlobalAnimCopy(char const* anim);
+    void loadCopiedAnimations();
+    void loadCopiedSets();
+    void purgeObjectManager();
+    cocos2d::CCDictionary* replaceAllOccurencesOfString(cocos2d::CCString*, cocos2d::CCString*, cocos2d::CCDictionary*);
+    void setLoaded(char const* objectName);
+    void setup();
     virtual bool init();
+    ObjectManager* instance();
+
+
+    cocos2d::CCDictionary* m_objectDefinitions;
+    cocos2d::CCDictionary* m_maybeLoadedAnimations;
 };
 
 #endif /* __OBJECTMANAGER_H__ */
