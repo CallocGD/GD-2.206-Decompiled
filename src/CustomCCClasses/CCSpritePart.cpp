@@ -2,41 +2,73 @@
 #include "includes.h"
 
 
-CCSpritePart* CCSpritePart::create(cocos2d::CCTexture2D* p0)
-{
-    return;
+CCSpritePart* CCSpritePart::create(cocos2d::CCTexture2D* texture)
+{   
+    CCSpritePart* part = new CCSpritePart;
+    if (part->initWithTexture(texture)) {
+        part->autorelease();
+        return part;
+    }
+    CC_SAFE_DELETE(part);
+    return nullptr;
 }
 
 
 
-/* Unknown Return: CCSpritePart::createWithSpriteFrameName(char const* p0){}; */
+CCSpritePart* CCSpritePart::createWithSpriteFrameName(char const* frameName){
+    CCSpritePart* part = new CCSpritePart;
+    if (part->initWithSpriteFrameName(frameName)) {
+        part->autorelease();
+        return part;
+    }
+    CC_SAFE_DELETE(part);
+    return nullptr;
+};
 
 
-/* Unknown Return: CCSpritePart::frameChanged(std::string p0){}; */
+void CCSpritePart::frameChanged(std::string frame){
+    if ((m_delegate != nullptr) && (frame == this->m_spriteFrameName)){
+        m_delegate->displayFrameChanged(this, frame);
+    }
+    m_spriteFrameName = frame;
+}; 
 
 
-/* Unknown Return: CCSpritePart::getBeingUsed(){}; */
-
-
-/* Unknown Return: CCSpritePart::hideInactive(){}; */
-
-
-/* Unknown Return: CCSpritePart::markAsNotBeingUsed(){}; */
-
-
-/* Unknown Return: CCSpritePart::resetTextureRect(){}; */
-
-void CCSpritePart::setBeingUsed(bool p0)
+bool CCSpritePart::getBeingUsed()
 {
-    return;
+    return m_isBeingUsed;
 }
 
 
-void CCSpritePart::setVisible(bool p0)
+void CCSpritePart::hideInactive(){
+    if (!m_isBeingUsed) {
+        setVisible(false);
+    }
+};
+
+
+void CCSpritePart::markAsNotBeingUsed(){
+    m_isBeingUsed = false;
+};
+
+
+void CCSpritePart::resetTextureRect()
 {
-    return;
+    cocos2d::CCSprite::setTextureRect(cocos2d::CCRectZero);
+}
+
+void CCSpritePart::setBeingUsed(bool used)
+{
+    m_isBeingUsed = used;
+}
+
+void CCSpritePart::setVisible(bool visible)
+{
+    cocos2d::CCSprite::setVisible((!m_isBeingUsed) ? false: visible);
 }
 
 
-
-/* Unknown Return: CCSpritePart::updateDisplayFrame(std::string p0){}; */
+void CCSpritePart::updateDisplayFrame(std::string frame){
+    frameChanged(frame);
+    setDisplayFrame(cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frame.c_str()));
+};
