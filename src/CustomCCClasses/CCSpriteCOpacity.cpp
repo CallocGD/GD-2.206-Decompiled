@@ -1,15 +1,24 @@
 
 #include "includes.h"
 
+CCSpriteCOpacity* CCSpriteCOpacity::createWithSpriteFrame(cocos2d::CCSpriteFrame* frame){
+    CCSpriteCOpacity * sprite = new CCSpriteCOpacity;
+    if (sprite->initWithSpriteFrame(frame)){
+        sprite->autorelease();
+        return sprite;
+    } 
+    CC_SAFE_DELETE(sprite);
+    return nullptr;
+};
 
 
-/* Unknown Return: CCSpriteCOpacity::createWithSpriteFrame(cocos2d::CCSpriteFrame* p0){}; */
+CCSpriteCOpacity* CCSpriteCOpacity::createWithSpriteFrameName(char const* frameName){
+    return createWithSpriteFrame(cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName));
+};
 
-
-/* Unknown Return: CCSpriteCOpacity::createWithSpriteFrameName(char const* p0){}; */
-
-void CCSpriteCOpacity::setOpacity(unsigned char p0)
+void CCSpriteCOpacity::setOpacity(unsigned char opacity)
 {
-    return;
+    cocos2d::CCSprite::setOpacity(opacity);
+    setChildOpacity(opacity);
 }
 
