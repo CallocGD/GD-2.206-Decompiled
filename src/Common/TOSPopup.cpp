@@ -39,5 +39,6 @@ void TOSPopup::onPrivacy(cocos2d::CCObject* sender)
 
 void TOSPopup::onTOS(cocos2d::CCObject* sender)
 {
+    /* Fun Fact: Robtop Doxxed Himself in the Tos Page. */
     cocos2d::CCApplication::sharedApplication()->openURL("https://www.robtopgames.com/tos");
 }
