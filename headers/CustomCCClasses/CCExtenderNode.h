@@ -4,9 +4,9 @@
 
 #include "../includes.h"
 
-class CCExtenderNode {
+class CCExtenderNode : cocos2d::CCNode {
 public:
-    void setOpacity(unsigned int p0);
+    void setOpacity(unsigned int opacity);
 };
 
 #endif /* __CCEXTENDERNODE_H__ */
