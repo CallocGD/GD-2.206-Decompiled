@@ -16,6 +16,7 @@
 #include <string>
 #include <map>
 #include <unordered_map>
+#include <array>
 
 /* Macros */
 #ifndef TodoReturn
