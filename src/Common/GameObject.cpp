@@ -1,7 +1,9 @@
 
 #include "includes.h"
 
-/* Nobody said this could be done, I just proved you all wrong */
+
+
+/* Nobody said this could be done. I just proved you all wrong */
 
 void GameObject::activateObject()
 {
@@ -32,7 +34,7 @@ void GameObject::activatedByPlayer(PlayerObject* player){};
 // readable. I'll likely write a script deoptimizing to a switchblock using python. You're welcome :)
 
 #define SGO_COLOR_SPRITE(FRAME, SCOLOR, SECONDARY_MODE) \
-    m_colorSprite = cocos2d::CCSprite::createWithSpriteFrameName(frame.c_str()); \
+    m_colorSprite = cocos2d::CCSprite::createWithSpriteFrameName(FRAME); \
     m_colorSprite->retain(); \
     m_colorSprite->setPosition(getPosition()); \
     createSpriteColor(SCOLOR); \
@@ -40,16 +42,18 @@ void GameObject::activatedByPlayer(PlayerObject* player){};
 
 
 #define SC_COLOR_SPRITE(FRAME, SCOLOR) \
-    m_colorSprite = cocos2d::CCSprite::createWithSpriteFrameName(frame.c_str()); \
+    m_colorSprite = cocos2d::CCSprite::createWithSpriteFrameName(FRAME); \
     m_colorSprite->retain(); \
     m_colorSprite->setPosition(getPosition()); \
     createSpriteColor(SCOLOR);
 
 
 
-/* Extra Funciton For GetGlowFrame and others (it's an inlined function or a subroutine...) */
+/* Extra Funciton For GetGlowFrame (it's a subroutine...) */
 
-/* I could not find this function in C++ at all so I am putting this shit here and labeling it a subroutine... (might be an inlined function from Robtop) */
+// frame.replace(frame.len(),"_001.png", "_glow_001.png");
+
+/* I could not find this function in C++ at all so I am putting this shit here and labeling it a subroutine... */
 std::string __Subroutine_Replace_All(std::string s, const char * old , const char* repl){
     size_t pos = 0;
     std::string _repl = repl;
@@ -441,7 +445,7 @@ void GameObject::addColorSprite(std::string frame)
                             return;
                     }
                     /* I Fucking love macros... */
-                    SC_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_00", "_color_00"), 2);
+                    SC_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_00", "_color_00").c_str(), 2);
                     return;
                 }
                 if (m_objectID < 0x807)
@@ -473,7 +477,7 @@ void GameObject::addColorSprite(std::string frame)
                 else if (10 < m_objectID - 0x81eU)
                     return;
             LAB_0035fcf8:
-                SGO_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_00", "_color_00"), 2, 2);
+                SGO_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_00", "_color_00").c_str(), 2, 2);
                 return;
             }
             if (m_objectID < 0x659)
@@ -520,13 +524,13 @@ void GameObject::addColorSprite(std::string frame)
                             }
                         }
                     LAB_0035fe42:
-                        SGO_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_00", "_color_00"), 2, 1012);
+                        SGO_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_00", "_color_00").c_str(), 2, 1012);
                         return;
                     }
                     if (m_objectID == 0x63f)
                     {
                     LAB_0035ffb6:
-                        SGO_COLOR_SPRITE(getColorFrame(frame), 2, 1012);
+                        SGO_COLOR_SPRITE(getColorFrame(frame).c_str(), 2, 1012);
                         return;
                     }
                     if (m_objectID < 0x640)
@@ -630,7 +634,7 @@ void GameObject::addColorSprite(std::string frame)
             }
         }
     LAB_0035fc4c:
-        SC_COLOR_SPRITE(getColorFrame(frame), 2);
+        SC_COLOR_SPRITE(getColorFrame(frame).c_str(), 2);
         return;
     }
     if (m_objectID == 0xbd3)
@@ -787,7 +791,7 @@ void GameObject::addColorSprite(std::string frame)
                     }
                 }
             LAB_0035fdf0:
-                SGO_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_001.png", "_2_001.png"), 2, 2);
+                SGO_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_001.png", "_2_001.png").c_str(), 2, 2);
                 return;
             }
             if (m_objectID < 0x9fb)
@@ -877,7 +881,7 @@ void GameObject::addColorSprite(std::string frame)
                 {
                     if (m_objectID < 0xa48)
                     {
-                        SGO_COLOR_SPRITE(__Subroutine_Replace_All("pixelart_454_001.png", "_001.png", "_color_001.png"), 2,2);
+                        SGO_COLOR_SPRITE(__Subroutine_Replace_All("pixelart_454_001.png", "_001.png", "_color_001.png").c_str(), 2,2);
                         return;
                     }
                 }
@@ -2189,3 +2193,4 @@ void GameObject::updateStartValues()
 
 
 /* Unknown Return: GameObject::usesSpecialAnimation(){}; */
+
