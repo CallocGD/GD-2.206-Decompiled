@@ -1,5 +1,6 @@
 
 #include "includes.h"
+#include "GameObject.h"
 
 
 
@@ -529,9 +530,9 @@ void GameObject::addColorSprite(std::string frame)
                     }
                     if (m_objectID == 0x63f)
                     {
-                    LAB_0035ffb6:
-                        SGO_COLOR_SPRITE(getColorFrame(frame).c_str(), 2, 1012);
-                        return;
+                        LAB_0035ffb6:
+                            SGO_COLOR_SPRITE(getColorFrame(frame).c_str(), 2, 1012);
+                            return;
                     }
                     if (m_objectID < 0x640)
                     {
@@ -994,9 +995,9 @@ void GameObject::addColorSprite(std::string frame)
                 if (m_objectID < 0xdf0)
                 {
                     optimizedID = m_objectID - 0xde7;
-                joined_r0x0035fbc8:
-                    if (3 < optimizedID)
-                        return;
+                    joined_r0x0035fbc8:
+                        if (3 < optimizedID)
+                            return;
                 }
                 else if (0xc < m_objectID - 0xdf3U)
                     return;
@@ -1101,7 +1102,7 @@ void GameObject::addColorSprite(std::string frame)
     else if (0x8a < m_objectID - 0x1131U)
         return;
 LAB_0035fd4a:
-    // SGO_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_001.png", "_color_001.png"), 2, 2);
+    SGO_COLOR_SPRITE(__Subroutine_Replace_All(frame, "_001.png", "_color_001.png").c_str(), 2, 2);
     return;
 }
 
@@ -1110,8 +1111,7 @@ void GameObject::addColorSpriteToParent(bool reorderChild)
   
     if ((m_colorSprite != nullptr) && (m_isGroupDisabled == false)){
         if (m_shouldBlendBaseColor == m_shouldBlendDetailColor) {
-            addColorSpriteToSelf();
-            return;
+            return addColorSpriteToSelf();
         }
        
         m_colorSpriteLocked = false;
@@ -1127,7 +1127,6 @@ void GameObject::addColorSpriteToParent(bool reorderChild)
         if (m_colorSprite->getParent() == parent) {
             if (reorderChild) {
                 m_colorSprite->reorderChild(parent, getObjectZOrder());
-                return;
             }
         }
         else {
@@ -1139,7 +1138,6 @@ void GameObject::addColorSpriteToParent(bool reorderChild)
             }
         }
     }
-    return;
 }
 
 void GameObject::addColorSpriteToSelf(){
@@ -1164,7 +1162,7 @@ cocos2d::CCSprite * GameObject::addCustomBlackChild(std::string frameName, float
         // pCVar1->setColor();
         m_useBlackOpacity = blackNessOpacity;
         child->setOpacity(blackNessOpacity * 255.0);
-        m_hasExtendedCollision = true;
+        m_hasExtendedCollision2 = true;
     }
     return child;
 }
@@ -1194,101 +1192,692 @@ cocos2d::CCSprite * GameObject::addCustomColorChild(std::string frame){
     return m_colorSprite;
 }
 
-/* Unknown Return: GameObject::addEmptyGlow(){}; */
-
-
-/* Unknown Return: GameObject::addGlow(std::string p0){}; */
-
-
-/* Unknown Return: GameObject::addInternalChild(cocos2d::CCSprite* p0, std::string p1, cocos2d::CCPoint p2, int p3){}; */
-
-
-/* Unknown Return: GameObject::addInternalCustomColorChild(std::string p0, cocos2d::CCPoint p1, int p2){}; */
-
-
-/* Unknown Return: GameObject::addInternalGlowChild(std::string p0, cocos2d::CCPoint p1){}; */
-
-
-/* Unknown Return: GameObject::addMainSpriteToParent(bool p0){}; */
-
-
-/* Unknown Return: GameObject::addNewSlope01(bool p0){}; */
-
-
-/* Unknown Return: GameObject::addNewSlope01Glow(bool p0){}; */
-
-
-/* Unknown Return: GameObject::addNewSlope02(bool p0){}; */
-
-
-/* Unknown Return: GameObject::addNewSlope02Glow(bool p0){}; */
-
-
-/* Unknown Return: GameObject::addRotation(float p0, float p1){}; */
-
-
-/* Unknown Return: GameObject::addRotation(float p0){}; */
-
-
-/* Unknown Return: GameObject::addToColorGroup(int p0){}; */
-
-
-/* Unknown Return: GameObject::addToCustomScaleX(float p0){}; */
-
-
-/* Unknown Return: GameObject::addToCustomScaleY(float p0){}; */
-
-void GameObject::addToGroup(int p0)
+void GameObject::addEmptyGlow()
 {
+    createGlow("emptyGlow.png");
+    if (m_glowSpriteMain != nullptr) {
+        m_glowSpriteMain->setDontDraw(true);
+    }
+    return;
+}
+
+
+/* This has a higher chance of getting of recovering the switch case
+ * sequences so I gave the labels names instead of leaving it with numbers 
+ * I was able to do a bit of optimizing with this one but not much. 
+ * However feel free to make a Pull request if you manage to solve this puzzle and 
+ * create switch-cases instead of there being a cascade if-statements...
+ */
+void __thiscall GameObject::addGlow(std::string frame)
+{
+    GameManager *GM;
+    int extraObjectID;
+    int m_objectID;
+    int extraObjectID2;
+    bool checkB;
+    bool checkA;
+
+    if ((m_inLevelEditor != false) ||
+        /* GameManager Boolean needs finding, Feel free to make a PR if found... */
+        (((GM = GameManager::sharedState(), /* GM->field143_0x29e != false */ 1 &&
+                                                (m_doesntFade == false)) ||
+          (m_isHide != false))))
+        return;
+
+    if (m_objectID != 0x143)
+    {
+        if (m_objectID < 0x144)
+        {
+            if (m_objectID < 0xbd)
+            {
+                if (m_objectID < 0xb7)
+                {
+                    if (m_objectID < 0x5d)
+                    {
+                        if (m_objectID < 0x5a)
+                        {
+                            if (m_objectID < 0x29)
+                            {
+                                if (m_objectID < 0x27)
+                                {
+                                    if (8 < m_objectID)
+                                    {
+                                        m_objectID = m_objectID + -0x23;
+                                        goto OBJECT_ID_IS_1_AND_NOT_0;
+                                    }
+                                    if (m_objectID < 6)
+                                    {
+                                        extraObjectID2 = m_objectID - 1;
+                                        goto LESSTHAN_2_OR_3;
+                                    }
+                                }
+                            }
+                            else if (m_objectID < 0x49)
+                            {
+                                if ((m_objectID < 0x41) && (m_objectID != 0x2c))
+                                {
+                                    if (m_objectID != 0x3e)
+                                        return;
+                                }
+                            }
+                            else
+                            {
+                                if (m_objectID < 0x4a)
+                                    return;
+                                if (0x4e < m_objectID)
+                                {
+                                    extraObjectID2 = m_objectID - 0x51;
+                                    goto LESSTHAN_2_OR_3;
+                                }
+                            }
+                        }
+                    }
+                    else if (m_objectID < 0x8e)
+                    {
+                        if (m_objectID < 0x8c)
+                        {
+                            if (0x77 < m_objectID)
+                            {
+                                m_objectID = m_objectID + -0x79;
+                                goto OBJECT_ID_IS_1_AND_NOT_0;
+                            }
+                            if (m_objectID < 0x74)
+                            {
+                                if (m_objectID < 0x5f)
+                                    return;
+                                if (0x60 < m_objectID)
+                                {
+                                    if (m_objectID != 0x67)
+                                        return;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (m_objectID < 0xa4)
+                        {
+                            if (0x9f < m_objectID)
+                                goto SET_GLOW;
+                            extraObjectID = -0x8f;
+                            OVER_3_OR_EXACTLY_4:
+                                checkA = (m_objectID + extraObjectID) > 3;
+                                checkB = m_objectID + extraObjectID == 4;
+                        }
+                        else
+                        {
+                            checkA = 0xd < m_objectID - 0xa5;
+                            checkB = m_objectID - 0xa5 == 0xe;
+                        }
+                        CHECK_A_TRUE_B_FALSE:
+                            if (checkA && !checkB) return;
+
+                    }
+                }
+            }
+            else if (m_objectID < 0x10a)
+            {
+                if (m_objectID < 0x107)
+                {
+                    if (m_objectID < 0xdd)
+                    {
+                        if (m_objectID < 0xd7)
+                        {
+                            if (0xd2 < m_objectID)
+                            {
+                                if ((m_objectID < 0xd4) || (m_objectID == 1 && m_objectID != 0)) 
+                                    return; 
+                                
+                            }
+                            if ((m_objectID < 200) && (m_objectID != 0xc0))
+                            {
+                                if ((m_objectID < 0xc0) || (m_objectID >= 197))
+                                    return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (0x102 < m_objectID)
+                        {
+                            /* I think this is right??? */
+                            if (m_objectID > 261 ) return;
+                            
+                        OBJECT_ID_IS_1_AND_NOT_0:
+                            if (m_objectID == 1 && m_objectID != 0) return;
+                           
+                        }
+                        if (m_objectID < 0xfc)
+                        {
+                            extraObjectID2 = m_objectID - 0xf7;
+                        LESSTHAN_2_OR_3:
+                            checkA = 2 < extraObjectID2;
+                            checkB = extraObjectID2 == 3;
+                            goto CHECK_A_TRUE_B_FALSE;
+                        }
+                    }
+                }
+            }
+            else if (m_objectID != 299)
+            {
+                if (m_objectID < 300)
+                {
+                    if (m_objectID < 0x114)
+                    {
+                        if (m_objectID < 0x112)
+                        {
+                            checkA = 4 < m_objectID - 0x10bU;
+                            checkB = m_objectID - 0x10bU == 5;
+                            goto CHECK_A_TRUE_B_FALSE;
+                        }
+                    }
+                    else if (m_objectID != 0x123)
+                    {
+                        if (0x123 < m_objectID)
+                        {
+                            extraObjectID2 = m_objectID - 0x126;
+                            goto LESSTHAN_2_OR_3;
+                        }
+                        if (m_objectID != 0x121) return;
+                    }
+                }
+                else if (m_objectID != 0x135)
+                {
+                    if (m_objectID < 0x136)
+                    {
+                        if ((m_objectID != 0x131) && (m_objectID != 0x133))
+                        {
+                            extraObjectID = 0x12d;
+                            if (m_objectID != extraObjectID) return;
+                        }
+                    }
+                    else if (m_objectID != 0x13b)
+                    {
+                        if (m_objectID < 0x13c)
+                        {
+                            extraObjectID = 0x137;
+                        }
+                        else
+                        {
+                            if (m_objectID == 0x13d)
+                                goto SET_GLOW;
+                            if (m_objectID != 0x141){
+                                return;
+                            }
+                        }
+                    EXOBJID_AND_OBJID_MATCH:
+                        if (m_objectID != extraObjectID) return;
+                    }
+                }
+            }
+        }
+        else if (m_objectID < 0x2c9)
+        {
+            if ((m_objectID < 0x2c5) && (m_objectID != 0x188))
+            {
+                if (m_objectID < 0x189)
+                {
+                    if (m_objectID != 0x159)
+                    {
+                        if (m_objectID < 0x15a)
+                        {
+                            if (m_objectID != 0x14d)
+                            {
+                                if (m_objectID < 0x14e)
+                                {
+                                    if (m_objectID < 0x146)
+                                        return;
+                                    if (0x149 < m_objectID)
+                                    {
+                                        if (m_objectID != 0x14b) return;
+                                    }
+                                }
+                                else if ((m_objectID != 0x153) && (m_objectID != 0x157))
+                                {
+                                    if (m_objectID != 0x151) return;
+                                }
+                            }
+                        }
+                        else if (m_objectID != 0x163)
+                        {
+                            if (m_objectID < 0x164)
+                            {
+                                if (
+                                    (m_objectID != 0x15f) && 
+                                    (m_objectID != 0x161) && 
+                                    (m_objectID != 0x15d)
+                                ) 
+                                    return;
+                            }
+                            else
+                            {
+                                if (m_objectID < 0x171)
+                                    return;
+                                if ((0x172 < m_objectID) && (m_objectID > 0x175))
+                                {
+                                    return;   
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (m_objectID < 0x1e5)
+                {
+                    if (m_objectID < 0x1e3)
+                    {
+                        if (0x1cb < m_objectID)
+                        {
+                            checkA = 7 < m_objectID - 0x1d3U;
+                            checkB = m_objectID - 0x1d3U == 8;
+                            goto CHECK_A_TRUE_B_FALSE;
+                        }
+                        if (m_objectID < 0x1ca)
+                        {
+                            extraObjectID2 = m_objectID - 0x18d;
+                            goto LAB_0035bad8;
+                        }
+                    }
+                }
+                else if (m_objectID < 0x28d)
+                {
+                    if (m_objectID < 0x28b)
+                    {
+                        m_objectID = m_objectID + -0x1ec;
+                        goto OBJECT_ID_IS_1_AND_NOT_0;
+                    }
+                }
+                else
+                {
+                    if (m_objectID < 0x295)
+                        return;
+                    if (0x29a < m_objectID)
+                    {
+                        checkA = 6 < m_objectID - 0x2a1U;
+                        checkB = m_objectID - 0x2a1U == 7;
+                        goto CHECK_A_TRUE_B_FALSE;
+                    }
+                }
+            }
+        }
+        else if (m_objectID < 0x542)
+        {
+            if (m_objectID < 0x53a)
+            {
+                if (m_objectID < 0x4bb)
+                {
+                    if (m_objectID < 0x4b2)
+                    {
+                        if (m_objectID < 0x2e7)
+                        {
+                            if (m_objectID < 0x2e4)
+                            {
+                                extraObjectID2 = m_objectID - 0x2d6;
+                                goto LESSTHAN_2_OR_3;
+                            }
+                        }
+                        else if (m_objectID != 0x3fe)
+                        {
+                            if (m_objectID < 0x3fe)
+                                return;
+                            extraObjectID = -0x482;
+                            goto OVER_3_OR_EXACTLY_4;
+                        }
+                    }
+                }
+                else if (m_objectID < 0x4f2)
+                {
+                    if (m_objectID < 0x4ec)
+                    {
+                        checkA = 5 < m_objectID - 0x4c4U;
+                        checkB = m_objectID - 0x4c4U == 6;
+                        goto CHECK_A_TRUE_B_FALSE;
+                    }
+                }
+                else if (m_objectID != 0x532)
+                {
+                    if (m_objectID < 0x532)
+                        return;
+                    extraObjectID2 = m_objectID - 0x534;
+                    goto LAB_0035bad8;
+                }
+            }
+        }
+        else if (m_objectID < 0x6c9)
+        {
+            if (m_objectID < 0x6c6)
+            {
+                if (0x6a8 < m_objectID)
+                {
+                    extraObjectID2 = m_objectID - 0x6ac;
+                LAB_0035bad8:
+                    checkA = 1 < extraObjectID2;
+                    checkB = extraObjectID2 == 2;
+                    goto CHECK_A_TRUE_B_FALSE;
+                }
+                if ((m_objectID < 0x6a5) && (m_objectID != 0x63a))
+                {
+                    if (m_objectID < 0x63a)
+                        return;
+                    m_objectID = m_objectID + -0x653;
+                    goto OBJECT_ID_IS_1_AND_NOT_0;
+                }
+            }
+        }
+        else if (m_objectID < 0x778)
+        {
+            if ((m_objectID < 0x774) && (m_objectID != 0x6d7))
+            {
+                if (m_objectID < 0x6d7)
+                    return;
+                extraObjectID2 = m_objectID - 0x76f;
+                goto LAB_0035bad8;
+            }
+        } else {
+            if ((m_objectID < 0xbbc) || ((0xbbd < m_objectID) && (m_objectID != 0xbd3))) return;
+        }
+    }
+    SET_GLOW:
+        createGlow(__Subroutine_Replace_All(frame, "_001.png", "_glow_001.png"));
+}
+
+
+cocos2d::CCSprite* GameObject::addInternalChild(cocos2d::CCSprite *sprite, std::string frame, cocos2d::CCPoint pos, int zOrder)
+{
+    auto child = cocos2d::CCSprite::createWithSpriteFrameName(frame.c_str());
+    child->setPosition(sprite->convertToNodeSpace(cocos2d::CCPointZero) + pos);
+    sprite->addChild(child, zOrder);
+    return child;
+}
+
+cocos2d::CCSprite* GameObject::addInternalCustomColorChild(std::string frame, cocos2d::CCPoint pos, int zOrder){
+ 
+  
+    m_colorSprite = m_colorSprite;
+    if (m_colorSprite != nullptr) {
+        auto colorSpritePos = m_colorSprite->convertToNodeSpace(cocos2d::CCPointZero);
+        m_colorSprite = cocos2d::CCSprite::createWithSpriteFrameName(frame.c_str());
+        m_colorSprite->setPosition(colorSpritePos + pos);
+        m_colorSprite->addChild(m_colorSprite, zOrder);
+    }
+    return m_colorSprite;
+}
+
+
+cocos2d::CCSprite* GameObject::addInternalGlowChild(std::string frame, cocos2d::CCPoint pos){
+
+    if (m_glowSpriteMain != nullptr) {
+        auto new_pos = m_glowSpriteMain->convertToNodeSpace(cocos2d::CCPointZero);
+        m_glowSpriteMain = cocos2d::CCSprite::createWithSpriteFrameName(frame->c_str());
+        m_glowSpriteMain->setPosition(pos + new_pos);
+        /* Not sure exactly WTF Robtop wanted here... */
+        m_glowSpriteMain->addChild(m_glowSpriteMain , -1);
+    }
+    return m_glowSpriteMain;
+}
+
+
+void GameObject::addMainSpriteToParent(bool reorderZOrder)
+{
+    int i;
+    cocos2d::CCSprite *parent;
+    updateBlendMode();
+    /* Blame Geode, Not Robtop...*/
+    i = static_cast<int>(getObjectZLayer());
+    if ((((m_shouldBlendBaseColor != false) && (m_colorSprite != nullptr)) && (m_shouldBlendDetailColor == false)) && (m_colorZLayerRelated == false)) {
+        i++;
+    }
+    m_colorSprite = (cocos2d::CCSprite*)parentForZLayer(i, m_shouldBlendBaseColor, getParentMode());
+    parent = (cocos2d::CCSprite*)getParent();
+    if (parent == m_colorSprite && reorderZOrder) {
+        parent->reorderChild(this, getObjectZOrder());
+    } else {
+        removeFromParentAndCleanup(false);
+        m_colorSprite->addChild(m_colorSprite, getObjectZOrder());
+    }
+
+    /* Not Sure WTF this is supposed to be... */
+    m_isBlendingBatchNode = m_isBlendingBatchNode;
+    if (m_shouldBlendBaseColor == false) {
+        m_shouldBlendBaseColor = m_shouldBlendDetailColor;
+    }
+    m_isBlendingBatchNode = m_shouldBlendBaseColor;
+    if (m_shouldBlendBaseColor != m_isBlendingBatchNode) {
+        blendModeChanged();
+    }
+}
+
+
+void GameObject::addNewSlope01(bool dontDraw)
+{
+  if (dontDraw) setDontDraw(true); 
+  addCustomChild("blockOutline_14new_001.png",cocos2d::CCPointZero,2)->setRotation(-45.0f);
+}
+
+
+
+void GameObject::addNewSlope01Glow(bool dontDraw)
+{
+    if (m_glowSpriteMain != nullptr) {
+        if (dontDraw) {
+            m_glowSpriteMain->setDontDraw(true);
+        }
+        /* I think I'm starting to hate createSpriteFrameName, the c_str() is getting annoying... */
+        cocos2d::CCSprite* slope = cocos2d::CCSprite::createWithSpriteFrameName(getGlowFrame("blockOutline_14new_001.png").c_str());
+        slope->setRotation(-45.0f);
+        m_glowSpriteMain->addChild(slope);
+        slope->setPosition(m_glowSpriteMain->cocos2d::CCNode::convertToNodeSpace(cocos2d::CCPointZero));
+    }
+}
+
+/* Another One https://youtube.com/watch?v=zIeA2N2Onb8 */
+
+void GameObject::addNewSlope02(bool dontDraw)
+{
+    if (dontDraw) setDontDraw(true); 
+    addCustomChild("blockOutline_15new_001.png",cocos2d::CCPointZero,2)->setRotation(-26.5f);
+}
+
+
+/* And Another One */
+void GameObject::addNewSlope01Glow(bool dontDraw)
+{
+    if (m_glowSpriteMain != nullptr) {
+        if (dontDraw) {
+            m_glowSpriteMain->setDontDraw(true);
+        }
+        cocos2d::CCSprite* slope = cocos2d::CCSprite::createWithSpriteFrameName(getGlowFrame("blockOutline_15new_001.png").c_str());
+        slope->setRotation(-26.5f);
+        m_glowSpriteMain->addChild(slope);
+        slope->setPosition(m_glowSpriteMain->cocos2d::CCNode::convertToNodeSpace(cocos2d::CCPointZero));
+    }
+}
+
+
+void GameObject::addRotation(float x, float y){
+    setRotationX(getRotationX() + x);
+    setRotationY(getRotationY() + y);
+}
+
+
+void GameObject::addRotation(float angle)
+{
+    if (cocos2d::CCNode::getRotationX() == cocos2d::CCNode::getRotationY()) {
+        setRotation(getRotation() + angle);
+    }
+    else {
+        setRotationX(getRotationX() + angle);
+        setRotationY(getRotationY() + angle);
+    }
+}
+
+
+void GameObject::addToColorGroup(int groupID)
+{
+    size_t i;
+
+    if ((m_colorgroupCount < 10) && (groupID <= 9999)) {
+        createColorGroupContainer(10);
+        for (i = 0; i < m_colorgroupCount; i++){
+            if (m_colorGroups->at(i) == groupID){
+                return;
+            }
+        }
+        // Robtop, Please Tell me why you write code this way?
+        m_colorGroups->operator[](i) = static_cast<short>(groupID);
+        m_colorgroupCount++;
+    }
+}
+
+void  GameObject::addToCustomScaleX(float scaleX)
+{
+    m_isDirty = true;
+    m_isObjectRectDirty = true;
+    m_scaleXOffset += scaleX;
+    m_scaleX += scaleX;
+}
+
+void  GameObject::addToCustomScaleY(float scaleY)
+{
+    m_isDirty = true;
+    m_isObjectRectDirty = true;
+    m_scaleYOffset += scaleY;
+    m_scaleY += scaleY;
+}
+
+/* Whoever said addToGroup had a returnType of void in the Geode-Bindings lied to you. it should return an integer... */
+int GameObject::addToGroup(int groupID)
+
+{  
+    if ((m_groupCount < 10) && (groupID <= 9999)) {
+        createGroupContainer(10);
+        /* Ghidra made a while(true) loop when it shouldn't I at least hope robtop 
+         * doesn't write these kinds of loops like that.*/
+        for (int i = 0; i < m_groupCount; i++){
+            if (m_groups->at(i) == groupID){
+                return -1;
+            }
+        }
+        m_groupCount++;
+    } 
+    return 0;
+}
+
+
+/* and Another One... */
+
+void GameObject::addToOpacityGroup(int groupID)
+{    
+    if ((m_opacityGroupSize < 10) && (groupID <= 9999)) {
+        createOpacityGroupContainer(10);
+        for (short i = 0; i < m_opacityGroupSize; i++) {
+            if (m_opacityGroups->at(i) == groupID) {
+                return;
+            }
+        }
+        m_opacityGroups->operator[](m_opacityGroupSize) = groupID;
+        m_opacityGroupSize++;
+    }   
     return;
 }
 
 
 
-/* Unknown Return: GameObject::addToOpacityGroup(int p0){}; */
+void GameObject::addToTempOffset(double x, double y)
+{
+    if (m_shouldLockX == false) {
+        m_lastPositionX += x;
+    }
+    m_lastPositionY += y;
+}
+
+// NOOP
+void GameObject::animationTriggered(){};
 
 
-/* Unknown Return: GameObject::addToTempOffset(double p0, double p1){}; */
+
+static int _GLOBAL_UNIQUEID_ = 10;
+
+void __thiscall GameObject::assignUniqueID()
+{
+  m_uniqueID = _GLOBAL_UNIQUEID_;
+  /* m_M_ID actually belongs to CCObject... */
+  m_M_ID = _GLOBAL_UNIQUEID_;
+  _GLOBAL_UNIQUEID_++;
+}
 
 
-/* Unknown Return: GameObject::animationTriggered(){}; */
 
+bool GameObject::belongsToGroup(int groupID)
+{
+    if (m_groupCount > 0) {
+        for (short i = 0; i < m_groupCount; i++) {
+            if (m_groups->at(i) == groupID) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
-/* Unknown Return: GameObject::assignUniqueID(){}; */
-
-
-/* Unknown Return: GameObject::belongsToGroup(int p0){}; */
-
-
+/* Unsure what it's returnType really is... */
 /* Unknown Return: GameObject::blendModeChanged(){}; */
 
 
-/* Unknown Return: GameObject::calculateOrientedBox(){}; */
+
+cocos2d::CCRect GameObject::calculateOrientedBox()
+{
+    m_shouldUseOuterOb = true;
+    updateOrientedBox();
+    return getObjectRect();
+}
+
+/* No it can't... */
+bool GameObject::canAllowMultiActivate(){ 
+    return false;
+};
 
 
-/* Unknown Return: GameObject::canAllowMultiActivate(){}; */
+bool GameObject::canBeOrdered(){
+    return false;
+};
 
 
-/* Unknown Return: GameObject::canBeOrdered(){}; */
+bool GameObject::canChangeCustomColor(){
+    return canChangeMainColor() || canChangeSecondaryColor();
+};
 
 
-/* Unknown Return: GameObject::canChangeCustomColor(){}; */
+bool GameObject::canChangeMainColor(){
+    return m_baseColor->m_defaultColorID != 0;
+}
 
 
-/* Unknown Return: GameObject::canChangeMainColor(){}; */
+bool GameObject::canChangeSecondaryColor(){
+    return (m_detailColor != nullptr) && (m_detailColor->m_defaultColorID != 0);
+};
 
 
-/* Unknown Return: GameObject::canChangeSecondaryColor(){}; */
+bool GameObject::canMultiActivate(bool p0){
+    return false;
+};
 
 
-/* Unknown Return: GameObject::canMultiActivate(bool p0){}; */
+bool GameObject::canReverse(){
+  return false;
+}
 
 
-/* Unknown Return: GameObject::canReverse(){}; */
 
+bool GameObject::canRotateFree(){
+    int ot = static_cast<int>(m_objectType);
+    /* if someone wants to fix this, be my guest... */
+    if ((ot < 0x1a) && ((1 << (ot & 0xff) & 0x2200001U) != 0)) {
+        return m_isNoTouch;
+    }
+    return true;
+}; 
 
-/* Unknown Return: GameObject::canRotateFree(){}; */
-
+// TODO: claimParticle and then the rest...
 
 /* Unknown Return: GameObject::claimParticle(){}; */
 
