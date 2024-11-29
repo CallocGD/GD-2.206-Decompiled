@@ -1,6 +1,9 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
+#ifndef __GAMEOBJECT_H__
+#define __GAMEOBJECT_H__
+
 
 #include "../includes.h"
 
@@ -73,7 +76,7 @@ public:
     virtual float getObjectRotation();
     virtual void updateMainColor(cocos2d::ccColor3B const&);
     virtual void updateSecondaryColor(cocos2d::ccColor3B const&);
-    virtual void addToGroup(int);
+    virtual int addToGroup(int);
     virtual void removeFromGroup(int);
     virtual void saveActiveColors();
     virtual float spawnXPosition();
@@ -126,7 +129,10 @@ public:
     void addToTempOffset(double, double);
     void assignUniqueID();
     bool belongsToGroup(int);
-    void calculateOrientedBox();
+
+    /* This should not be void */
+    cocos2d::CCRect calculateOrientedBox();
+    
     bool canChangeCustomColor();
     bool canChangeMainColor();
     bool canChangeSecondaryColor();
@@ -386,6 +392,8 @@ public:
     int m_unkObjectType; /* Another Object Type */
     float m_unmodifiedPositionX;
     float m_unmodifiedPositionY;
+    // m_110 was named that becasue I have it setup as GameObject_data in ghidra and it doesn't seem to be used for anything at the moment... 
+    // (Maybe it's used in multiplayer?)
     void *m_110;
     double m_lastPositionX;
     double m_lastPositionY;
@@ -476,15 +484,21 @@ public:
     bool m_toggleAreaParent; /* property 279 */
     float m_scaleX; /* property 128 */
     float m_scaleY; /* property 129 */
-    void *m_groups;
+
+
+    // I hate these arrays with a 10 foot pole...
+
+    std::array<short, 10>* m_groups;
     short m_groupCount;
     bool m_hasGroupParentsString;
+
 
     std::array<short, 10>* m_colorGroups;
     short m_colorgroupCount;
 
     std::array<short, 10>* m_opacityGroups;
     short m_opacityGroupSize;
+
     short m_editorLayer; /* property 20 */
     short m_editorLayer2; /* property 61 */
 
