@@ -1,9 +1,6 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
-#ifndef __GAMEOBJECT_H__
-#define __GAMEOBJECT_H__
-
 
 #include "../includes.h"
 
