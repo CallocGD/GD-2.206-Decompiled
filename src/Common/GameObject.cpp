@@ -1861,8 +1861,10 @@ bool GameObject::canMultiActivate(bool p0){
 };
 
 
+
 bool GameObject::canReverse(){
-  return false;
+    /* Too Bad Robtop, I can Reverse this bullshit... */
+    return false;
 }
 
 
@@ -1878,7 +1880,6 @@ bool GameObject::canRotateFree(){
 }; 
 
 
-/* TODO: claimParticle... */
 
 void GameObject::claimParticle(){
     /* I don't think I need to say it again but blame Geode... */
@@ -2159,78 +2160,4164 @@ GameObject* GameObject::createWithFrame(char const* name)
 
 // Mental Break:  We are here at customSetup. We will need to make several macros for it...
 
+// Due to part-time Job getting in the way of things this will be done later...
+// void GameObject::customSetup()
+// {   
+//     if (m_objectID == 0x4ca)
+//         goto LAB_003676b0;
+//     if (m_objectID < 0x4cb) {
+//         if (m_objectID < 0x1c5) {
+//             if (m_objectID < 0x1c2) {
+//                 if (m_objectID < 0xd3) {
+//                     if (m_objectID < 0xcf) {
+//                         if (m_objectID < 0x6c) {
+//                             if (m_objectID < 0x6a) {
+//                                 if (m_objectID == 0x2f) {
+//                                     m_objectType = 0x10;
+//                                     m_defaultZOrder = 10;
+//                                     m_defaultZLayer = 5;
+//                                     m_zFixedZLayer = true;
+//                                     m_isPortalObject = true;
+//                                     if (m_inLevelEditor == false) {
+//                                         pCVar2 = createAndAddParticle(this, 0x10, "portalEffect02.plist", 4, kCCPositionTypeGrouped);
+//                                         cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                         cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                         if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                             (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                             pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                             memset(&local_3c, 0, 0x10);
+//                                             local_30 = 1.0;
+//                                             local_3c.x = 1.0;
+//                                             local_3c.y = 0.39215687;
+//                                             (*pcVar12)(pCVar2, &local_3c);
+//                                             pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                             memset(&local_3c, 0, 0x10);
+//                                             local_30 = 1.0;
+//                                             local_3c.x = 1.0;
+//                                             local_3c.y = 0.39215687;
+//                                             (*pcVar12)(pCVar2, &local_3c);
+//                                         }
+//                                     }
+//                                 } else if (m_objectID < 0x30) {
+//                                     if (m_objectID < 0x16) {
+//                                         if (0x11 < m_objectID)
+//                                             goto LAB_00365486;
+//                                         if (m_objectID == 0xb) {
+//                                             m_defaultZOrder = 10;
+//                                             m_defaultZLayer = 5;
+//                                             m_zFixedZLayer = true;
+//                                             m_isPortalObject = true;
+//                                             m_objectType = 3;
+//                                             if (m_inLevelEditor == false) {
+//                                                 createAndAddParticle(this, 3, "portalEffect02.plist", 4, kCCPositionTypeGroupe d);
+//                                                 cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                             }
+//                                         } else if (m_objectID < 0xc) {
+//                                             if (m_objectID == 8) {
+//                                             LAB_00366510:
+//                                                 m_objectType = 2;
+//                                                 m_spriteWidthScale = 0.2;
+//                                                 m_spriteHeightScale = 0.4;
+//                                                 if (m_objectID - 0xb1U < 3) {
+//                                                     m_useGlowBGColor = true;
+//                                                 }
+//                                             } else {
+//                                                 if (m_objectID < 9) {
+//                                                     flag_a = m_objectID == 5;
+//                                                     goto LAB_00363c62;
+//                                                 }
+//                                                 if (m_objectID == 9)
+//                                                     goto LAB_00366314;
+//                                                 if (m_objectID == 10) {
+//                                                     m_defaultZOrder = 10;
+//                                                     m_defaultZLayer = 5;
+//                                                     m_zFixedZLayer = true;
+//                                                     m_isPortalObject = true;
+//                                                     m_objectType = 4;
+//                                                     if (m_inLevelEditor == false) {
+//                                                         createAndAddParticle(this, 4, "portalEffect01.plist", 4, kCCPositionTypeGrouped);
+//                                                         cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                                         cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                                     }
+//                                                 }
+//                                             }
+//                                         } else if (m_objectID == 0xd) {
+//                                             m_defaultZOrder = 10;
+//                                             m_zFixedZLayer = true;
+//                                             m_isPortalObject = true;
+//                                             m_objectType = 5;
+//                                             m_defaultZLayer = 5;
+//                                             if (m_inLevelEditor == false) {
+//                                                 createAndAddParticle(this, 5, "portalEffect04.plist", 4, kCCPositionTypeGroupe d);
+//                                                 cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                             }
+//                                         } else if (m_objectID < 0xd) {
+//                                             m_defaultZOrder = 10;
+//                                             m_defaultZLayer = 5;
+//                                             m_zFixedZLayer = true;
+//                                             m_isPortalObject = true;
+//                                             m_objectType = 6;
+//                                             if (m_inLevelEditor == false) {
+//                                                 createAndAddParticle(this, 6, "portalEffect03.plist", 4, kCCPositionTypeGroupe d);
+//                                                 cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                             }
+//                                         } else if (0xe < m_objectID) {
+//                                             m_objectType = 7;
+//                                             m_isBlendable = true;
+//                                             m_defaultZOrder = -6;
+//                                         }
+//                                     } else if (m_objectID == 0x26) {
+//                                         m_objectType = 7;
+//                                     } else if (m_objectID < 0x27) {
+//                                         if (m_objectID == 0x23) {
+//                                             m_defaultZOrder = 0xc;
+//                                             m_defaultZLayer = 3;
+//                                             m_objectType = 8;
+//                                             if (m_inLevelEditor == false) {
+//                                                 createAndAddParticle(this, 8, "bumpEffect.plist", 0, kCCPositionTypeGrouped);
+//                                             }
+//                                         } else if (m_objectID < 0x24) {
+//                                             if (m_objectID < 0x22)
+//                                                 goto LAB_0036775c;
+//                                         } else if (m_objectID == 0x24) {
+//                                             m_objectType = 0xb;
+//                                             m_hasAudioScale = true;
+//                                             m_spriteWidthScale = 1.2;
+//                                             m_spriteHeightScale = 1.2;
+//                                             m_defaultZOrder = 0xc;
+//                                             m_defaultZLayer = 3;
+//                                             setDefaultMainColorMode(this, 0);
+//                                             if ((m_inLevelEditor == false) &&
+//                                                (pCVar2 = createAndAddParticle(this, m_objectType, "ringEffect.plist", 4,
+//                                                                               kCCPositionTypeGrouped),
+//                                                 pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                                                 (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.x = 1.0;
+//                                                 local_3c.y = 0.78431374;
+//                                                 local_34 = 0x3e48c8c9;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.x = 1.0;
+//                                                 local_3c.y = 0.39215687;
+//                                                 local_34 = 0x3dc8c8c9;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                             }
+//                                         } else if (m_objectID == 0x25) {
+//                                             setDefaultMainColorMode(this, 0x3ed);
+//                                             m_objectType = 7;
+//                                             m_hasAudioScale = true;
+//                                             m_defaultZOrder = 10;
+//                                             m_defaultZLayer = 3;
+//                                         }
+//                                     } else if (m_objectID == 0x2c) {
+//                                         m_objectType = 7;
+//                                         m_defaultZOrder = 3;
+//                                     } else {
+//                                         if (m_objectID < 0x2d) {
+//                                             if (m_objectID != 0x27) {
+//                                                 flag_a = m_objectID == 0x29;
+//                                                 goto LAB_00363d06;
+//                                             }
+//                                             goto LAB_00366510;
+//                                         }
+//                                         if (m_objectID == 0x2d) {
+//                                             m_defaultZOrder = 10;
+//                                             m_objectType = 0xe;
+//                                             m_defaultZLayer = 5;
+//                                             m_zFixedZLayer = true;
+//                                             m_isPortalObject = true;
+//                                             if (m_inLevelEditor == false) {
+//                                                 pCVar2 = createAndAddParticle(this, 0xe, "portalEffect02.plist", 4, kCCPositionTypeGroupe d);
+//                                                 cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                                 if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                                     memset(&local_3c, 0, 0x10);
+//                                                     local_30 = 1.0;
+//                                                     local_3c.x = 1.0;
+//                                                     local_3c.y = 0.5882353;
+//                                                     (*pcVar12)(pCVar2, &local_3c);
+//                                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                                     memset(&local_3c, 0, 0x10);
+//                                                     local_30 = 1.0;
+//                                                     local_3c.x = 1.0;
+//                                                     local_3c.y = 0.5882353;
+//                                                     (*pcVar12)(pCVar2, &local_3c);
+//                                                 }
+//                                             }
+//                                         } else if (m_objectID == 0x2e) {
+//                                             m_defaultZOrder = 10;
+//                                             m_defaultZLayer = 5;
+//                                             m_zFixedZLayer = true;
+//                                             m_isPortalObject = true;
+//                                             m_objectType = 0xf;
+//                                             if (m_inLevelEditor == false) {
+//                                                 createAndAddParticle(this, 0xf, "portalEffect01.plist", 4, kCCPositionTypeGrouped);
+//                                                 cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                             }
+//                                         }
+//                                     }
+//                                 } else {
+//                                     if (m_objectID == 0x50)
+//                                         goto LAB_003670f8;
+//                                     if (m_objectID < 0x51) {
+//                                         if (m_objectID < 0x3c) {
+//                                             if (0x36 < m_objectID)
+//                                                 goto LAB_0036775c;
+//                                             if (m_objectID < 0x32) {
+//                                                 setDefaultMainColorMode(this, 0x3ee);
+//                                                 m_objectType = 7;
+//                                                 m_defaultZOrder = 9;
+//                                                 m_defaultZLayer = 3;
+//                                             } else {
+//                                             LAB_00366226:
+//                                                 setDefaultMainColorMode(this, 0x3ee);
+//                                                 m_objectType = 7;
+//                                                 m_hasAudioScale = true;
+//                                                 m_defaultZOrder = 9;
+//                                                 m_defaultZLayer = 3;
+//                                             }
+//                                         } else if (m_objectID == 0x43) {
+//                                             m_defaultZOrder = 0xc;
+//                                             m_objectType = 10;
+//                                             m_defaultZLayer = 3;
+//                                             if ((m_inLevelEditor == false) &&
+//                                                (pCVar2 = createAndAddParticle(this, 10, "bumpEffect.plist", 0, kCCPositionTypeGrouped),
+//                                                 pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                                                 (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.y = 1.0;
+//                                                 local_34 = 1.0;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.y = 1.0;
+//                                                 local_34 = 1.0;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                             }
+//                                         } else if (m_objectID < 0x44) {
+//                                             if (m_objectID == 0x3c)
+//                                                 goto LAB_00366226;
+//                                             if (m_objectID == 0x3d)
+//                                                 goto LAB_00366314;
+//                                         } else {
+//                                             if (m_objectID == 0x48)
+//                                                 goto LAB_003672fa;
+//                                             flag_a = m_objectID == 0x49;
+//                                         LAB_00363c62:
+//                                             if (flag_a)
+//                                                 goto LAB_003670f8;
+//                                         }
+//                                     } else if (m_objectID == 0x5f) {
+//                                     LAB_003673d0:
+//                                         m_objectType = 0;
+//                                         m_isSolid = true;
+//                                         m_hasExtendedCollision2 = true;
+//                                         m_width = 30.0;
+//                                         m_height = 30.0;
+//                                     } else if (m_objectID < 0x60) {
+//                                         if (m_objectID < 0x5d) {
+//                                             if (0x59 < m_objectID)
+//                                                 goto LAB_003673d0;
+//                                             if (m_objectID == 0x54) {
+//                                                 m_objectType = 0xd;
+//                                                 m_hasAudioScale = true;
+//                                                 m_spriteWidthScale = 1.2;
+//                                                 m_spriteHeightScale = 1.2;
+//                                                 m_defaultZOrder = 0xc;
+//                                                 m_defaultZLayer = 3;
+//                                                 setDefaultMainColorMode(this, 0);
+//                                                 if ((m_inLevelEditor == false) &&
+//                                                    (pCVar2 = createAndAddParticle(this, m_objectType, "ringEffect.plist", 4,
+//                                                                                   kCCPositionTypeGrouped),
+//                                                     pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                                                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                                     memset(&local_3c, 0, 0x10);
+//                                                     local_30 = 1.0;
+//                                                     local_3c.y = 1.0;
+//                                                     local_34 = 1.0;
+//                                                     (*pcVar12)(pCVar2, &local_3c);
+//                                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                                     memset(&local_3c, 0, 0x10);
+//                                                     local_30 = 1.0;
+//                                                     local_34 = 1.0;
+//                                                     local_3c.y = 0.49019608;
+//                                                     (*pcVar12)(pCVar2, &local_3c);
+//                                                 }
+//                                             }
+//                                         } else if (m_objectID == 0x5d) {
+//                                             m_objectType = 0;
+//                                             m_isSolid = true;
+//                                             m_width = 30.0;
+//                                             m_height = 30.0;
+//                                             m_hasExtendedCollision2 = true;
+//                                         } else if (m_objectID == 0x5e) {
+//                                             m_objectType = 0;
+//                                             pGVar10 = this->vtable;
+//                                             m_isSolid = true;
+//                                             m_hasExtendedCollision2 = true;
+//                                             (*(code *)pGVar10->cocos2d_CCSprite_setColor)(this, &DAT_009a0443);
+//                                             m_groupColor2.r = '\x01';
+//                                             m_defaultZOrder = 1;
+//                                         }
+//                                     } else if (m_objectID == 0x65) {
+//                                         m_defaultZOrder = 10;
+//                                         m_defaultZLayer = 5;
+//                                         m_zFixedZLayer = true;
+//                                         m_isPortalObject = true;
+//                                         m_objectType = 0x12;
+//                                         if (m_inLevelEditor == false) {
+//                                             createAndAddParticle(this, 0x12, "portalEffect09.plist", 4, kCCPositionTypeGrouped);
+//                                             cocos2d::CCPoint::CCPoint(&CStack_4c, -5.0, 0.0);
+//                                             cocos2d::CCPoint::CCPoint(&CStack_44, 2.0, 0.0);
+//                                             cocos2d::CCPoint::operator+(&local_3c, &CStack_4c, &CStack_44);
+//                                             cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                         }
+//                                     } else {
+//                                         if (0x65 < m_objectID) {
+//                                             if (m_objectID != 0x67) {
+//                                                 flag_a = m_objectID == 0x69;
+//                                                 goto LAB_00364420;
+//                                             }
+//                                             goto LAB_00366510;
+//                                         }
+//                                         if (m_objectID == 0x60) {
+//                                             m_objectType = 0;
+//                                             m_isSolid = true;
+//                                             m_width = 30.0;
+//                                             m_height = 30.0;
+//                                         } else if (m_objectID == 99) {
+//                                             m_defaultZOrder = 10;
+//                                             m_defaultZLayer = 5;
+//                                             m_zFixedZLayer = true;
+//                                             m_isPortalObject = true;
+//                                             m_objectType = 0x11;
+//                                             if (m_inLevelEditor == false) {
+//                                                 createAndAddParticle(this, 0x11, "portalEffect08.plist", 4, kCCPositionTypeGrouped);
+//                                                 cocos2d::CCPoint::CCPoint(&CStack_4c, -5.0, 0.0);
+//                                                 cocos2d::CCPoint::CCPoint(&CStack_44, 2.0, 0.0);
+//                                                 cocos2d::CCPoint::operator+(&local_3c, &CStack_4c, &CStack_44);
+//                                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                             }
+//                                         }
+//                                     }
+//                                 }
+//                             } else {
+//                             LAB_0036626c:
+//                                 setDefaultMainColorMode(this, 0x3ee);
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = 9;
+//                                 m_defaultZLayer = 3;
+//                             }
+//                         } else if (m_objectID < 0x96) {
+//                             if (0x93 < m_objectID)
+//                                 goto LAB_00366226;
+//                             if (m_objectID < 0x86) {
+//                                 if (0x83 < m_objectID)
+//                                     goto LAB_003662a8;
+//                                 if (m_objectID == 0x77) {
+//                                 LAB_003672fa:
+//                                     m_width = 30.0;
+//                                     m_height = 30.0;
+//                                 } else if (m_objectID < 0x78) {
+//                                     if (m_objectID == 0x6f) {
+//                                         m_defaultZOrder = 10;
+//                                         m_objectType = 0x13;
+//                                         m_defaultZLayer = 5;
+//                                         m_zFixedZLayer = true;
+//                                         m_isPortalObject = true;
+//                                         if (m_inLevelEditor == false) {
+//                                             pCVar2 = createAndAddParticle(this, 0x13, "portalEffect02.plist", 4, kCCPositionTypeGrouped);
+//                                             cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                             cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                             if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                                 (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.x = 1.0;
+//                                                 local_3c.y = 0.78431374;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.x = 1.0;
+//                                                 local_3c.y = 0.39215687;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                             }
+//                                         }
+//                                     } else if (m_objectID < 0x70) {
+//                                         flag_a = m_objectID == 0x6e;
+//                                     LAB_00363d06:
+//                                         if (flag_a)
+//                                             goto LAB_0036624c;
+//                                     } else if (m_objectID - 0x71U < 3)
+//                                         goto LAB_00365868;
+//                                 } else if (m_objectID < 0x81) {
+//                                     if (m_objectID < 0x7b) {
+//                                         flag_a = m_objectID == 0x78;
+//                                         goto LAB_00363c62;
+//                                     }
+//                                     setDefaultMainColorMode(this, 0x3ed);
+//                                     m_objectType = 7;
+//                                     m_defaultZOrder = 1;
+//                                     m_defaultZLayer = 3;
+//                                 } else {
+//                                     setDefaultMainColorMode(this, 0x3ed);
+//                                     m_objectType = 7;
+//                                     m_defaultZOrder = 9;
+//                                     m_defaultZLayer = 3;
+//                                 }
+//                             } else if (m_objectID == 0x8d) {
+//                                 m_hasAudioScale = true;
+//                                 m_objectType = 0xc;
+//                                 m_defaultZOrder = 0xc;
+//                                 m_spriteWidthScale = 1.2;
+//                                 m_spriteHeightScale = 1.2;
+//                                 m_defaultZLayer = 3;
+//                                 setDefaultMainColorMode(this, 0);
+//                                 if ((m_inLevelEditor == false) &&
+//                                    (pCVar2 = createAndAddParticle(this, m_objectType, "ringEffect.plist", 4,
+//                                                                   kCCPositionTypeGrouped),
+//                                     pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.x = 1.0;
+//                                     local_3c.y = 0.39215687;
+//                                     local_34 = 1.0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.x = 1.0;
+//                                     local_34 = 0x3f2fafb0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                 }
+//                             } else if (m_objectID < 0x8e) {
+//                                 if (m_objectID == 0x87)
+//                                     goto LAB_00366314;
+//                                 if (m_objectID < 0x87)
+//                                     goto LAB_0036626c;
+//                                 if (m_objectID == 0x88)
+//                                     goto LAB_003662a8;
+//                                 if (m_objectID == 0x8c) {
+//                                     m_defaultZOrder = 0xc;
+//                                     m_objectType = 9;
+//                                     m_defaultZLayer = 3;
+//                                     if ((m_inLevelEditor == false) &&
+//                                        (pCVar2 = createAndAddParticle(this, 9, "bumpEffect.plist", 0, kCCPositionTypeGrouped),
+//                                         pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                                         (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                         memset(&local_3c, 0, 0x10);
+//                                         local_30 = 1.0;
+//                                         local_3c.x = 1.0;
+//                                         local_34 = 1.0;
+//                                         (*pcVar12)(pCVar2, &local_3c);
+//                                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                         memset(&local_3c, 0, 0x10);
+//                                         local_30 = 1.0;
+//                                         local_3c.x = 1.0;
+//                                         local_34 = 1.0;
+//                                         (*pcVar12)(pCVar2, &local_3c);
+//                                     }
+//                                 }
+//                             } else {
+//                                 if (0x91 < m_objectID)
+//                                     goto LAB_00366550;
+//                                 if (0x8f < m_objectID)
+//                                     goto LAB_00366534;
+//                                 if (m_objectID == 0x8f) {
+//                                     m_objectType = 0x15;
+//                                 }
+//                             }
+//                         } else if (m_objectID < 0xb4) {
+//                             if (0xb0 < m_objectID)
+//                                 goto LAB_00366510;
+//                             if (m_objectID < 0xa0) {
+//                                 if (0x9c < m_objectID)
+//                                     goto LAB_003655ec;
+//                                 if (m_objectID == 0x96)
+//                                     goto LAB_003662a8;
+//                                 if (m_objectID < 0x9a) {
+//                                 LAB_0036624c:
+//                                     setDefaultMainColorMode(this, 0x3ed);
+//                                     m_objectType = 7;
+//                                     m_defaultZOrder = 9;
+//                                     m_defaultZLayer = 3;
+//                                 }
+//                             } else {
+//                                 if (m_objectID == 0xa4)
+//                                     goto LAB_003670f8;
+//                                 if ((m_objectID < 0xa4) || (m_objectID < 0xaa))
+//                                     goto LAB_003672fa;
+//                             }
+//                         } else if (m_objectID < 200) {
+//                             if ((0xc5 < m_objectID) || (m_objectID == 0xbf))
+//                                 goto LAB_00367324;
+//                             if (m_objectID == 0xc1)
+//                                 goto LAB_003670f8;
+//                             if (m_objectID == 0xbe)
+//                                 goto LAB_0036626c;
+//                         } else if (m_objectID == 0xcc) {
+//                         LAB_00366550:
+//                             m_objectType = 0;
+//                             m_doesntFade = true;
+//                         } else if (m_objectID < 0xcc) {
+//                         LAB_00367432:
+//                             m_objectType = 0x14;
+//                             m_defaultZOrder = -6;
+//                             m_defaultZLayer = 4;
+//                             m_zFixedZLayer = true;
+//                             m_isPortalObject = true;
+//                             if (m_inLevelEditor == false) {
+//                                 if (m_objectID == 200) {
+//                                     pcVar7 = "boost_01_effect.plist";
+//                                 } else if (m_objectID == 0xc9) {
+//                                     pcVar7 = "boost_02_effect.plist";
+//                                 } else if (m_objectID == 0xca) {
+//                                     pcVar7 = "boost_03_effect.plist";
+//                                 } else {
+//                                     pcVar7 = "boost_04_effect.plist";
+//                                 }
+//                                 pCVar2 = createAndAddParticle(this, m_objectID, pcVar7, -2, kCCPositionTypeGrouped);
+//                                 if ((pCVar2 != (CCParticleSystemQuad *)0x0) && (m_objectID == 0x536)) {
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                     m_objectID = (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_getStartColor)();
+//                                     local_30 = *(undefined4 *)(m_objectID + 0xc);
+//                                     local_3c.y = 0.0;
+//                                     local_34 = 0;
+//                                     local_3c.x = 1.0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                     m_objectID = (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_getEndColor)(pCVar2);
+//                                     local_30 = *(undefined4 *)(m_objectID + 0xc);
+//                                     local_3c.y = 0.0;
+//                                     local_34 = 0;
+//                                     local_3c.x = 1.0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPosVar;
+//                                     pCVar6 = (CCPoint *)(*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_getPosVar)(pCVar2);
+//                                     cocos2d::CCPoint::operator*(pCVar6, 1.1);
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                 }
+//                             }
+//                             setDefaultMainColorMode(this, 0);
+//                             m_opacityMod = 0.8;
+//                         } else if (m_objectID == 0xcd) {
+//                         LAB_00366534:
+//                             m_objectType = 2;
+//                             m_spriteWidthScale = 0.2;
+//                             m_spriteHeightScale = 0.4;
+//                             m_doesntFade = true;
+//                         } else if (m_objectID == 0xce)
+//                             goto LAB_00366550;
+//                     } else {
+//                     LAB_0036751a:
+//                         m_objectType = 0;
+//                         m_width = 30.0;
+//                         m_height = 30.0;
+//                         m_dontFadeTinted = true;
+//                         m_isSolid = true;
+//                     }
+//                 } else {
+//                     if (m_objectID == 0x131)
+//                         goto LAB_0036757e;
+//                     if (m_objectID < 0x132) {
+//                         if (m_objectID < 0x106) {
+//                             if (m_objectID < 0x104) {
+//                                 if (m_objectID < 0xf2) {
+//                                     if (m_objectID < 0xed) {
+//                                         if (m_objectID < 0xdb) {
+//                                             if (0xd7 < m_objectID)
+//                                                 goto LAB_00366510;
+//                                             if (m_objectID == 0xd3) {
+//                                                 m_dontFadeTinted = true;
+//                                                 m_objectType = 7;
+//                                                 m_isSolid = true;
+//                                                 m_defaultZOrder = -7;
+//                                                 setDefaultMainColorMode(this, 1);
+//                                             } else if (m_objectID < 0xd6)
+//                                                 goto LAB_0036751a;
+//                                         } else {
+//                                             if (0xeb < m_objectID)
+//                                                 goto LAB_003662a8;
+//                                             if (0xe2 < m_objectID)
+//                                                 goto LAB_003655ec;
+//                                             if (0xe0 < m_objectID) {
+//                                                 setDefaultMainColorMode(this, 0x3ee);
+//                                                 m_objectType = 7;
+//                                                 m_defaultZOrder = 9;
+//                                                 m_defaultZLayer = 3;
+//                                             }
+//                                         }
+//                                     } else {
+//                                     LAB_00365486:
+//                                         setDefaultMainColorMode(this, 0x3ed);
+//                                         m_objectType = 7;
+//                                         m_defaultZOrder = 9;
+//                                         m_defaultZLayer = 3;
+//                                     }
+//                                 } else {
+//                                     if (m_objectID < 0xfb) {
+//                                         if (m_objectID < 0xf7) {
+//                                             if (0xf4 < m_objectID)
+//                                                 goto LAB_003670f8;
+//                                             if (0xf2 < m_objectID)
+//                                                 goto LAB_00366314;
+//                                             goto LAB_003655ec;
+//                                         }
+//                                         goto LAB_0036756c;
+//                                     }
+//                                     if (m_objectID < 0x103) {
+//                                         flag_a = SBORROW4(m_objectID, 0xfc);
+//                                         m_objectID = m_objectID + -0xfc;
+//                                         goto LAB_00363eae;
+//                                     }
+//                                 LAB_00367398:
+//                                     m_objectType = 7;
+//                                     m_defaultZOrder = -7;
+//                                     setDefaultMainColorMode(this, 1);
+//                                 }
+//                             } else {
+//                             LAB_0036756c:
+//                                 m_objectType = 0;
+//                                 m_width = 30.0;
+//                                 m_height = 30.0;
+//                             }
+//                         } else if (m_objectID < 0x11e) {
+//                             if (m_objectID < 0x117) {
+//                                 if (m_objectID < 0x111) {
+//                                     if (m_objectID < 0x10b) {
+//                                         if (m_objectID < 0x107)
+//                                             goto LAB_003677a4;
+//                                         if (0x109 < m_objectID)
+//                                             goto LAB_00367398;
+//                                     }
+//                                 } else {
+//                                     if (0x113 < m_objectID) {
+//                                         if (0x114 < m_objectID) {
+//                                             setDefaultMainColorMode(this, 1);
+//                                             m_objectType = 7;
+//                                             m_defaultZOrder = -7;
+//                                         }
+//                                         goto LAB_003677a4;
+//                                     }
+//                                     flag_a = SBORROW4(m_objectID, 0x112);
+//                                     m_objectID = m_objectID + -0x112;
+//                                 LAB_00363eae:
+//                                     if (m_objectID < 0 != flag_a)
+//                                         goto LAB_00367398;
+//                                 }
+//                                 goto LAB_0036756c;
+//                             }
+//                         LAB_003655ec:
+//                             setDefaultMainColorMode(this, 0x3ef);
+//                             m_objectType = 7;
+//                             m_defaultZOrder = 9;
+//                             m_defaultZLayer = 3;
+//                         } else {
+//                             if (m_objectID < 0x128) {
+//                                 if (m_objectID < 0x126) {
+//                                     if (m_objectID == 0x11f) {
+//                                         m_defaultZOrder = 10;
+//                                         m_objectType = 0x18;
+//                                         m_defaultZLayer = 5;
+//                                         m_zFixedZLayer = true;
+//                                         m_isPortalObject = true;
+//                                         if (m_inLevelEditor == false) {
+//                                             pCVar2 = createAndAddParticle(this, 0x18, "portalEffect09.plist", 4, kCCPositionTypeGrouped);
+//                                             cocos2d::CCPoint::CCPoint(&CStack_4c, -5.0, 0.0);
+//                                             cocos2d::CCPoint::CCPoint(&CStack_44, -2.0, 0.0);
+//                                             cocos2d::CCPoint::operator+(&local_3c, &CStack_4c, &CStack_44);
+//                                             cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                             if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                                 (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_34 = 1.0;
+//                                                 local_3c.y = 0.78431374;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_34 = 1.0;
+//                                                 local_3c.y = 0.39215687;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                             }
+//                                         }
+//                                     } else {
+//                                         if (0x11e < m_objectID) {
+//                                             if (m_objectID != 0x121) {
+//                                                 iVar8 = 0x123;
+//                                                 goto LAB_00363f22;
+//                                             }
+//                                             goto LAB_0036757e;
+//                                         }
+//                                         m_defaultZOrder = 10;
+//                                         m_objectType = 0x17;
+//                                         m_defaultZLayer = 5;
+//                                         m_zFixedZLayer = true;
+//                                         m_isPortalObject = true;
+//                                         if (m_inLevelEditor == false) {
+//                                             pCVar2 = createAndAddParticle(this, 0x17, "portalEffect09.plist", 4, kCCPositionTypeGrouped);
+//                                             cocos2d::CCPoint::CCPoint(&CStack_4c, -5.0, 0.0);
+//                                             cocos2d::CCPoint::CCPoint(&CStack_44, -2.0, 0.0);
+//                                             cocos2d::CCPoint::operator+(&local_3c, &CStack_4c, &CStack_44);
+//                                             cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                             if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                                 (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.x = 1.0;
+//                                                 local_3c.y = 0.78431374;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.x = 1.0;
+//                                                 local_3c.y = 0.39215687;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                             }
+//                                         }
+//                                     }
+//                                     goto LAB_003677a4;
+//                                 }
+//                             } else if (m_objectID != 299) {
+//                                 if (299 < m_objectID) {
+//                                     iVar8 = 0x12d;
+//                                     goto LAB_00363f22;
+//                                 }
+//                                 if (m_objectID < 0x12a) {
+//                                 LAB_003670ea:
+//                                     m_objectType = 7;
+//                                     m_isTintObject = true;
+//                                 }
+//                                 goto LAB_003677a4;
+//                             }
+//                         LAB_0036757e:
+//                             m_objectType = 0x19;
+//                         }
+//                     } else if (m_objectID == 0x16c) {
+//                     LAB_003675ec:
+//                         m_objectType = 0x19;
+//                         m_defaultZOrder = 1;
+//                         m_width = 60.0;
+//                         m_maybeShouldFixSlopes = true;
+//                         m_height = 30.0;
+//                     } else if (m_objectID < 0x16d) {
+//                         if (m_objectID != 0x14b) {
+//                             if (m_objectID < 0x14c) {
+//                                 if (m_objectID != 0x141) {
+//                                     if (0x141 < m_objectID) {
+//                                         if (m_objectID < 0x146) {
+//                                             if (m_objectID < 0x144) {
+//                                                 iVar8 = 0x143;
+//                                                 goto LAB_00363f22;
+//                                             }
+//                                         LAB_00367382:
+//                                             m_objectType = 7;
+//                                             m_defaultZOrder = -7;
+//                                             m_isTintObject = true;
+//                                         } else if (m_objectID < 0x148)
+//                                             goto LAB_0036757e;
+//                                         goto LAB_003677a4;
+//                                     }
+//                                     if (m_objectID == 0x137) {
+//                                     LAB_0036759e:
+//                                         m_objectType = 0x19;
+//                                         m_isSolid = true;
+//                                         m_hasExtendedCollision2 = true;
+//                                         goto LAB_003677a4;
+//                                     }
+//                                     if (m_objectID < 0x138) {
+//                                         if (m_objectID != 0x133) {
+//                                             if (m_objectID != 0x135)
+//                                                 goto LAB_003677a4;
+//                                             goto LAB_0036759e;
+//                                         }
+//                                     } else if (m_objectID != 0x13b) {
+//                                         iVar8 = 0x13d;
+//                                         goto LAB_00363f22;
+//                                     }
+//                                 }
+//                             } else if (m_objectID != 0x15d) {
+//                                 if (m_objectID < 0x15e) {
+//                                     if (m_objectID != 0x153) {
+//                                         if (m_objectID < 0x154) {
+//                                             if (m_objectID == 0x14d)
+//                                                 goto LAB_003675be;
+//                                             iVar8 = 0x151;
+//                                         } else {
+//                                             if (m_objectID == 0x157)
+//                                                 goto LAB_0036757e;
+//                                             iVar8 = 0x159;
+//                                         }
+//                                     LAB_00363f22:
+//                                         if (m_objectID != iVar8)
+//                                             goto LAB_003677a4;
+//                                     }
+//                                 } else if (m_objectID != 0x163) {
+//                                     if (0x163 < m_objectID) {
+//                                         if (m_objectID == 0x166)
+//                                             goto LAB_00367382;
+//                                         if (m_objectID == 0x16b)
+//                                             goto LAB_003675d0;
+//                                         goto LAB_003677a4;
+//                                     }
+//                                     if (m_objectID != 0x15f) {
+//                                         iVar8 = 0x161;
+//                                         goto LAB_00363f22;
+//                                     }
+//                                 }
+//                             }
+//                             goto LAB_0036757e;
+//                         }
+//                     LAB_003675be:
+//                         m_objectType = 0x19;
+//                         m_isSolid = true;
+//                         m_dontFadeTinted = true;
+//                     } else if (m_objectID < 0x199) {
+//                         if (m_objectID < 0x196) {
+//                             if (m_objectID < 0x175) {
+//                                 if (0x172 < m_objectID)
+//                                     goto LAB_0036757e;
+//                                 if (m_objectID == 0x16e)
+//                                     goto LAB_003675d0;
+//                                 if (0x16d < m_objectID) {
+//                                     if (m_objectID == 0x16f)
+//                                         goto LAB_003675ec;
+//                                     if (m_objectID != 0x170)
+//                                         goto LAB_003677a4;
+//                                 }
+//                                 goto LAB_00366478;
+//                             }
+//                             if (m_objectID == 0x188)
+//                                 goto LAB_00366510;
+//                             if (m_objectID < 0x189) {
+//                                 if (m_objectID < 0x177)
+//                                     goto LAB_003670ea;
+//                             } else {
+//                                 if (m_objectID == 0x189)
+//                                     goto LAB_00367324;
+//                                 if (m_objectID == 0x195)
+//                                     goto LAB_00366226;
+//                             }
+//                         } else {
+//                         LAB_003656a4:
+//                             setDefaultMainColorMode(this, 0x3ef);
+//                             m_objectType = 7;
+//                             m_defaultZOrder = 1;
+//                             m_defaultZLayer = 3;
+//                         }
+//                     } else if (m_objectID < 0x1a7) {
+//                         if (m_objectID < 0x1a5) {
+//                             if (m_objectID == 0x19e)
+//                                 goto LAB_003656a4;
+//                             if (m_objectID < 0x19e)
+//                                 goto LAB_00365526;
+//                             if (0x1a2 < m_objectID)
+//                                 goto LAB_003655ec;
+//                         } else {
+//                         LAB_00366478:
+//                             m_objectType = 2;
+//                             m_spriteHeightScale = 0.4;
+//                             m_spriteWidthScale = 0.3;
+//                             m_defaultZOrder = 1;
+//                             if (m_objectID != 0x1bf) {
+//                                 if (m_objectID < 0x1c0) {
+//                                     flag_a = m_objectID == 0x1a6;
+//                                 } else {
+//                                     if (m_objectID == 0x6be)
+//                                         goto LAB_003664b6;
+//                                     flag_a = m_objectID == 0x6c1;
+//                                 }
+//                                 if (!flag_a)
+//                                     goto LAB_003677a4;
+//                             }
+//                         LAB_003664b6:
+//                             cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                             cocos2d::CCPoint::operator=(&m_customBoxOffset, &local_3c);
+//                             m_spriteWidthScale = 0.2;
+//                         }
+//                     } else if (0x1bd < m_objectID) {
+//                         if (0x1bf < m_objectID)
+//                             goto LAB_003655ec;
+//                         goto LAB_00366478;
+//                     }
+//                 }
+//             } else {
+//             LAB_00365868:
+//                 setDefaultMainColorMode(this, 0x3ed);
+//                 m_objectType = 7;
+//                 m_defaultZOrder = 9;
+//                 m_defaultZLayer = 3;
+//             }
+//         } else if (m_objectID < 0x360) {
+//             if (m_objectID < 0x35d) {
+//                 if (m_objectID < 0x2af) {
+//                     if (m_objectID < 0x2a9) {
+//                         if (m_objectID < 0x1f2) {
+//                             if (m_objectID < 0x1f0) {
+//                                 if (m_objectID < 0x1db) {
+//                                     if (m_objectID < 0x1d8) {
+//                                         if (m_objectID == 0x1cc) {
+//                                         LAB_003662a8:
+//                                             setDefaultMainColorMode(this, 0x3ee);
+//                                             m_objectType = 7;
+//                                             m_hasAudioScale = true;
+//                                             m_isAudioScale = true;
+//                                             m_minAudioScale = 0.8;
+//                                             m_maxAudioScale = 1.2;
+//                                             m_defaultZOrder = 10;
+//                                             m_defaultZLayer = 3;
+//                                         } else if (m_objectID < 0x1cd) {
+//                                             if (m_objectID == 0x1ca)
+//                                                 goto LAB_00366510;
+//                                             if (0x1ca < m_objectID)
+//                                                 goto LAB_00366534;
+//                                             m_objectType = 7;
+//                                             m_defaultZOrder = 9;
+//                                             m_defaultZLayer = 3;
+//                                         } else {
+//                                             if (0x1d2 < m_objectID)
+//                                                 goto LAB_0036768a;
+//                                             setDefaultMainColorMode(this, 1);
+//                                             m_objectType = 7;
+//                                             m_defaultZOrder = 9;
+//                                             m_defaultZLayer = 3;
+//                                         }
+//                                     } else {
+//                                         m_objectType = 7;
+//                                         m_defaultZOrder = 3;
+//                                         m_isTintObject = true;
+//                                         m_isSolid = true;
+//                                     }
+//                                     goto LAB_003677a4;
+//                                 }
+//                                 if (m_objectID < 0x1ec) {
+//                                     if (m_objectID < 0x1e5) {
+//                                         if (0x1e2 < m_objectID)
+//                                             goto LAB_0036757e;
+//                                         if (m_objectID < 0x1dc)
+//                                             goto LAB_0036768a;
+//                                     }
+//                                     goto LAB_003670f8;
+//                                 }
+//                                 if (m_objectID != 0x1ee) {
+//                                     if (0x1ee < m_objectID)
+//                                         goto LAB_003662a8;
+//                                     goto LAB_0036757e;
+//                                 }
+//                             }
+//                             setDefaultMainColorMode(this, 0x3ed);
+//                             m_objectType = 7;
+//                             m_hasAudioScale = true;
+//                             m_isAudioScale = true;
+//                             m_minAudioScale = 0.8;
+//                             m_maxAudioScale = 1.2;
+//                             m_defaultZOrder = 10;
+//                             m_defaultZLayer = 3;
+//                         } else if (m_objectID < 0x294) {
+//                             if (0x28c < m_objectID)
+//                                 goto LAB_003670f8;
+//                             if (m_objectID < 0x20c) {
+//                                 if (m_objectID < 0x20a) {
+//                                     if (m_objectID == 0x1f6)
+//                                         goto LAB_003670f8;
+//                                     if (m_objectID < 0x1f6) {
+//                                         setDefaultMainColorMode(this, 1);
+//                                         m_objectType = 7;
+//                                         m_defaultZOrder = 9;
+//                                         m_defaultZLayer = 3;
+//                                     } else if (m_objectID < 0x1fa)
+//                                         goto LAB_00365574;
+//                                 } else {
+//                                     m_objectType = 0x19;
+//                                     fVar15 = 30.0;
+//                                     m_height = 30.0;
+//                                     if (m_objectID == 0x20a) {
+//                                         fVar15 = 60.0;
+//                                     }
+//                                     m_width = fVar15;
+//                                 }
+//                             } else if (0x280 < m_objectID) {
+//                                 if (m_objectID < 0x28b)
+//                                     goto LAB_0036710e;
+//                                 goto LAB_0036757e;
+//                             }
+//                         } else if (m_objectID < 0x29b) {
+//                             if (m_objectID < 0x299) {
+//                                 if (m_objectID != 0x294)
+//                                     goto LAB_0036768a;
+//                                 m_defaultZOrder = 10;
+//                                 m_objectType = 0x1a;
+//                                 m_defaultZLayer = 5;
+//                                 m_zFixedZLayer = true;
+//                                 m_isPortalObject = true;
+//                                 if (m_inLevelEditor == false) {
+//                                     pCVar2 = createAndAddParticle(this, 0x1a, "portalEffect02.plist", 4, kCCPositionTypeGrouped);
+//                                     cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                     cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                     if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                         (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                         memset(&local_3c, 0, 0x10);
+//                                         local_30 = 1.0;
+//                                         local_34 = 1.0;
+//                                         local_3c.y = 0.78431374;
+//                                         (*pcVar12)(pCVar2, &local_3c);
+//                                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                         memset(&local_3c, 0, 0x10);
+//                                         local_30 = 1.0;
+//                                         local_34 = 1.0;
+//                                         local_3c.y = 0.39215687;
+//                                         (*pcVar12)(pCVar2, &local_3c);
+//                                     }
+//                                 }
+//                             } else {
+//                             LAB_0036774e:
+//                                 m_objectType = 0x19;
+//                                 m_defaultZOrder = 3;
+//                             }
+//                         } else if (m_objectID < 0x2a1) {
+//                             if (m_objectID < 0x29c)
+//                                 goto LAB_003664d6;
+//                         LAB_0036730e:
+//                             m_objectType = 7;
+//                             m_defaultZOrder = -7;
+//                             m_defaultZLayer = 1;
+//                         } else if (m_objectID < 0x2a3)
+//                             goto LAB_00366560;
+//                     } else {
+//                     LAB_003670f8:
+//                         m_objectType = 7;
+//                         m_defaultZOrder = -7;
+//                         m_isTintObject = true;
+//                     }
+//                 } else if (m_objectID < 0x2e2) {
+//                     if (0x2d9 < m_objectID)
+//                         goto LAB_003670f8;
+//                     if (m_objectID < 0x2c9) {
+//                         if (0x2c4 < m_objectID)
+//                             goto LAB_0036757e;
+//                         if (m_objectID < 0x2b7) {
+//                             if (m_objectID < 0x2b5) {
+//                                 if (0x2b0 < m_objectID)
+//                                     goto LAB_003670f8;
+//                                 m_defaultZOrder = 10;
+//                                 m_defaultZLayer = 3;
+//                                 pGVar10 = this->vtable;
+//                                 m_objectType = 7;
+//                                 m_isSolid = true;
+//                                 (*(code *)pGVar10->cocos2d_CCSprite_setColor)(this, &DAT_009a0443);
+//                                 m_groupColor2.r = '\x01';
+//                             } else {
+//                                 m_objectType = 7;
+//                                 setDefaultMainColorMode(this, 1);
+//                                 m_defaultZOrder = -7;
+//                                 m_isSolid = true;
+//                                 m_dontFadeTinted = true;
+//                             }
+//                         } else {
+//                             if (0x2be < m_objectID)
+//                                 goto LAB_003670f8;
+//                             m_objectType = 7;
+//                             setDefaultMainColorMode(this, 1);
+//                             m_defaultZOrder = -7;
+//                         }
+//                     } else if (m_objectID == 0x2d1) {
+//                     LAB_003664f2:
+//                         setDefaultMainColorMode(this, 1);
+//                         m_objectType = 7;
+//                         m_defaultZOrder = 9;
+//                         m_defaultZLayer = 3;
+//                     } else if (m_objectID < 0x2d2) {
+//                         if (m_objectID == 0x2cf)
+//                             goto LAB_003664f2;
+//                         if (0x2cf < m_objectID)
+//                             goto LAB_003664d6;
+//                         if (m_objectID < 0x2cd)
+//                             goto LAB_003670f8;
+//                     } else {
+//                         if (m_objectID != 0x2d5) {
+//                             if (0x2d5 < m_objectID)
+//                                 goto LAB_0036757e;
+//                             goto LAB_003670f8;
+//                         }
+//                         m_objectType = 7;
+//                         setDefaultMainColorMode(this, 1);
+//                         m_defaultZOrder = -6;
+//                     }
+//                 } else {
+//                     if (m_objectID == 0x2ff)
+//                         goto LAB_003655ec;
+//                     if (m_objectID < 0x300) {
+//                         if (m_objectID == 0x2eb) {
+//                         LAB_00366d30:
+//                             m_objectType = 0x1c;
+//                             m_defaultZOrder = 10;
+//                             m_defaultZLayer = 5;
+//                             m_zFixedZLayer = true;
+//                             m_isPortalObject = true;
+//                             cocos2d::CCPoint::CCPoint(&local_3c, 12.0, 0.0);
+//                             cocos2d::CCPoint::operator=(&m_customBoxOffset, &local_3c);
+//                             m_width = 25.0;
+//                             if (m_inLevelEditor == false) {
+//                                 pCVar2 = createAndAddParticle(this, m_objectType, "portalEffect02.plist", 4,
+//                                                               kCCPositionTypeGrouped);
+//                                 cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                 if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.y = 1.0;
+//                                     local_34 = 1.0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.y = 0.39215687;
+//                                     local_34 = 0x3f169697;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                 }
+//                             }
+//                         } else if (m_objectID < 0x2ec) {
+//                             if (m_objectID == 0x2e3) {
+//                             LAB_0036710e:
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = -7;
+//                                 m_isTintObject = true;
+//                                 m_width = 30.0;
+//                                 m_height = 30.0;
+//                             } else {
+//                                 if (m_objectID < 0x2e3)
+//                                     goto LAB_0036730e;
+//                                 if (m_objectID == 0x2e8)
+//                                     goto LAB_0036775c;
+//                                 if (m_objectID == 0x2e9) {
+//                                     m_defaultZOrder = 10;
+//                                     m_objectType = 0x1b;
+//                                     m_defaultZLayer = 5;
+//                                     m_zFixedZLayer = true;
+//                                     m_isPortalObject = true;
+//                                     if (m_inLevelEditor == false) {
+//                                         pCVar2 = createAndAddParticle(this, 0x1b, "portalEffect02.plist", 4, kCCPositionTypeGrouped);
+//                                         cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                         cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                         if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                             (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                             pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                             memset(&local_3c, 0, 0x10);
+//                                             local_30 = 1.0;
+//                                             local_3c.x = 0.5882353;
+//                                             local_3c.y = 0.5882353;
+//                                             local_34 = 0x3f169697;
+//                                             (*pcVar12)(pCVar2, &local_3c);
+//                                             pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                             memset(&local_3c, 0, 0x10);
+//                                             local_30 = 1.0;
+//                                             local_3c.x = 0.19607843;
+//                                             local_3c.y = 0.19607843;
+//                                             local_34 = 0x3e969697;
+//                                             (*pcVar12)(pCVar2, &local_3c);
+//                                         }
+//                                     }
+//                                 }
+//                             }
+//                         } else if (m_objectID < 0x2f8) {
+//                             if (m_objectID < 0x2f0) {
+//                                 if (m_objectID == 0x2ed)
+//                                     goto LAB_00366e30;
+//                             } else {
+//                             LAB_00367156:
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = -7;
+//                                 m_isTintObject = true;
+//                             }
+//                         } else if (0x2f9 < m_objectID)
+//                             goto LAB_00367156;
+//                     } else {
+//                         if (m_objectID < 0x351) {
+//                             if (m_objectID < 0x349) {
+//                                 if (m_objectID < 0x308) {
+//                                     if (m_objectID < 0x301)
+//                                         goto LAB_00366478;
+//                                     goto LAB_00367156;
+//                                 }
+//                                 if (0x1a < m_objectID - 0x327U)
+//                                     goto LAB_003677a4;
+//                             }
+//                             goto LAB_003671c0;
+//                         }
+//                         if (m_objectID < 0x35a) {
+//                             if (0x354 < m_objectID)
+//                                 goto LAB_003676d6;
+//                             iVar8 = 0x352;
+//                         } else {
+//                             iVar8 = 0x35b;
+//                         }
+//                         if (m_objectID == iVar8)
+//                             goto LAB_003676d6;
+//                     }
+//                 }
+//             } else {
+//             LAB_003676d6:
+//                 m_objectType = 7;
+//                 m_defaultZOrder = -7;
+//             }
+//         } else if (m_objectID < 0x3f6) {
+//             if (0x3f0 < m_objectID)
+//                 goto LAB_00365574;
+//             if (m_objectID < 0x396) {
+//                 if (m_objectID < 0x394) {
+//                     if (m_objectID < 0x381) {
+//                         if (m_objectID < 0x37d) {
+//                             if (m_objectID < 0x376) {
+//                                 if ((0x36f < m_objectID) ||
+//                                    ((0x362 < m_objectID && ((m_objectID < 0x36b || (m_objectID - 0x36dU < 2))))))
+//                                     goto LAB_003671c0;
+//                             } else {
+//                                 if (m_objectID < 0x378)
+//                                     goto LAB_0036757e;
+//                                 if (m_objectID < 0x37c)
+//                                     goto LAB_003671c0;
+//                             }
+//                         } else {
+//                         LAB_003671c0:
+//                             m_objectType = 7;
+//                             m_defaultZOrder = -7;
+//                         }
+//                     } else {
+//                         if (m_objectID == 0x38a)
+//                             goto LAB_003656a4;
+//                         if (m_objectID < 0x38b) {
+//                             if (0x382 < m_objectID) {
+//                                 if (m_objectID < 0x386)
+//                                     goto LAB_0036775c;
+//                                 if (0x386 < m_objectID)
+//                                     goto LAB_00367156;
+//                             }
+//                         } else {
+//                             if (m_objectID == 0x38f)
+//                                 goto LAB_00367156;
+//                             if (m_objectID < 0x38f)
+//                                 goto LAB_003656c4;
+//                             if (m_objectID != 0x392) {
+//                                 iVar8 = 0x393;
+//                                 goto LAB_0036441e;
+//                             }
+//                             setDefaultMainColorMode(this, 1);
+//                             m_objectType = 7;
+//                             m_defaultZOrder = 1;
+//                         }
+//                     }
+//                 } else {
+//                 LAB_003656c4:
+//                     setDefaultMainColorMode(this, 1);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = -5;
+//                     m_defaultZLayer = 3;
+//                     m_colorZLayerRelated = true;
+//                 }
+//             } else if (m_objectID < 0x3c2) {
+//                 if (0x3b7 < m_objectID)
+//                     goto LAB_00367156;
+//                 if (m_objectID < 0x3a8) {
+//                     if (m_objectID < 0x39f) {
+//                         if (m_objectID == 0x397) {
+//                             m_objectType = 2;
+//                             setDefaultMainColorMode(this, 0x3f2);
+//                         } else {
+//                             if (m_objectID < 0x397)
+//                                 goto LAB_00365976;
+//                             if (0x39c < m_objectID) {
+//                                 m_objectType = 7;
+//                                 setDefaultMainColorMode(this, 0x3f3);
+//                                 m_defaultZLayer = 1;
+//                                 m_updateCustomContentSize = true;
+//                                 pCVar6 = &m_customBoxOffset;
+//                                 if (m_objectID == 0x39d) {
+//                                     m_width = 70.0;
+//                                     m_height = 70.0;
+//                                     cocos2d::CCPoint::CCPoint(&local_3c, -35.0, 35.0);
+//                                     cocos2d::CCPoint::operator=(pCVar6, &local_3c);
+//                                 } else {
+//                                     m_width = 130.0;
+//                                     m_height = 130.0;
+//                                 }
+//                                 cocos2d::CCPoint::CCPoint(&local_3c, -(m_width * 0.5), m_height * 0.5);
+//                                 cocos2d::CCPoint::operator=(pCVar6, &local_3c);
+//                             }
+//                         }
+//                     } else {
+//                     LAB_003672a8:
+//                         m_objectType = 7;
+//                         m_defaultZOrder = -7;
+//                         setDefaultMainColorMode(this, 0x3f3);
+//                     }
+//                 } else if (m_objectID < 0x3ab) {
+//                     setDefaultMainColorMode(this, 0x3f3);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = -5;
+//                     m_defaultZLayer = 3;
+//                 } else if (m_objectID < 0x3af)
+//                     goto LAB_003656c4;
+//             } else if (m_objectID == 0x3df) {
+//             LAB_003664d6:
+//                 m_objectType = 2;
+//                 m_spriteHeightScale = 0.4;
+//                 m_spriteWidthScale = 0.3;
+//                 m_defaultZOrder = 1;
+//             } else if (m_objectID < 0x3e0) {
+//                 if (m_objectID == 0x3dd)
+//                     goto LAB_003664d6;
+//                 if (0x3dd < m_objectID)
+//                     goto LAB_003664f2;
+//                 if (m_objectID - 0x3c4U < 0xe)
+//                     goto LAB_00367156;
+//             } else if (m_objectID < 0x3ee) {
+//                 if (m_objectID < 0x3e9) {
+//                     if (m_objectID == 0x3e0)
+//                         goto LAB_003664f2;
+//                 } else {
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 9;
+//                     m_defaultZLayer = 3;
+//                     setDefaultMainColorMode(this, 0x3ed);
+//                 }
+//             } else if (m_objectID < 0x3f0)
+//                 goto LAB_0036775c;
+//         } else if (m_objectID < 0x482) {
+//             if (0x473 < m_objectID)
+//                 goto LAB_003670f8;
+//             if (m_objectID < 0x454) {
+//                 if (m_objectID < 1099) {
+//                     if (m_objectID == 0x419)
+//                         goto LAB_0036775c;
+//                     if (0x419 < m_objectID) {
+//                         if (m_objectID < 0x436) {
+//                             if (0x432 < m_objectID)
+//                                 goto LAB_0036710e;
+//                             if (m_objectID != 0x426)
+//                                 goto LAB_003677a4;
+//                         }
+//                         goto LAB_003671c0;
+//                     }
+//                     if (m_objectID < 0x3fb)
+//                         goto LAB_003672a8;
+//                     if (0x408 < m_objectID)
+//                         goto LAB_00367156;
+//                 } else {
+//                 LAB_003672c2:
+//                     m_objectType = 7;
+//                     m_defaultZOrder = -8;
+//                     setDefaultMainColorMode(this, 0x3ef);
+//                 }
+//             } else if (m_objectID < 0x468) {
+//                 if (m_objectID < 0x462) {
+//                     if (m_objectID < 0x45f) {
+//                         if (0x454 < m_objectID)
+//                             goto LAB_003672c2;
+//                         m_objectType = 7;
+//                         m_defaultZOrder = -8;
+//                         setDefaultMainColorMode(this, 0x3ef);
+//                         (this->CCSprite).m_bDontDraw = true;
+//                     } else if (m_objectID == 0x460)
+//                         goto LAB_003676e6;
+//                 } else {
+//                 LAB_003676e6:
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 4;
+//                     m_width = 30.0;
+//                     m_height = 30.0;
+//                     m_updateCustomContentSize = true;
+//                     setDefaultMainColorMode(this, 0x3f3);
+//                 }
+//             } else if (0x46b < m_objectID) {
+//                 if (m_objectID < 0x472)
+//                     goto LAB_003676e6;
+//             LAB_0036770e:
+//                 m_objectType = 7;
+//                 m_defaultZOrder = 4;
+//                 m_width = 15.0;
+//                 m_height = 15.0;
+//                 m_updateCustomContentSize = true;
+//                 setDefaultMainColorMode(this, 0x3f3);
+//             }
+//         } else if (m_objectID == 0x4b2) {
+//         LAB_0036768a:
+//             m_objectType = 0;
+//             m_defaultZOrder = 3;
+//         } else if (m_objectID < 0x4b3) {
+//             if (m_objectID < 0x492) {
+//                 if (0x489 < m_objectID)
+//                     goto LAB_00367156;
+//                 if (m_objectID == 0x486)
+//                     goto LAB_00367306;
+//                 if (0x486 < m_objectID)
+//                     goto LAB_003671c0;
+//                 if (m_objectID == 0x485) {
+//                     m_width = 15.0;
+//                     m_height = 15.0;
+//                 }
+//             } else if (m_objectID < 0x4a7) {
+//                 if (0x492 < m_objectID)
+//                     goto LAB_00367156;
+//                 m_objectType = 7;
+//                 m_defaultZOrder = -7;
+//                 m_isTintObject = true;
+//                 m_width = 30.0;
+//                 m_height = 30.0;
+//                 m_updateCustomContentSize = true;
+//             } else {
+//                 m_objectType = 7;
+//                 m_defaultZOrder = 10;
+//                 setDefaultMainColorMode(this, 0x3ec);
+//             }
+//         } else if (m_objectID < 0x4bb) {
+//             if (m_objectID < 0x4b9) {
+//                 if (0x4b7 < m_objectID) {
+//                     m_objectType = 0;
+//                     m_defaultZOrder = 3;
+//                     m_width = 15.0;
+//                     m_height = 15.0;
+//                     goto LAB_003677a4;
+//                 }
+//                 if (0x4b4 < m_objectID)
+//                     goto LAB_003676c8;
+//             }
+//         LAB_003676b0:
+//             m_objectType = 0;
+//             m_defaultZOrder = 3;
+//             m_width = 30.0;
+//             m_height = 30.0;
+//         } else if (m_objectID < 0x4c7) {
+//             if (0x4c4 < m_objectID)
+//                 goto LAB_003676b0;
+//             if (m_objectID == 0x4c4)
+//                 goto LAB_0036768a;
+//         } else {
+//         LAB_003676c8:
+//             m_objectType = 7;
+//             m_defaultZOrder = 3;
+//         }
+//     } else if (m_objectID < 0x765) {
+//         if (m_objectID < 0x761) {
+//             if (m_objectID < 0x64b) {
+//                 if (m_objectID < 0x648) {
+//                     if (m_objectID < 0x548) {
+//                         if (0x543 < m_objectID)
+//                             goto LAB_003671d0;
+//                         if (m_objectID < 0x512) {
+//                             if (0x50d < m_objectID)
+//                                 goto LAB_00367156;
+//                             if (m_objectID < 0x4f4) {
+//                                 if (0x4f1 < m_objectID)
+//                                     goto LAB_003671c0;
+//                                 if (m_objectID < 0x4df) {
+//                                     if (0x4d8 < m_objectID)
+//                                         goto LAB_0036770e;
+//                                     if (m_objectID == 0x4cc) {
+//                                         setDefaultMainColorMode(this, 0x3ef);
+//                                         m_objectType = 7;
+//                                         m_defaultZOrder = 9;
+//                                         m_defaultZLayer = 3;
+//                                     } else if (0x4cb < m_objectID)
+//                                         goto LAB_003672a8;
+//                                 } else if (m_objectID == 0x4ed) {
+//                                 LAB_00367306:
+//                                     m_objectType = 7;
+//                                 } else if (m_objectID < 0x4ee) {
+//                                     if (m_objectID < 0x4ec)
+//                                         goto LAB_003671c0;
+//                                 } else if ((m_objectID == 0x4ef) || (m_objectID == 0x4f1))
+//                                     goto LAB_00367306;
+//                             } else {
+//                                 if (m_objectID == 0x4fc)
+//                                     goto LAB_00367668;
+//                                 if (m_objectID < 0x4fd) {
+//                                     if (0x4fa < m_objectID)
+//                                         goto LAB_0036760a;
+//                                     if (m_objectID < 0x4f5)
+//                                         goto LAB_0036775c;
+//                                 } else if (m_objectID < 0x50b)
+//                                     goto LAB_003671c0;
+//                             LAB_00365574:
+//                                 setDefaultMainColorMode(this, 1);
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = 9;
+//                                 m_defaultZLayer = 1;
+//                             }
+//                         } else if (m_objectID == 0x535) {
+//                             m_objectType = 0x23;
+//                             m_hasAudioScale = true;
+//                             m_spriteWidthScale = 1.2;
+//                             m_spriteHeightScale = 1.2;
+//                             m_defaultZOrder = 0xc;
+//                             m_defaultZLayer = 3;
+//                             setDefaultMainColorMode(this, 0);
+//                             if ((m_inLevelEditor == false) &&
+//                                (pCVar2 = createAndAddParticle(this, m_objectType, "ringEffect.plist", 4,
+//                                                               kCCPositionTypeGrouped),
+//                                 pCVar2 != (CCParticleSystemQuad *)0 x0)) {
+//                                 (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                 memset(&local_3c, 0, 0x10);
+//                                 local_30 = 1.0;
+//                                 local_3c.x = 1.0;
+//                                 local_3c.y = 0.39215687;
+//                                 local_34 = 0x3dc8c8c9;
+//                                 (*pcVar12)(pCVar2, &local_3c);
+//                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                 memset(&local_3c, 0, 0x10);
+//                                 local_30 = 1.0;
+//                                 local_3c.x = 1.0;
+//                                 (*pcVar12)(pCVar2, &local_3c);
+//                             }
+//                         } else if (m_objectID < 0x536) {
+//                             if (m_objectID < 0x52f) {
+//                                 if (m_objectID < 0x52d) {
+//                                     if (m_objectID < 0x529) {
+//                                         if (m_objectID < 0x513)
+//                                             goto LAB_0036710e;
+//                                     } else if (m_objectID != 0x52a)
+//                                         goto LAB_003677a4;
+//                                 }
+//                                 goto LAB_00367156;
+//                             }
+//                             if (m_objectID == 0x533) {
+//                                 m_defaultZOrder = 10;
+//                                 m_objectType = 0x21;
+//                                 m_defaultZLayer = 5;
+//                                 m_zFixedZLayer = true;
+//                                 m_isPortalObject = true;
+//                                 if (m_inLevelEditor == false) {
+//                                     pCVar2 = createAndAddParticle(this, 0x21, "portalEffect02.plist", 4, kCCPositionTypeGrouped);
+//                                     cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                     cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                     if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                         (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                         memset(&local_3c, 0, 0x10);
+//                                         local_30 = 1.0;
+//                                         local_3c.x = 0.78431374;
+//                                         local_34 = 1.0;
+//                                         (*pcVar12)(pCVar2, &local_3c);
+//                                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                         memset(&local_3c, 0, 0x10);
+//                                         local_30 = 1.0;
+//                                         local_3c.x = 0.78431374;
+//                                         local_34 = 1.0;
+//                                         (*pcVar12)(pCVar2, &local_3c);
+//                                     }
+//                                 }
+//                             } else if (m_objectID < 0x534) {
+//                                 if (m_objectID < 0x531)
+//                                     goto LAB_00365976;
+//                             } else {
+//                                 m_defaultZOrder = 0xc;
+//                                 m_objectType = 0x22;
+//                                 m_defaultZLayer = 3;
+//                                 if ((m_inLevelEditor == false) &&
+//                                    (pCVar2 = createAndAddParticle(this, 0x22, "bumpEffect.plist", 0, kCCPositionTypeGrouped),
+//                                     pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.x = 1.0;
+//                                     local_3c.y = 0.19607843;
+//                                     local_34 = 0x3e48c8c9;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.x = 1.0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                 }
+//                             }
+//                         } else {
+//                             if (m_objectID < 0x53f) {
+//                                 if (m_objectID < 0x53d) {
+//                                     if (0x53b < m_objectID)
+//                                         goto LAB_00366550;
+//                                     if (0x539 < m_objectID)
+//                                         goto LAB_0036774e;
+//                                     if (m_objectID == 0x536)
+//                                         goto LAB_00367432;
+//                                     goto LAB_003677a4;
+//                                 }
+//                             } else {
+//                                 if (0x541 < m_objectID)
+//                                     goto LAB_0036775c;
+//                                 if (m_objectID < 0x540)
+//                                     goto LAB_00366550;
+//                             }
+//                         LAB_00366560:
+//                             m_objectType = 0x19;
+//                             m_doesntFade = true;
+//                         }
+//                     } else {
+//                         if (m_objectID < 0x5e9) {
+//                             if (0x5e5 < m_objectID)
+//                                 goto LAB_003671e6;
+//                             if (m_objectID < 0x5a9) {
+//                                 if (0x5a1 < m_objectID)
+//                                     goto LAB_00367266;
+//                                 if (m_objectID < 0x56b) {
+//                                     if (0x556 < m_objectID) {
+//                                     LAB_00367220:
+//                                         m_objectType = 7;
+//                                         m_colorZLayerRelated = true;
+//                                         m_defaultZOrder = -5;
+//                                         m_defaultZLayer = 3;
+//                                         setDefaultMainColorMode(this, 4);
+//                                         goto LAB_003677a4;
+//                                     }
+//                                     if (m_objectID < 0x54c)
+//                                         goto LAB_00367244;
+//                                 } else if (m_objectID != 0x573) {
+//                                     if (0x572 < m_objectID) {
+//                                         if (m_objectID < 0x597)
+//                                             goto LAB_003677a4;
+//                                         goto LAB_003671e6;
+//                                     }
+//                                     goto LAB_00367244;
+//                                 }
+//                             } else if (m_objectID < 0x5b9) {
+//                                 if (m_objectID < 0x5b5) {
+//                                     if (0x5ac < m_objectID)
+//                                         goto LAB_00367220;
+//                                     m_objectType = 7;
+//                                     m_colorZLayerRelated = true;
+//                                     m_defaultZOrder = -9;
+//                                     setDefaultMainColorMode(this, 2);
+//                                     m_maybeNotColorable = true;
+//                                     goto LAB_003677a4;
+//                                 }
+//                             } else if (m_objectID != 0x5d8) {
+//                                 if (m_objectID < 0x5d9) {
+//                                     if (m_objectID - 0x5bfU < 3)
+//                                         goto LAB_003671d0;
+//                                 } else {
+//                                     iVar8 = 0x5e3;
+//                                 LAB_0036495e:
+//                                     if (m_objectID == iVar8)
+//                                         goto LAB_003671d0;
+//                                 }
+//                                 goto LAB_003677a4;
+//                             }
+//                             goto LAB_003671d0;
+//                         }
+//                         if (m_objectID == 0x635) {
+//                         LAB_0036760a:
+//                             commonInteractiveSetup(this);
+                            
+//                             if (m_objectID == 0x63e) {
+//                                 uVar9 = false;
+//                             } else {
+//                                 m_objectID = m_objectID + -0xe11;
+//                                 if (m_objectID != 0) {
+//                                     m_objectID = 1;
+//                                 }
+//                                 uVar9 = (undefined)m_objectID;
+//                             }
+//                             m_colorZLayerRelated = (bool)uVar9;
+//                             m_width = 25.0;
+//                             m_height = 20.0;
+//                         } else if (m_objectID < 0x636) {
+//                             if (m_objectID == 0x5fa) {
+//                                 m_objectType = 7;
+//                             } else if (m_objectID < 0x5fb) {
+//                                 if (m_objectID == 0x5ed) {
+//                                     setDefaultMainColorMode(this, 1);
+//                                     m_objectType = 7;
+//                                     m_defaultZOrder = 9;
+//                                     m_defaultZLayer = 3;
+//                                     m_colorZLayerRelated = true;
+//                                 } else {
+//                                     if (0x5ed < m_objectID) {
+//                                         flag_a = m_objectID == 0x5f0;
+//                                         goto LAB_00364420;
+//                                     }
+//                                     if (m_objectID < 0x5ec)
+//                                         goto LAB_00367266;
+//                                 }
+//                             } else if (m_objectID == 0x632) {
+//                                 setDefaultMainColorMode(this, 0x3f3);
+//                                 m_defaultZOrder = 0;
+//                                 m_objectType = 7;
+//                                 m_defaultZLayer = 1;
+//                                 *(undefined *)&m_particleScale = 1;
+//                                 if (m_inLevelEditor == false) {
+//                                     createAndAddParticle(this, 7, "fireballEffect.plist", -2, kCCPositionTypeRelative);
+//                                     cocos2d::CCPoint::CCPoint(&local_3c, 0.0, 0.0);
+//                                     cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                     m_particleUseObjectColor = true;
+//                                     m_particleLocked = true;
+//                                 }
+//                             } else if (m_objectID < 0x633) {
+//                                 if (m_objectID != 0x630) {
+//                                     iVar8 = 0x631;
+//                                     goto LAB_0036441e;
+//                                 }
+//                             LAB_00365976:
+//                                 m_objectType = 0x2f;
+//                                 m_isGroupDisabled = true;
+//                                 m_colorSpriteLocked = true;
+//                                 setDefaultMainColorMode(this, 0x3f2);
+//                             } else {
+//                                 if (m_objectID == 0x633)
+//                                     goto LAB_0036760a;
+//                                 if (m_objectID == 0x634)
+//                                     goto LAB_00367668;
+//                             }
+//                         } else {
+//                             if (m_objectID == 0x63e)
+//                                 goto LAB_0036760a;
+//                             if (m_objectID < 0x63f) {
+//                                 if (m_objectID == 0x63b)
+//                                     goto LAB_0036775c;
+//                                 if (m_objectID < 0x63c) {
+//                                     if (m_objectID == 0x636) {
+//                                     LAB_00367668:
+//                                         m_colorZLayerRelated = true;
+//                                         m_objectType = 7;
+//                                         m_isGroupDisabled = true;
+//                                         m_defaultZOrder = 9;
+//                                         m_colorSpriteLocked = true;
+//                                         setDefaultMainColorMode(this, 1);
+//                                     } else if (m_objectID == 0x63a) {
+//                                         m_objectType = 0x24;
+//                                         m_hasAudioScale = true;
+//                                         m_width = 36.0;
+//                                         m_height = 36.0;
+//                                         m_defaultZOrder = 0xc;
+//                                         m_defaultZLayer = 3;
+//                                         setDefaultMainColorMode(this, 0x3f3);
+//                                         if (m_inLevelEditor == false) {
+//                                             pCVar2 = createAndAddParticle(this, m_objectType, "ringEffect.plist", 4,
+//                                                                           kCCPositionTypeGrouped);
+//                                             if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                                 (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_30 = 1.0;
+//                                                 local_3c.x = 1.0;
+//                                                 local_3c.y = 0.78431374;
+//                                                 local_34 = 0x3e48c8c9;
+//                                                 (*pcVar12)(pCVar2, &local_3c);
+//                                                 pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                                 memset(&local_3c, 0, 0x10);
+//                                                 local_3c.y = 0.39215687;
+//                                                 local_34 = 0x3dc8c8c9;
+//                                                 goto LAB_00365cc4;
+//                                             }
+//                                             goto UPDATE_PARTICLECOLOR;
+//                                         }
+//                                     }
+//                                 } else {
+//                                     setDefaultMainColorMode(this, 0x3f3);
+//                                     m_objectType = 7;
+//                                     m_defaultZOrder = 1;
+//                                     m_defaultZLayer = 3;
+//                                 }
+//                             } else if (m_objectID == 0x641) {
+//                                 setDefaultMainColorMode(this, 0x3f3);
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = 8;
+//                                 m_defaultZLayer = 3;
+//                                 m_colorZLayerRelated = true;
+//                             } else if (m_objectID < 0x642) {
+//                                 if (m_objectID == 0x63f)
+//                                     goto LAB_00367668;
+//                                 if (m_objectID == 0x640)
+//                                     goto LAB_003653b8;
+//                             } else {
+//                                 setDefaultMainColorMode(this, 0x3f3);
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = 0xc;
+//                                 m_defaultZLayer = 3;
+//                             }
+//                         }
+//                     }
+//                 } else {
+//                     setDefaultMainColorMode(this, 0x3f3);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 10;
+//                     m_defaultZLayer = 3;
+//                 }
+//             } else {
+//                 if (m_objectID == 0x6e2)
+//                     goto LAB_00365592;
+//                 if (m_objectID < 0x6e3) {
+//                     if (m_objectID == 0x6bb) {
+//                     LAB_003675d0:
+//                         m_objectType = 0x19;
+//                         m_defaultZOrder = 1;
+//                         m_width = 30.0;
+//                         m_height = 30.0;
+//                         m_maybeShouldFixSlopes = true;
+//                     } else if (m_objectID < 0x6bc) {
+//                         if (m_objectID == 0x6a4) {
+//                             setDefaultMainColorMode(this, 0x3f3);
+//                             m_defaultZOrder = 0;
+//                             m_defaultZLayer = 3;
+//                             m_objectType = 7;
+//                             if (m_inLevelEditor == false) {
+//                                 createAndAddParticle(this, 7, "bubbleEffect.plist", 0, kCCPositionTypeGrouped);
+//                                 cocos2d::CCPoint::CCPoint(&local_3c, 0.0, 0.0);
+//                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                 m_particleUseObjectColor = true;
+//                             }
+//                         } else if (m_objectID < 0x6a5) {
+//                             if (m_objectID < 0x675) {
+//                                 if (0x654 < m_objectID)
+//                                     goto LAB_003671d0;
+//                                 if (m_objectID != 0x64f) {
+//                                     if (m_objectID < 0x650) {
+//                                         if (0x64d < m_objectID)
+//                                             goto LAB_003677a4;
+//                                     } else if (m_objectID != 0x650) {
+//                                         iVar8 = 0x651;
+//                                         goto LAB_0036495e;
+//                                     }
+//                                     goto LAB_0036775c;
+//                                 }
+//                                 setDefaultMainColorMode(this, 1);
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = 1;
+//                             } else {
+//                                 if (m_objectID < 0x695)
+//                                     goto LAB_00367220;
+//                                 if (m_objectID < 0x6a1)
+//                                     goto LAB_00365888;
+//                             }
+//                         } else {
+//                             if (m_objectID == 0x6b4)
+//                                 goto LAB_00366478;
+//                             if (m_objectID < 0x6b5) {
+//                                 if (m_objectID == 0x6a8) {
+//                                     m_objectID = 0x25;
+//                                 LAB_00365fd0:
+//                                     m_objectType = m_objectID;
+//                                     m_hasAudioScale = true;
+//                                     m_spriteWidthScale = 1.2;
+//                                     m_spriteHeightScale = 1.2;
+//                                     m_defaultZOrder = 0xc;
+//                                     m_defaultZLayer = 3;
+//                                     setDefaultMainColorMode(this, 0);
+//                                     if ((m_inLevelEditor == false) &&
+//                                        (pCVar2 = createAndAddParticle(this, m_objectType, "ringEffect.plist", 4,
+//                                                                       kCCPositionTypeGrouped),
+//                                         pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                                         (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                         if (m_objectID == 0x6a8) {
+//                                             memset(&local_3c, 0, 0x10);
+//                                             local_3c.y = 1.0;
+//                                         } else {
+//                                             memset(&local_3c, 0, 0x10);
+//                                             local_3c.x = 1.0;
+//                                         }
+//                                         local_30 = 1.0;
+//                                         (*pcVar12)(pCVar2, &local_3c);
+//                                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                         memset(&local_3c, 0, 0x10);
+//                                         local_30 = 1.0;
+//                                         (*pcVar12)(pCVar2, &local_3c);
+//                                     }
+//                                 } else if (m_objectID < 0x6a8) {
+//                                     m_objectType = 2;
+//                                     m_defaultZOrder = 1;
+//                                     m_useGlowBGColor = true;
+//                                     m_objectRadius = 6.0;
+//                                 } else if (0x6ae < m_objectID)
+//                                     goto LAB_00366314;
+//                             } else {
+//                                 if (0x6b9 < m_objectID)
+//                                     goto LAB_00366478;
+//                                 if (m_objectID < 0x6b7) {
+//                                     if (m_objectID == 0x6b5)
+//                                         goto LAB_003675d0;
+//                                     if (m_objectID == 0x6b6)
+//                                         goto LAB_003675ec;
+//                                 } else {
+//                                 LAB_00366314:
+//                                     m_objectType = 2;
+//                                     m_spriteHeightScale = 0.4;
+//                                     m_spriteWidthScale = 0.3;
+//                                     if ((m_objectID == 9) || (m_objectID == 0x6b3)) {
+//                                         pcVar12 = (code *)this->vtable->cocos2d_CCSprite_setDisplayFrame;
+//                                         uVar3 = cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache();
+//                                         m_objectID = rand();
+//                                         fVar15 = (float)FixedToFP(m_objectID, 0x20, 0x20, 0x1f, 0, 0);
+//                                         m_objectID = lroundf(fVar15 + fVar15);
+//                                         pCVar4 = (CCString *)
+//                                             cocos2d::CCString::createWithFormat("pit_%02d_001.png", m_objectID + 1);
+//                                         uVar5 = cocos2d::CCString::getCString(pCVar4);
+//                                         uVar3 = cocos2d::CCSpriteFrameCache::spriteFrameByName(uVar3, uVar5);
+//                                         (*pcVar12)(this, uVar3);
+//                                     } else if (m_objectID == 0x87) {
+//                                         m_objectID = rand();
+//                                         fVar15 = (float)FixedToFP(m_objectID, 0x20, 0x20, 0x1f, 0, 0);
+//                                         m_objectID = lroundf(fVar15 * 3.0);
+//                                         iVar8 = m_objectID + 1;
+//                                         if (iVar8 == DAT_00aaf010) {
+//                                             iVar8 = m_objectID + 2;
+//                                         }
+//                                         pcVar12 = (code *)this->vtable->cocos2d_CCSprite_setDisplayFrame;
+//                                         if (4 < iVar8) {
+//                                             iVar8 = 1;
+//                                         }
+//                                         uVar3 = cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache();
+//                                         pCVar4 = (CCString *)
+//                                             cocos2d::CCString::createWithFormat("pit_b_%02d_001.png", iVar8);
+//                                         uVar5 = cocos2d::CCString::getCString(pCVar4);
+//                                         uVar3 = cocos2d::CCSpriteFrameCache::spriteFrameByName(uVar3, uVar5);
+//                                         (*pcVar12)(this, uVar3);
+//                                         DAT_00aaf010 = iVar8;
+//                                     }
+                                    
+//                                     if (m_objectID == 0xf4) {
+//                                     LAB_00366458:
+//                                         cocos2d::CCPoint::CCPoint(&local_3c, 5.0, 0.0);
+//                                         cocos2d::CCPoint::operator=(&m_customBoxOffset, &local_3c);
+//                                         m_spriteWidthScale = 0.2;
+//                                     } else if (m_objectID < 0xf5) {
+//                                         if (m_objectID == 0xf3) {
+//                                         LAB_003663fa:
+//                                             cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                             cocos2d::CCPoint::operator=(&m_customBoxOffset, &local_3c);
+//                                             m_spriteWidthScale = 0.2;
+//                                         }
+//                                     } else {
+//                                         if (m_objectID == 0x6b8)
+//                                             goto LAB_003663fa;
+//                                         if (m_objectID == 0x6b9)
+//                                             goto LAB_00366458;
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     } else if (m_objectID < 0x6d7) {
+//                         if (0x6d4 < m_objectID)
+//                             goto LAB_0036757e;
+//                         if (m_objectID < 0x6cf) {
+//                             if (0x6c8 < m_objectID)
+//                                 goto LAB_0036730e;
+//                             if (m_objectID < 0x6c2) {
+//                                 if (m_objectID < 0x6bd)
+//                                     goto LAB_003675ec;
+//                                 goto LAB_00366478;
+//                             }
+//                             if (m_objectID < 0x6c6)
+//                                 goto LAB_003664d6;
+//                         } else {
+//                             if (m_objectID < 0x6d3)
+//                                 goto LAB_0036757e;
+//                             m_objectType = 0x19;
+//                             m_isSolid = true;
+//                         }
+//                     } else if (m_objectID == 0x6dc) {
+//                     LAB_00365526:
+//                         setDefaultMainColorMode(this, 0x3ef);
+//                         m_objectType = 7;
+//                         m_defaultZOrder = 9;
+//                         m_defaultZLayer = 3;
+//                         if (m_objectID == 0x6dc) {
+//                             m_maybeNotColorable = true;
+//                         }
+//                     } else if (m_objectID < 0x6dd) {
+//                         if (0x6da < m_objectID)
+//                             goto LAB_003652c2;
+//                         if (m_objectID < 0x6d9) {
+//                             if (m_objectID == 0x6d7) {
+//                                 m_objectID = 0x26;
+//                                 goto LAB_00365fd0;
+//                             }
+//                         } else {
+//                         LAB_00365956:
+//                             setDefaultMainColorMode(this, 0x3ef);
+//                             m_objectType = 7;
+//                             m_defaultZOrder = 9;
+//                             m_defaultZLayer = 3;
+//                         }
+//                     } else if (m_objectID == 0x6df) {
+//                     LAB_003655be:
+//                         setDefaultMainColorMode(this, 1);
+//                         m_objectType = 7;
+//                         m_defaultZOrder = 9;
+//                         m_defaultZLayer = 1;
+//                         m_updateCustomContentSize = true;
+//                         m_width = 60.0;
+//                         m_height = 30.0;
+//                     } else {
+//                         if (m_objectID < 0x6e0) {
+//                             if (m_objectID == 0x6dd)
+//                                 goto LAB_00365956;
+//                             if (m_objectID != 0x6de)
+//                                 goto LAB_003677a4;
+//                         } else if (m_objectID != 0x6e0) {
+//                             if (m_objectID != 0x6e1)
+//                                 goto LAB_003677a4;
+//                             goto LAB_003655be;
+//                         }
+//                     LAB_00365592:
+//                         setDefaultMainColorMode(this, 1);
+//                         m_objectType = 7;
+//                         m_defaultZOrder = 9;
+//                         m_defaultZLayer = 1;
+//                         m_updateCustomContentSize = true;
+//                         m_width = 30.0;
+//                         m_height = 30.0;
+//                     }
+//                 } else if (m_objectID < 0x713) {
+//                     if (0x710 < m_objectID)
+//                         goto LAB_00367266;
+//                     if (m_objectID < 0x705) {
+//                         if (0x700 < m_objectID)
+//                             goto LAB_003671e6;
+//                         if (m_objectID < 0x6f9) {
+//                             if (0x6f4 < m_objectID) {
+//                             LAB_00367244:
+//                                 m_objectType = 7;
+//                                 m_colorZLayerRelated = true;
+//                                 m_defaultZOrder = -9;
+//                                 setDefaultMainColorMode(this, 2);
+//                                 m_maybeIsGoEffectObject = true;
+//                                 goto LAB_003677a4;
+//                             }
+//                             if (m_objectID < 0x6e9) {
+//                                 if (0x6e3 < m_objectID)
+//                                     goto LAB_003656c4;
+//                                 goto LAB_003655be;
+//                             }
+//                         } else if (0x6fc < m_objectID)
+//                             goto LAB_00367244;
+//                     LAB_003671d0:
+//                         m_objectType = 7;
+//                         m_colorZLayerRelated = true;
+//                         m_defaultZOrder = -7;
+//                         goto LAB_003677a4;
+//                     }
+//                     if (m_objectID < 0x70d) {
+//                         if (0x70a < m_objectID) {
+//                         LAB_003671e6:
+//                             m_objectType = 7;
+//                             m_defaultZOrder = -7;
+//                             m_colorZLayerRelated = true;
+//                             m_maybeIsGoEffectObject = true;
+//                             goto LAB_003677a4;
+//                         }
+//                         if (m_objectID < 0x707) {
+//                         LAB_00365888:
+//                             setDefaultMainColorMode(this, 0x3ec);
+//                             m_objectType = 7;
+//                             m_defaultZOrder = 9;
+//                             m_defaultZLayer = 3;
+//                             goto LAB_003677a4;
+//                         }
+//                     } else if (0x70e < m_objectID)
+//                         goto LAB_003671e6;
+//                 LAB_00367266:
+//                     m_objectType = 7;
+//                     m_colorZLayerRelated = true;
+//                     m_defaultZOrder = -9;
+//                     setDefaultMainColorMode(this, 2);
+//                     m_maybeIsGoEffectObject = true;
+//                 } else if (m_objectID < 0x725) {
+//                     if (m_objectID < 0x71f) {
+//                         if (m_objectID < 0x718) {
+//                             if ((m_objectID < 0x716) && (0x714 < m_objectID))
+//                                 goto LAB_003652c2;
+//                         LAB_0036775c:
+//                             m_objectType = 0x14;
+//                             m_isInvisible = (bool)(m_inLevelEditor ^ 1);
+//                             m_width = 30.0;
+//                             m_height = 30.0;
+//                         } else if (m_objectID < 0x71c) {
+//                             if (0x718 < m_objectID)
+//                                 goto LAB_0036775c;
+//                             m_objectType = 0x27;
+//                             m_isInvisible = (bool)(m_inLevelEditor ^ 1);
+//                             m_hasSepcialChild = true;
+//                         } else if (m_objectID < 0x71e)
+//                             goto LAB_00367554;
+//                     } else {
+//                     LAB_00367554:
+//                         m_objectType = 7;
+//                         m_defaultZOrder = -7;
+//                         setDefaultMainColorMode(this, 1);
+//                     }
+//                 } else if (m_objectID < 0x739) {
+//                     if (m_objectID < 0x733) {
+//                         if (m_objectID == 0x726)
+//                             goto LAB_00365956;
+//                         if (m_objectID < 0x726) {
+//                         LAB_003652c2:
+//                             m_objectType = 0x28;
+//                             m_isInvisible = (bool)(m_inLevelEditor ^ 1);
+//                             m_hasSepcialChild = true;
+//                             flag_a = m_objectID == 0xe3d;
+//                         LAB_003652e0:
+//                             if (flag_a) {
+//                                 m_objectRadius = 15.0;
+//                             }
+//                         } else if (m_objectID - 0x72bU < 4) {
+//                             m_objectType = 7;
+//                             m_defaultZOrder = 9;
+//                             m_defaultZLayer = 3;
+//                         }
+//                     } else {
+//                     LAB_003653b8:
+//                         setDefaultMainColorMode(this, 0x3f3);
+//                         m_objectType = 7;
+//                         m_defaultZOrder = 9;
+//                         m_defaultZLayer = 3;
+//                         m_colorZLayerRelated = true;
+//                     }
+//                 } else {
+//                     if (0x75d < m_objectID)
+//                         goto LAB_00365574;
+//                     if (m_objectID < 0x745) {
+//                         iVar8 = 0x743;
+//                     LAB_003651d6:
+//                         if (m_objectID == iVar8)
+//                             goto LAB_003652c2;
+//                     } else {
+//                         m_objectType = 7;
+//                         m_defaultZOrder = -7;
+//                         m_colorZLayerRelated = true;
+//                         setDefaultSecondaryColorMode(this, 0x3f3);
+//                     }
+//                 }
+//             }
+//         } else {
+//         LAB_00367324:
+//             m_objectType = 7;
+//             m_defaultZOrder = -4;
+//             m_isTintObject = true;
+//         }
+//     } else if (m_objectID == 0xbd8) {
+//         m_objectType = 7;
+//         m_isInvisible = (bool)(m_inLevelEditor ^ 1);
+//     } else if (m_objectID < 0xbd9) {
+//         if (m_objectID == 0xa83)
+//             goto LAB_00365294;
+//         if (m_objectID < 0xa84) {
+//             if (m_objectID == 0x810) {
+//             LAB_00366e30:
+//                 m_defaultZOrder = 10;
+//                 m_objectType = 7;
+//                 m_isTeleportObject = m_objectID == 0x2ed;
+//                 m_isPortalObject = true;
+//                 m_defaultZLayer = 5;
+//                 m_zFixedZLayer = true;
+//                 if (m_inLevelEditor == false) {
+//                     pCVar2 = createAndAddParticle(this, 7, "portalEffect02.plist", 4, kCCPositionTypeGrouped);
+//                     cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                     cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                     if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                         (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                         memset(&local_3c, 0, 0x10);
+//                         local_30 = 1.0;
+//                         local_3c.x = 1.0;
+//                         local_3c.y = 0.78431374;
+//                         (*pcVar12)(pCVar2, &local_3c);
+//                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                         memset(&local_3c, 0, 0x10);
+//                         local_30 = 1.0;
+//                         local_3c.x = 1.0;
+//                         local_3c.y = 0.39215687;
+//                         (*pcVar12)(pCVar2, &local_3c);
+//                     }
+//                 }
+//             } else if (m_objectID < 0x811) {
+//                 if (m_objectID < 0x789) {
+//                     if (m_objectID < 0x782) {
+//                         if (m_objectID < 0x776) {
+//                             if (0x773 < m_objectID)
+//                                 goto LAB_003670ea;
+//                             if (m_objectID < 0x76f) {
+//                                 setDefaultMainColorMode(this, 1);
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = 9;
+//                                 m_defaultZLayer = 3;
+//                             } else if (0x771 < m_objectID)
+//                                 goto LAB_0036757e;
+//                         } else if (0x777 < m_objectID) {
+//                             if (m_objectID < 0x77e)
+//                                 goto LAB_0036775c;
+//                             if (0x77e < m_objectID) {
+//                                 setDefaultMainColorMode(this, 1);
+//                                 m_colorZLayerRelated = true;
+//                                 m_objectType = 7;
+//                                 m_defaultZOrder = -5;
+//                                 m_defaultZLayer = 3;
+//                             }
+//                         }
+//                     } else {
+//                         setDefaultMainColorMode(this, 1);
+//                         m_objectType = 7;
+//                         m_defaultZOrder = 10;
+//                         m_defaultZLayer = 3;
+//                         m_colorZLayerRelated = true;
+//                     }
+//                 } else {
+//                     if (m_objectID == 0x7ac)
+//                         goto LAB_003656c4;
+//                     if (m_objectID < 0x7ad) {
+//                         if (m_objectID == 0x78d) {
+//                             m_defaultZOrder = 10;
+//                             m_objectType = 0x29;
+//                             m_defaultZLayer = 5;
+//                             m_zFixedZLayer = true;
+//                             m_isPortalObject = true;
+//                             if (m_inLevelEditor == false) {
+//                                 pCVar2 = createAndAddParticle(this, 0x29, "portalEffect02.plist", 4, kCCPositionTypeGrouped);
+//                                 cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                                 if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.x = 1.0;
+//                                     local_3c.y = 1.0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.x = 1.0;
+//                                     local_3c.y = 0.78431374;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                 }
+//                             }
+//                         } else if (m_objectID < 0x78e) {
+//                             if (0x78a < m_objectID)
+//                                 goto LAB_0036775c;
+//                         } else if (m_objectID < 0x790)
+//                             goto LAB_0036775c;
+//                     } else if (m_objectID < 0x7e1) {
+//                         if (0x7de < m_objectID)
+//                             goto LAB_0036775c;
+//                         if (m_objectID == 0x7dc)
+//                             goto LAB_00365976;
+//                     } else {
+//                         if (m_objectID == 0x80e)
+//                             goto LAB_0036775c;
+//                         if (m_objectID == 0x80f) {
+//                             m_objectType = 0x14;
+//                             m_width = 30.0;
+//                             m_height = 30.0;
+//                             m_isPortalObject = true;
+//                             m_defaultZLayer = 3;
+//                         }
+//                     }
+//                 }
+//             } else {
+//                 if (m_objectID < 0xa2d) {
+//                     if (m_objectID < 0x8c7) {
+//                         if (m_objectID < 0x8b6) {
+//                             if (m_objectID < 0x8b0) {
+//                                 if (m_objectID == 0x815)
+//                                     goto LAB_003652c2;
+//                                 if (m_objectID < 0x816) {
+//                                     if (0x811 < m_objectID)
+//                                         goto LAB_0036775c;
+//                                 } else if (m_objectID < 0x8af)
+//                                     goto LAB_00365294;
+//                                 goto LAB_003677a4;
+//                             }
+//                         } else {
+//                             if (m_objectID < 0x8bd)
+//                                 goto LAB_003652ee;
+//                             if (0x8c5 < m_objectID)
+//                                 goto LAB_003677a4;
+//                         }
+//                     }
+//                     goto LAB_00365294;
+//                 }
+//                 if (m_objectID == 0xa4b) {
+//                     setDefaultMainColorMode(this, 1);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 9;
+//                     m_defaultZLayer = 3;
+//                     m_colorZLayerRelated = true;
+//                     setupPixelScale(this);
+//                 } else if (m_objectID < 0xa4c) {
+//                     if ((0xa2d < m_objectID) && ((m_objectID < 0xa45 || (0xa46 < m_objectID))))
+//                         goto LAB_00365294;
+//                 } else {
+//                     if (m_objectID != 0xa80) {
+//                         if ((m_objectID < 0xa80) || (m_objectID == 0xa81))
+//                             goto LAB_00365294;
+//                         if (m_objectID != 0xa82)
+//                             goto LAB_003677a4;
+//                     }
+//                 LAB_00365344:
+//                     setDefaultMainColorMode(this, 1);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 10;
+//                     m_defaultZLayer = 3;
+//                     m_colorZLayerRelated = true;
+//                     m_maybeNotColorable = true;
+//                     setupPixelScale(this);
+//                 }
+//             }
+//         } else if (m_objectID < 0xb66) {
+//             if (0xb5c < m_objectID)
+//                 goto LAB_0036775c;
+//             if (m_objectID < 0xb30) {
+//                 if (m_objectID < 0xb24) {
+//                     if (m_objectID < 0xa91) {
+//                         if (m_objectID < 0xa8f) {
+//                             if (m_objectID != 0xa85) {
+//                                 if (m_objectID < 0xa85)
+//                                     goto LAB_00365344;
+//                                 if (5 < m_objectID - 0xa87U)
+//                                     goto LAB_003677a4;
+//                             }
+//                             goto LAB_00365294;
+//                         }
+//                     } else if (m_objectID != 0xad5) {
+//                         if (m_objectID < 0xad6) {
+//                             if (m_objectID - 0xa94U < 0x3f)
+//                                 goto LAB_003656ea;
+//                         } else if (0xad7 < m_objectID)
+//                             goto LAB_003656ea;
+//                         goto LAB_003677a4;
+//                     }
+//                 LAB_003656ea:
+//                     setDefaultMainColorMode(this, 1);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = -5;
+//                     m_defaultZLayer = 1;
+//                     m_colorZLayerRelated = true;
+//                 } else {
+//                     setDefaultMainColorMode(this, 1);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = -2;
+//                     m_defaultZLayer = 1;
+//                     m_colorZLayerRelated = true;
+//                 }
+//             } else if (m_objectID < 0xb56) {
+//                 if (0xb52 < m_objectID)
+//                     goto LAB_0036775c;
+//                 if (m_objectID == 0xb32)
+//                     goto LAB_003652c2;
+//                 if ((0xb31 < m_objectID) && (m_objectID - 0xb4fU < 3)) {
+//                     setDefaultMainColorMode(this, 0x3f3);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = -5;
+//                     m_defaultZLayer = 1;
+//                 }
+//             } else if (m_objectID < 0xb5a) {
+//                 if (0xb57 < m_objectID)
+//                     goto LAB_0036775c;
+//                 if (m_objectID == 0xb56)
+//                     goto LAB_00366d30;
+//                 if (m_objectID == 0xb57) {
+//                     m_objectType = 0x14;
+//                     m_isInvisible = (bool)(m_inLevelEditor ^ 1);
+//                     m_width = 30.0;
+//                     m_height = 30.0;
+//                     m_defaultZOrder = 0;
+//                 }
+//             } else {
+//                 iVar8 = 0xb5b;
+//             LAB_0036441e:
+//                 flag_a = m_objectID == iVar8;
+//             LAB_00364420:
+//                 if (flag_a)
+//                     goto LAB_0036775c;
+//             }
+//         } else if (m_objectID < 2999) {
+//             if (m_objectID < 0xbab) {
+//                 if (m_objectID < 0xb91) {
+//                     if (m_objectID < 0xb7f) {
+//                         if (m_objectID == 0xb6e) {
+//                             m_defaultZOrder = 10;
+//                             m_objectType = 0x2a;
+//                             m_defaultZLayer = 5;
+//                             m_zFixedZLayer = true;
+//                             m_isPortalObject = true;
+//                             if (m_inLevelEditor == false) {
+//                                 pCVar2 = createAndAddParticle(this, 0x2a, "portalEffect02.plist", 4, kCCPositionTypeGrouped);
+//                                 if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.y = 1.0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                                     memset(&local_3c, 0, 0x10);
+//                                     local_30 = 1.0;
+//                                     local_3c.y = 1.0;
+//                                     (*pcVar12)(pCVar2, &local_3c);
+//                                 }
+//                                 cocos2d::CCPoint::CCPoint(&local_3c, -5.0, 0.0);
+//                                 cocos2d::CCPoint::operator=(&m_ParticlePostion, &local_3c);
+//                             }
+//                         } else {
+//                             if (0xb6e < m_objectID)
+//                                 goto LAB_003656ea;
+//                             if (0xb66 < m_objectID)
+//                                 goto LAB_0036775c;
+//                         }
+//                     } else {
+//                         setDefaultMainColorMode(this, 1);
+//                         m_objectType = 7;
+//                         m_defaultZOrder = -5;
+//                         m_defaultZLayer = -1;
+//                         m_colorZLayerRelated = true;
+//                     }
+//                 } else if (m_objectID < 0xb9d) {
+//                     setDefaultMainColorMode(this, 2);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 0;
+//                     m_defaultZLayer = 1;
+//                     m_colorZLayerRelated = true;
+//                 } else {
+//                     setDefaultMainColorMode(this, 0x3ec);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 5;
+//                     m_defaultZLayer = 1;
+//                     m_colorZLayerRelated = true;
+//                 }
+//             } else {
+//                 setDefaultMainColorMode(this, 1);
+//                 m_objectType = 7;
+//                 m_defaultZOrder = 5;
+//                 m_defaultZLayer = 1;
+//                 m_colorZLayerRelated = true;
+//             }
+//         } else if (m_objectID < 0xbc8) {
+//             if (m_objectID < 0xbbe) {
+//                 if (m_objectID == 0xbbc) {
+//                     m_objectType = 0x2b;
+//                     m_hasAudioScale = true;
+//                     m_spriteWidthScale = 1.2;
+//                     m_spriteHeightScale = 1.2;
+//                     m_defaultZOrder = 0xc;
+//                     m_defaultZLayer = 3;
+//                     setDefaultMainColorMode(this, 0);
+//                     if ((m_inLevelEditor == false) &&
+//                        (pCVar2 = createAndAddParticle(this, m_objectID, "ringEffect.plist", 4,
+//                                                       kCCPositionTypeGrouped),
+//                         pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                         (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                         memset(&local_3c, 0, 0x10);
+//                         local_30 = 1.0;
+//                         local_3c.x = 1.0;
+//                         local_34 = 1.0;
+//                         (*pcVar12)(pCVar2, &local_3c);
+//                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                         memset(&local_3c, 0, 0x10);
+//                         local_30 = 1.0;
+//                         local_34 = 1.0;
+//                         local_3c.x = 0.39215687;
+//                         local_3c.y = 0.09803922;
+//                         (*pcVar12)(pCVar2, &local_3c);
+//                     }
+//                 } else {
+//                     if (m_objectID < 0xbbd) {
+//                         iVar8 = 2999;
+//                         goto LAB_0036441e;
+//                     }
+//                     m_objectType = 0x2c;
+//                     m_defaultZOrder = 0xc;
+//                     m_defaultZLayer = 3;
+//                     if ((m_inLevelEditor == false) &&
+//                        (pCVar2 = createAndAddParticle(this, 0xbbd, "bumpEffect.plist", 0, kCCPositionTypeGrouped),
+//                         pCVar2 != (CCParticleSystemQuad *)0x0)) {
+//                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                         memset(&local_3c, 0, 0x10);
+//                         local_30 = 1.0;
+//                         local_3c.x = 1.0;
+//                         local_34 = 1.0;
+//                         (*pcVar12)(pCVar2, &local_3c);
+//                         pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                         memset(&local_3c, 0, 0x10);
+//                         local_30 = 1.0;
+//                         local_34 = 1.0;
+//                         local_3c.x = 0.39215687;
+//                         local_3c.y = 0.09803922;
+//                         (*pcVar12)(pCVar2, &local_3c);
+//                     }
+//                 }
+//             } else {
+//                 m_isInvisible = (bool)(m_inLevelEditor ^ 1);
+//                 m_width = 30.0;
+//                 m_height = 30.0;
+//             }
+//         } else if (m_objectID == 0xbd3) {
+//             m_objectType = 0x2e;
+//             m_hasAudioScale = true;
+//             m_spriteWidthScale = 1.2;
+//             m_spriteHeightScale = 1.2;
+//             m_defaultZOrder = 0xc;
+//             m_defaultZLayer = 3;
+//             setDefaultMainColorMode(this, 0x3f3);
+//             if (m_inLevelEditor == false) {
+//                 pCVar2 = createAndAddParticle(this, m_objectType, "ringEffect.plist", 4,
+//                                               kCCPositionTypeGrouped);
+//                 if (pCVar2 != (CCParticleSystemQuad *)0x0) {
+//                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setRadialAccel)(pCVar2, 0);
+//                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setRadialAccelVar)(pCVar2, 0);
+//                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setRotatePerSecond)(pCVar2, 0);
+//                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setRotatePerSecondVar)(pCVar2, 0);
+//                     (*(code *)pCVar2->vtable->cocos2d_CCParticleSystem_setPositionType)(pCVar2, 2);
+//                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setStartColor;
+//                     memset(&local_3c, 0, 0x10);
+//                     local_30 = 1.0;
+//                     local_3c.x = 1.0;
+//                     local_3c.y = 0.5882353;
+//                     (*pcVar12)(pCVar2, &local_3c);
+//                     pcVar12 = (code *)pCVar2->vtable->cocos2d_CCParticleSystem_setEndColor;
+//                     memset(&local_3c, 0, 0x10);
+//                 LAB_00365cc4:
+//                     local_30 = 1.0;
+//                     local_3c.x = 1.0;
+//                     (*pcVar12)(pCVar2, &local_3c);
+//                 }
+//             UPDATE_PARTICLECOLOR:
+//                 m_particleUseObjectColor = true;
+//                 m_hasColorSprite = true;
+//             }
+//         } else if (m_objectID < 0xbd4) {
+//             if (m_objectID < 0xbd1)
+//                 goto LAB_0036775c;
+//         } else if (0xbd4 < m_objectID)
+//             goto LAB_0036775c;
+//     } else {
+//         if (m_objectID == 0xe11)
+//             goto LAB_0036760a;
+//         if (0xe11 < m_objectID) {
+//             if (m_objectID == 0xed1) {
+//             LAB_003652ee:
+//                 setDefaultMainColorMode(this, 1);
+//                 m_objectType = 7;
+//                 m_defaultZOrder = 10;
+//                 m_defaultZLayer = 3;
+//                 m_colorZLayerRelated = true;
+//                 m_maybeNotColorable = true;
+//                 setupPixelScale(this);
+//                 goto LAB_003677a4;
+//             }
+//             if (0xed1 < m_objectID) {
+//                 if (0x10d9 < m_objectID) {
+//                     if (m_objectID < 0x10e9) {
+//                         if ((m_objectID < 0x10e3) && (0x10df < m_objectID))
+//                             goto LAB_003652ee;
+//                     } else {
+//                         if (0x112f < m_objectID) {
+//                             if (m_objectID - 0x1131U < 0x8b) {
+//                                 commonInteractiveSetup(this);
+//                                 m_width = 30.0;
+//                                 m_height = 30.0;
+//                                 m_updateCustomContentSize = true;
+//                             }
+//                             goto LAB_003677a4;
+//                         }
+//                         if (m_objectID < 0x10ec)
+//                             goto LAB_003652ee;
+//                     }
+//                     goto LAB_00365294;
+//                 }
+//                 if (0x10d4 < m_objectID)
+//                     goto LAB_003652ee;
+//                 if (m_objectID < 0x1073) {
+//                     if ((3999 < m_objectID) || (m_objectID < 0xed8))
+//                         goto LAB_00365294;
+//                     if (0xed8 < m_objectID)
+//                         goto LAB_0036539a;
+//                 } else if ((0x1073 < m_objectID) && ((m_objectID < 0x10cc || (0x10cc < m_objectID))))
+//                     goto LAB_00365294;
+//                 goto LAB_003677a4;
+//             }
+//             if (m_objectID < 0xe3b) {
+//                 if (m_objectID < 0xe38) {
+//                     if (m_objectID < 0xe20) {
+//                         if ((m_objectID < 0xe1c) && (0xe19 < m_objectID)) {
+//                             setDefaultMainColorMode(this, 0x3f3);
+//                             m_objectType = 2;
+//                             m_defaultZOrder = 10;
+//                             m_defaultZLayer = 5;
+//                             m_hasSepcialChild = true;
+//                             flag_a = m_objectID == 0xe1b;
+//                             goto LAB_003652e0;
+//                         }
+//                     } else {
+//                         if (m_objectID < 0xe21)
+//                             goto LAB_003677a4;
+//                         if (0xe24 < m_objectID)
+//                             goto LAB_003656c4;
+//                     }
+//                 }
+//             } else {
+//                 if (m_objectID < 0xe4c) {
+//                     if (m_objectID < 0xe48) {
+//                         if (0xe46 < m_objectID)
+//                             goto LAB_0036775c;
+//                         if (m_objectID < 0xe3e) {
+//                             if (m_objectID != 0xe3b) {
+//                                 iVar8 = 0xe3d;
+//                                 goto LAB_003651d6;
+//                             }
+//                             m_objectType = 0x24;
+//                             m_isInvisible = (bool)(m_inLevelEditor ^ 1);
+//                             m_width = 30.0;
+//                             m_height = 30.0;
+//                             goto LAB_003677a4;
+//                         }
+//                     }
+//                 LAB_0036539a:
+//                     setDefaultMainColorMode(this, 1);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 9;
+//                     m_defaultZLayer = 3;
+//                     goto LAB_003677a4;
+//                 }
+//                 if (0xe4e < m_objectID) {
+//                     if (0xe73 < m_objectID)
+//                         goto LAB_00365294;
+//                     goto LAB_003677a4;
+//                 }
+//             }
+//             goto LAB_0036775c;
+//         }
+//         if (m_objectID < 0xc1a) {
+//             if (0xc13 < m_objectID)
+//                 goto LAB_00365294;
+//             if (m_objectID < 0xbfb) {
+//                 if (m_objectID < 0xbee) {
+//                     if (m_objectID < 0xbea) {
+//                         if (m_objectID < 0xbe2) {
+//                             if (0xbdd < m_objectID)
+//                                 goto LAB_003657ae;
+//                             if (m_objectID < 0xbda)
+//                                 goto LAB_0036775c;
+//                             setDefaultMainColorMode(this, 1);
+//                             m_defaultZOrder = 5;
+//                             m_defaultZLayer = 1;
+//                             m_objectType = 2;
+//                             m_spriteWidthScale = 0.2;
+//                             m_spriteHeightScale = 0.4;
+//                         } else {
+//                             setDefaultMainColorMode(this, 1);
+//                             m_objectType = 7;
+//                             m_defaultZOrder = 8;
+//                             m_defaultZLayer = 1;
+//                         }
+//                     } else if (m_objectID == 0xbeb) {
+//                     LAB_003657ae:
+//                         setDefaultMainColorMode(this, 2);
+//                         m_objectType = 7;
+//                         m_defaultZOrder = 6;
+//                         m_defaultZLayer = 1;
+//                     } else {
+//                         if (m_objectID < 0xbeb)
+//                             goto LAB_00365790;
+//                         if (m_objectID == 0xbec) {
+//                             setDefaultMainColorMode(this, 1);
+//                             m_objectType = 7;
+//                             m_defaultZOrder = 7;
+//                             m_defaultZLayer = 1;
+//                         } else if (m_objectID == 0xbed)
+//                             goto LAB_003657e6;
+//                     }
+//                 } else {
+//                 LAB_00365790:
+//                     setDefaultMainColorMode(this, 1);
+//                     m_objectType = 7;
+//                     m_defaultZOrder = 5;
+//                     m_defaultZLayer = 1;
+//                 }
+//             } else if (m_objectID == 0xc0e) {
+//             LAB_00365804:
+//                 setDefaultMainColorMode(this, 1);
+//                 m_objectType = 7;
+//                 m_defaultZOrder = 8;
+//                 m_defaultZLayer = 1;
+//                 m_colorZLayerRelated = true;
+//             } else {
+//                 if (m_objectID < 0xc0f) {
+//                     if (m_objectID < 0xc08)
+//                         goto LAB_003657ae;
+//                 } else if (m_objectID != 0xc11) {
+//                     if (m_objectID < 0xc12) {
+//                         if (m_objectID == 0xc0f)
+//                             goto LAB_003657e6;
+//                         if (m_objectID == 0xc10)
+//                             goto LAB_00365804;
+//                     } else {
+//                         if (m_objectID == 0xc12)
+//                             goto LAB_00365790;
+//                         if (m_objectID == 0xc13)
+//                             goto LAB_003657ae;
+//                     }
+//                     goto LAB_003677a4;
+//                 }
+//             LAB_003657e6:
+//                 setDefaultMainColorMode(this, 2);
+//                 m_objectType = 7;
+//                 m_defaultZOrder = 8;
+//                 m_defaultZLayer = 1;
+//             }
+//             goto LAB_003677a4;
+//         }
+//         if (0xd99 < m_objectID) {
+//             if (m_objectID < 0xdd6) {
+//                 if (0xdd3 < m_objectID)
+//                     goto LAB_003652ee;
+//                 if ((0xd9c < m_objectID) && ((m_objectID < 0xda4 || (0xda5 < m_objectID))))
+//                     goto LAB_00365294;
+//             } else {
+//                 if (0xe0f < m_objectID)
+//                     goto LAB_0036775c;
+//                 if (0xdd7 < m_objectID)
+//                     goto LAB_00365294;
+//                 setDefaultMainColorMode(this, 2);
+//                 m_objectType = 7;
+//                 m_defaultZOrder = 0xb;
+//                 m_defaultZLayer = 3;
+//                 m_maybeNotColorable = false;
+//                 setupPixelScale(this);
+//             }
+//             goto LAB_003677a4;
+//         }
+//         if (m_objectID < 0xd4a) {
+//             if (m_objectID < 0xce7) {
+//                 if ((0xc93 < m_objectID) ||
+//                    ((0xc1c < m_objectID && ((m_objectID < 0xc2f || (m_objectID - 0xc32U < 0x61))))))
+//                     goto LAB_00365294;
+//             } else if (0xce8 < m_objectID) {
+//                 if (0xd45 < m_objectID)
+//                     goto LAB_00365344;
+//                 goto LAB_00365294;
+//             }
+//         } else {
+//         LAB_00365294:
+//             setDefaultMainColorMode(this, 1);
+//             m_objectType = 7;
+//             m_defaultZOrder = 9;
+//             m_defaultZLayer = 3;
+//             m_colorZLayerRelated = true;
+//             m_maybeNotColorable = true;
+//             setupPixelScale(this);
+//         }
+//     }
+// LAB_003677a4:
+    
+//     if (m_objectID < 0x78d) {
+//         if (m_objectID < 0x78b) {
+//             if (m_objectID < 0x3f0) {
+//                 if ((m_objectID < 0x3ee) && (m_objectID != 0xdd)) {
+//                     if (m_objectID < 0xde) {
+//                         if (m_objectID != 0x2c) {
+//                             if (m_objectID < 0x2d) {
+//                                 bVar14 = 0xb < m_objectID - 0x16U;
+//                                 flag_a = m_objectID - 0x16U == 0xc;
+//                                 goto LAB_00367972;
+//                             }
+//                             if (m_objectID < 0x37)
+//                                 goto LAB_0036797a;
+//                             if (0x3b < m_objectID) {
+//                                 flag_a = m_objectID == 0x69;
+//                                 goto LAB_00367904;
+//                             }
+//                         }
+//                     } else if (m_objectID < 0x2e9) {
+//                         if (m_objectID < 0x2e7) {
+//                             iVar8 = m_objectID + -0x2cd;
+//                         LAB_00367890:
+//                             bVar14 = iVar8 != 0;
+//                             flag_a = iVar8 == 1;
+//                             goto LAB_00367972;
+//                         }
+//                     } else {
+//                         if (m_objectID < 899)
+//                             goto LAB_0036797a;
+//                         if (0x385 < m_objectID) {
+//                             iVar8 = 0x393;
+//                             goto LAB_00367902;
+//                         }
+//                     }
+//                 }
+//             } else if (m_objectID < 0x64e) {
+//                 if (m_objectID < 0x64b) {
+//                     if (m_objectID < 0x544) {
+//                         if ((m_objectID < 0x542) && (m_objectID != 0x419)) {
+//                             iVar8 = 0x4f4;
+//                         LAB_00367902:
+//                             flag_a = m_objectID == iVar8;
+//                         LAB_00367904:
+//                             if (!flag_a)
+//                                 goto LAB_0036797a;
+//                         }
+//                     } else if ((m_objectID != 0x631) && (m_objectID != 0x63b)) {
+//                         flag_a = m_objectID == 0x5f0;
+//                         goto LAB_00367904;
+//                     }
+//                 }
+//             } else {
+//                 if (0x71b < m_objectID) {
+//                     bVar14 = 4 < m_objectID - 0x778U;
+//                     flag_a = m_objectID - 0x778U == 5;
+//                     goto LAB_00367972;
+//                 }
+//                 if ((m_objectID < 0x716) && (m_objectID != 0x650)) {
+//                     if (0x64f < m_objectID) {
+//                         iVar8 = m_objectID + -0x713;
+//                         goto LAB_00367890;
+//                     }
+//                     goto LAB_0036797a;
+//                 }
+//             }
+//         }
+//     LAB_00367974:
+//         m_isPortalObject = true;
+//     } else {
+//         if (m_objectID == 2999)
+//             goto LAB_00367974;
+//         if (m_objectID < 3000) {
+//             if (m_objectID < 0xb56) {
+//                 if (m_objectID < 0xb53) {
+//                     if (m_objectID < 0x7e1) {
+//                         if (m_objectID < 0x7df) {
+//                             iVar8 = m_objectID + -0x78e;
+//                             goto LAB_00367890;
+//                         }
+//                     } else if (m_objectID != 0x80e) {
+//                         if (0x80d < m_objectID) {
+//                             iVar8 = -0x811;
+//                             goto LAB_0036795e;
+//                         }
+//                         goto LAB_0036797a;
+//                     }
+//                 }
+//             } else {
+//                 if (0xb65 < m_objectID) {
+//                     bVar14 = 5 < m_objectID - 0xb67U;
+//                     flag_a = m_objectID - 0xb67U == 6;
+//                     goto LAB_00367972;
+//                 }
+//                 if (m_objectID < 0xb5d) {
+//                     if (m_objectID < 0xb57)
+//                         goto LAB_0036797a;
+//                     if (0xb59 < m_objectID) {
+//                         iVar8 = 0xb5b;
+//                         goto LAB_00367902;
+//                     }
+//                 }
+//             }
+//             goto LAB_00367974;
+//         }
+//         if (m_objectID < 0xe20) {
+//             if (m_objectID < 0xe1c) {
+//                 if (m_objectID < 0xbda) {
+//                     if (m_objectID < 0xbd5) {
+//                         bVar14 = 0x11 < m_objectID - 0xbbeU;
+//                         flag_a = m_objectID - 0xbbeU == 0x12;
+//                         goto LAB_00367972;
+//                     }
+//                 } else if (m_objectID != 0xe10) {
+//                     if (m_objectID < 0xe10)
+//                         goto LAB_0036797a;
+//                     bVar14 = 6 < m_objectID - 0xe12U;
+//                     flag_a = m_objectID - 0xe12U == 7;
+//                     goto LAB_00367972;
+//                 }
+//             }
+//             goto LAB_00367974;
+//         }
+//         if (0xe3b < m_objectID) {
+//             if (m_objectID != 0xe47) {
+//                 if (m_objectID < 0xe47)
+//                     goto LAB_0036797a;
+//                 bVar14 = 1 < m_objectID - 0xe4cU;
+//                 flag_a = m_objectID - 0xe4cU == 2;
+//                 goto LAB_00367972;
+//             }
+//             goto LAB_00367974;
+//         }
+//         if (0xe37 < m_objectID)
+//             goto LAB_00367974;
+//         iVar8 = -0xe21;
+//     LAB_0036795e:
+//         bVar14 = 2 < (uint)(m_objectID + iVar8);
+//         flag_a = m_objectID + iVar8 == 3;
+//     LAB_00367972:
+//         if (!bVar14 || flag_a)
+//             goto LAB_00367974;
+//     }
+// LAB_0036797a:
+//     if (m_objectID < 0x3f0) {
+//         if (0x3ed < m_objectID)
+//             goto LAB_00367cf4;
+//         if (m_objectID == 0x15f) {
+//         LAB_00367d14:
+//             m_width = 60.0;
+//         LAB_00367d1c:
+//             m_height = 30.0;
+//         } else {
+//             if (m_objectID < 0x160) {
+//                 if (m_objectID != 0x54) {
+//                     if (m_objectID < 0x55) {
+//                         if (0x2f < m_objectID) {
+//                             if (m_objectID < 0x4f) {
+//                                 if (m_objectID < 0x45) {
+//                                     if (m_objectID < 0x37)
+//                                         goto LAB_00367d34;
+//                                     if (0x3b < m_objectID) {
+//                                         flag_a = m_objectID == 0x43;
+//                                         goto LAB_00367b2e;
+//                                     }
+//                                     goto LAB_00367cf4;
+//                                 }
+//                             } else {
+//                                 bVar14 = 1 < m_objectID - 0x50U;
+//                                 flag_a = m_objectID - 0x50U == 2;
+//                             LAB_00367a28:
+//                                 if (bVar14 && !flag_a)
+//                                     goto LAB_00367d34;
+//                             }
+//                         LAB_00367d22:
+//                             m_width = 30.0;
+//                             goto LAB_00367d1c;
+//                         }
+//                         if (m_objectID < 0x2d) {
+//                             if (m_objectID < 0x25) {
+//                                 if (m_objectID < 0x16) {
+//                                     m_objectType = m_objectID - 10;
+//                                     goto LAB_00367ccc;
+//                                 }
+//                             } else {
+//                                 flag_a = m_objectID == 0x26;
+//                             LAB_00367b2e:
+//                                 if (!flag_a)
+//                                     goto LAB_00367d34;
+//                             }
+//                         }
+//                     } else if (m_objectID != 0xdd) {
+//                         if (m_objectID < 0xde) {
+//                             if (m_objectID != 0x69) {
+//                                 if (m_objectID < 0x6a) {
+//                                     if (m_objectID != 99) {
+//                                         flag_a = m_objectID == 0x65;
+//                                         goto LAB_00367b2e;
+//                                     }
+//                                 } else if (m_objectID != 0x6f) {
+//                                     if (0x6e < m_objectID) {
+//                                         m_objectType = m_objectID - 0x8c;
+//                                         goto LAB_00367cde;
+//                                     }
+//                                     goto LAB_00367d34;
+//                                 }
+//                             }
+//                         } else {
+//                             if (0x11f < m_objectID) {
+//                                 if (m_objectID == 0x133)
+//                                     goto LAB_00367d14;
+//                                 if (m_objectID != 0x15d) {
+//                                     iVar8 = 0x131;
+//                                     goto LAB_00367a82;
+//                                 }
+//                                 goto LAB_00367d22;
+//                             }
+//                             if (m_objectID < 0x11e) {
+//                                 bVar14 = 4 < m_objectID - 0x107U;
+//                                 flag_a = m_objectID - 0x107U == 5;
+//                                 goto LAB_00367a28;
+//                             }
+//                         }
+//                     }
+//                 }
+//                 goto LAB_00367cf4;
+//             }
+//             if (m_objectID != 0x35b) {
+//                 if (m_objectID < 0x35c) {
+//                     if (m_objectID < 0x2ea) {
+//                         if ((m_objectID < 0x2e7) && (m_objectID != 0x294)) {
+//                             if (0x294 < m_objectID) {
+//                                 iVar8 = -0x2cd;
+//                                 goto LAB_00367c12;
+//                             }
+//                             if (m_objectID != 0x1d5) {
+//                                 iVar8 = 0x1d7;
+//                             LAB_00367a82:
+//                                 if (m_objectID != iVar8)
+//                                     goto LAB_00367d34;
+//                             }
+//                             goto LAB_00367d22;
+//                         }
+//                         goto LAB_00367cf4;
+//                     }
+//                     if (m_objectID < 0x351) {
+//                         if (m_objectID < 0x349) {
+//                             if (m_objectID != 0x2eb) {
+//                                 iVar8 = 0x2ed;
+//                                 goto LAB_00367b2c;
+//                             }
+//                             goto LAB_00367cf4;
+//                         }
+//                     } else if (m_objectID != 0x352) {
+//                         if (0x351 < m_objectID) {
+//                             bVar14 = 3 < m_objectID - 0x355U;
+//                             flag_a = m_objectID - 0x355U == 4;
+//                             goto LAB_00367b96;
+//                         }
+//                         goto LAB_00367d34;
+//                     }
+//                 } else if (m_objectID < 0x376) {
+//                     if (m_objectID < 0x370) {
+//                         if (m_objectID < 0x36b) {
+//                             if (0x362 < m_objectID)
+//                                 goto LAB_00367ce4;
+//                             bVar14 = 1 < m_objectID - 0x35dU;
+//                             flag_a = m_objectID - 0x35dU == 2;
+//                         } else {
+//                             bVar14 = m_objectID != 0x36d;
+//                             flag_a = m_objectID == 0x36e;
+//                         }
+//                     LAB_00367b96:
+//                         if (bVar14 && !flag_a)
+//                             goto LAB_00367d34;
+//                     }
+//                 } else {
+//                     if (0x380 < m_objectID) {
+//                         if (m_objectID < 899)
+//                             goto LAB_00367d34;
+//                         if (0x385 < m_objectID) {
+//                             iVar8 = 0x393;
+//                             goto LAB_00367b2c;
+//                         }
+//                         goto LAB_00367cf4;
+//                     }
+//                     if (m_objectID < 0x37d) {
+//                         bVar14 = 2 < m_objectID - 0x378U;
+//                         flag_a = m_objectID - 0x378U == 3;
+//                         goto LAB_00367b96;
+//                     }
+//                 }
+//             }
+//         LAB_00367ce4:
+//             m_colorZLayerRelated = true;
+//             m_defaultZOrder = -7;
+//         }
+//     } else {
+//         if (m_objectID < 0x77e) {
+//             if (0x777 < m_objectID)
+//                 goto LAB_00367cf4;
+//             if (m_objectID < 0x544) {
+//                 if (m_objectID < 0x542) {
+//                     if (m_objectID < 0x4f4) {
+//                         if (m_objectID < 0x4f2) {
+//                             if (0x489 < m_objectID) {
+//                                 bVar14 = 0xb < m_objectID - 0x4dfU;
+//                                 flag_a = m_objectID - 0x4dfU == 0xc;
+//                                 goto LAB_00367b96;
+//                             }
+//                             if (m_objectID < 0x487) {
+//                                 if (m_objectID == 0x419) {
+//                                     m_width = 30.0;
+//                                     m_height = 30.0;
+//                                     setDefaultMainColorMode(this, 0);
+//                                     m_updateCustomContentSize = true;
+//                                 } else if (m_objectID == 0x426)
+//                                     goto LAB_00367ce4;
+//                                 goto LAB_00367d34;
+//                             }
+//                         }
+//                     } else {
+//                         if (0x50a < m_objectID) {
+//                             m_objectType = m_objectID - 0x533;
+//                         LAB_00367cde:
+//                             bVar14 = 1 < m_objectType;
+//                             flag_a = m_objectType == 2;
+//                             goto LAB_00367ce0;
+//                         }
+//                         if (m_objectID < 0x4fd) {
+//                             iVar8 = 0x4f4;
+//                             goto LAB_00367b2c;
+//                         }
+//                     }
+//                     goto LAB_00367ce4;
+//                 }
+//                 goto LAB_00367cf4;
+//             }
+//             if (0x6c5 < m_objectID) {
+//                 if (0x71b < m_objectID) {
+//                     if (3 < m_objectID - 0x761U)
+//                         goto LAB_00367d34;
+//                     goto LAB_00367d2a;
+//                 }
+//                 if (m_objectID < 0x716) {
+//                     iVar8 = -0x713;
+//                 LAB_00367c12:
+//                     bVar14 = m_objectID + iVar8 != 0;
+//                     flag_a = m_objectID + iVar8 == 1;
+//                     goto LAB_00367ce0;
+//                 }
+//                 goto LAB_00367cf4;
+//             }
+//             if (m_objectID < 0x6b3) {
+//                 if (m_objectID != 0x63b) {
+//                     if (m_objectID < 0x63c) {
+//                         if (m_objectID != 0x5f0) {
+//                             iVar8 = 0x631;
+//                             goto LAB_00367b2c;
+//                         }
+//                     } else {
+//                         if (m_objectID < 0x64b)
+//                             goto LAB_00367d34;
+//                         if (0x64d < m_objectID) {
+//                             flag_a = m_objectID == 0x650;
+//                             goto LAB_00367b2e;
+//                         }
+//                     }
+//                 }
+//                 goto LAB_00367cf4;
+//             }
+//         LAB_00367d2a:
+//             m_objectID = 0x3f2;
+//         } else {
+//             if (m_objectID < 0xbd1) {
+//                 if (m_objectID < 0xbbc) {
+//                     if (m_objectID < 0x815) {
+//                         if (m_objectID < 0x812) {
+//                             if (m_objectID < 0x7e1) {
+//                                 if (m_objectID < 0x7df) {
+//                                     bVar14 = 3 < m_objectID - 0x78bU;
+//                                     flag_a = m_objectID - 0x78bU == 4;
+//                                     goto LAB_00367ce0;
+//                                 }
+//                             } else if (m_objectID != 0x80e) {
+//                                 flag_a = m_objectID == 0x810;
+//                                 goto LAB_00367b2e;
+//                             }
+//                         }
+//                     } else {
+//                         if (0xb6e < m_objectID) {
+//                             iVar8 = 2999;
+//                         LAB_00367b2c:
+//                             flag_a = m_objectID == iVar8;
+//                             goto LAB_00367b2e;
+//                         }
+//                         if (m_objectID < 0xb6d) {
+//                             m_objectType = m_objectID - 0xb53;
+//                             goto LAB_00367ccc;
+//                         }
+//                     }
+//                 }
+//             } else if (m_objectID < 0xe20) {
+//                 if (m_objectID < 0xe1c) {
+//                     if (m_objectID < 0xbda) {
+//                         if (m_objectID < 0xbd5) {
+//                             iVar8 = 0xbd3;
+//                             goto LAB_00367b2c;
+//                         }
+//                     } else if (m_objectID != 0xe10) {
+//                         if (0xe0f < m_objectID) {
+//                             bVar14 = 6 < m_objectID - 0xe12U;
+//                             flag_a = m_objectID - 0xe12U == 7;
+//                             goto LAB_00367ce0;
+//                         }
+//                         goto LAB_00367d34;
+//                     }
+//                 }
+//             } else if (m_objectID < 0xe3b) {
+//                 if (m_objectID < 0xe38) {
+//                     m_objectType = m_objectID - 0xe21;
+//                 LAB_00367ccc:
+//                     bVar14 = 2 < m_objectType;
+//                     flag_a = m_objectType == 3;
+//                 LAB_00367ce0:
+//                     if (bVar14 && !flag_a)
+//                         goto LAB_00367d34;
+//                 }
+//             } else if (m_objectID != 0xe47) {
+//                 if (0xe46 < m_objectID) {
+//                     m_objectType = m_objectID - 0xe4c;
+//                     goto LAB_00367cde;
+//                 }
+//                 goto LAB_00367d34;
+//             }
+//         LAB_00367cf4:
+//             m_objectID = 0;
+//         }
+//         setDefaultMainColorMode(this, m_objectID);
+//     }
+// LAB_00367d34:
+//     if (m_inLevelEditor != false) {
+        
+//         if (m_objectID < 0x790) {
+//             if ((m_objectID < 0x78e) && (m_objectID != 0x64b)) {
+//                 if (m_objectID < 0x64c) {
+//                     if (m_objectID != 0x4f4) {
+//                         if (m_objectID < 0x4f5) {
+//                             if (m_objectID < 0x3f0) {
+//                                 if ((0x3ed < m_objectID) || (m_objectID == 899))
+//                                     goto SET_0X290;
+//                                 iVar8 = 0x385;
+//                             } else {
+//                                 iVar8 = 0x419;
+//                             }
+//                         LAB_00367e22:
+//                             flag_a = m_objectID == iVar8;
+//                         LAB_00367e66:
+//                             if (!flag_a)
+//                                 goto LAB_00367e90;
+//                         } else if (m_objectID != 0x5f0) {
+//                             if (m_objectID < 0x5f1) {
+//                                 m_objectID = m_objectID + -0x542;
+//                                 goto LAB_00367dea;
+//                             }
+//                             if (m_objectID != 0x631) {
+//                                 iVar8 = 0x63b;
+//                                 goto LAB_00367e22;
+//                             }
+//                         }
+//                     }
+//                 } else if (m_objectID < 0x77b) {
+//                     if (m_objectID < 0x778) {
+//                         if (0x714 < m_objectID) {
+//                             iVar8 = -0x716;
+//                             goto LAB_00367e6e;
+//                         }
+//                         if (m_objectID < 0x713) {
+//                             flag_a = m_objectID == 0x650;
+//                             goto LAB_00367e66;
+//                         }
+//                     }
+//                 } else {
+//                     if (m_objectID < 0x77c)
+//                         goto LAB_00367e90;
+//                     if (0x77d < m_objectID) {
+//                         m_objectID = m_objectID + -0x78b;
+//                         goto LAB_00367dea;
+//                     }
+//                 }
+//             }
+//         } else if (m_objectID < 0xbda) {
+//             if (m_objectID < 0xbd8) {
+//                 if (m_objectID < 0x815) {
+//                     if ((m_objectID < 0x813) && (m_objectID != 0x80e)) {
+//                         if (0x80e < m_objectID) {
+//                             iVar8 = 0x811;
+//                             goto LAB_00367e22;
+//                         }
+//                         m_objectID = m_objectID + -0x7df;
+//                     LAB_00367dea:
+//                         bVar14 = m_objectID != 0;
+//                         flag_a = m_objectID == 1;
+//                         goto LAB_00367e88;
+//                     }
+//                 } else if (m_objectID != 0xb6d) {
+//                     if (m_objectID < 0xb6e) {
+//                         m_objectID = m_objectID + -0xb54;
+//                         goto LAB_00367dea;
+//                     }
+//                     if (m_objectID != 2999) {
+//                         iVar8 = 0xbc8;
+//                         goto LAB_00367e22;
+//                     }
+//                 }
+//             }
+//         } else if (m_objectID < 0xe25) {
+//             if (m_objectID < 0xe21) {
+//                 if (0xe19 < m_objectID) {
+//                     iVar8 = -0xe1c;
+//                 LAB_00367e6e:
+//                     bVar14 = 2 < (uint)(m_objectID + iVar8);
+//                     flag_a = m_objectID + iVar8 == 3;
+//                     goto LAB_00367e88;
+//                 }
+//                 if (m_objectID < 0xe12) {
+//                     flag_a = m_objectID == 0xe10;
+//                     goto LAB_00367e66;
+//                 }
+//             }
+//         } else if (m_objectID != 0xe47) {
+//             if (m_objectID < 0xe48) {
+//                 m_objectID = m_objectID + -0xe38;
+//                 goto LAB_00367dea;
+//             }
+//             bVar14 = 1 < m_objectID - 0xe4cU;
+//             flag_a = m_objectID - 0xe4cU == 2;
+//         LAB_00367e88:
+//             if (bVar14 && !flag_a)
+//                 goto LAB_00367e90;
+//         }
+//     SET_0X290:
+//         m_hasSepcialChild = true;
+//     }
+// LAB_00367e90:
+//     if (m_objectType == 0x20)
+//         goto LAB_00367ec6;
+//     if (m_objectType < 0x21) {
+//         if (m_objectType < 0xe) {
+//             if (10 < m_objectType)
+//                 goto LAB_00367ec6;
+//             flag_a = m_objectType == 1;
+//         } else {
+//             flag_a = m_objectType == 0x1d;
+//         }
+//     LAB_00367ebc:
+//         if ((flag_a) || (m_objectID == 8))
+//             goto LAB_00367ec6;
+//     } else {
+//         if (m_objectType < 0x27) {
+//             if (m_objectType < 0x25) {
+//                 flag_a = m_objectType == 0x23;
+//                 goto LAB_00367ebc;
+//             }
+//         } else if (m_objectType != 0x2b) {
+//             flag_a = m_objectType == 0x2e;
+//             goto LAB_00367ebc;
+//         }
+//     LAB_00367ec6:
+//         m_width = 30.0;
+//         m_height = 30.0;
+//     }
+//     if (m_zFixedZLayer != false) {
+//         m_zLayer = 0;
+//     }
+//     flag_a = shouldLockX(this);
+   
+//     m_shouldLockX = flag_a;
+//     if (((((m_objectType & 0xfffffffd) == 0) || (m_objectType == 0x2f)) || (m_objectType == 0x15)) || (m_objectType == 0x19)) {
+//         m_isTintObject = true;
+//     }
+//     if (m_defaultZLayer == 5) {
+//         m_objectID = m_defaultZOrder;
+//         flag_a = m_objectID < 0;
+//         if (flag_a) {
+//             m_objectID = 1;
+//         }
+//         if (flag_a) {
+//             m_defaultZLayer = m_objectID;
+//         }
+//     }
+//     flag_a = dontCountTowardsLimit(this);
+//     m_dontCountTowardsLimit = flag_a;
+//     flag_a = isTrigger(this);
+//     m_isTrigger = flag_a;
+//     flag_a = isStoppableTrigger(this);
+//     m_isStoppableTrigger = flag_a;
+//     if (m_inLevelEditor != false) {
+        
+//         if (m_objectID < 0x7e1) {
+//             if ((0x7de < m_objectID) || (m_objectID == 0x631))
+//                 goto LAB_0036809a;
+//             if (0x631 < m_objectID) {
+//                 if (m_objectID < 0x77e) {
+//                     if ((m_objectID < 0x77c) && (m_objectID != 0x650)) {
+//                         if (0x650 < m_objectID) {
+//                             iVar8 = -0x778;
+//                         LAB_00368036:
+//                             bVar14 = 1 < (uint)(m_objectID + iVar8);
+//                             flag_a = m_objectID + iVar8 == 2;
+//                             goto LAB_00368080;
+//                         }
+//                         m_objectID = m_objectID + -0x64c;
+//                     LAB_0036807e:
+//                         bVar14 = m_objectID != 0;
+//                         flag_a = m_objectID == 1;
+//                     LAB_00368080:
+//                         if (bVar14 && !flag_a)
+//                             goto LAB_003680a0;
+//                     }
+//                 } else {
+//                     if (m_objectID < 0x78b)
+//                         goto LAB_003680a0;
+//                     if (0x78c < m_objectID) {
+//                         m_objectID = m_objectID + -0x78e;
+//                         goto LAB_0036807e;
+//                     }
+//                 }
+//                 goto LAB_0036809a;
+//             }
+//             if (900 < m_objectID) {
+//                 if (m_objectID < 0x3f0) {
+//                     if (m_objectID < 0x3ee) {
+//                         flag_a = m_objectID == 0x393;
+//                         goto LAB_00367f9e;
+//                     }
+//                 } else if (m_objectID != 0x419) {
+//                     iVar8 = 0x4f4;
+//                     goto LAB_00368088;
+//                 }
+//                 goto LAB_0036809a;
+//             }
+//             if ((m_objectID < 899) && (m_objectID != 0x69)) {
+//                 if (m_objectID < 0x6a) {
+//                     if (1 < m_objectID - 0x1dU)
+//                         goto LAB_003680a0;
+//                 } else {
+//                     flag_a = m_objectID == 0x2e8;
+//                 LAB_00367f9e:
+//                     if (!flag_a)
+//                         goto LAB_003680a0;
+//                 }
+//             }
+//             m_isTriggerGroup = true;
+//             m_isTriggerObject = true;
+//         } else {
+//             if (m_objectID < 0xb6e) {
+//                 if (m_objectID < 0xb67) {
+//                     if (m_objectID < 0xb56) {
+//                         if (((m_objectID < 0xb53) && (m_objectID != 0x812)) && (m_objectID != 0x814)) {
+//                             iVar8 = 0x80e;
+//                             goto LAB_00368088;
+//                         }
+//                     } else if (m_objectID != 0xb5b) {
+//                         if (m_objectID < 0xb5c) {
+//                             iVar8 = -0xb57;
+//                             goto LAB_00368036;
+//                         }
+//                         bVar14 = 7 < m_objectID - 0xb5dU;
+//                         flag_a = m_objectID - 0xb5dU == 8;
+//                         goto LAB_00368080;
+//                     }
+//                 }
+//             } else if (m_objectID < 0xe19) {
+//                 if ((m_objectID < 0xe12) && (m_objectID != 0xbce)) {
+//                     if (m_objectID < 0xbcf) {
+//                         iVar8 = 2999;
+//                         goto LAB_00368088;
+//                     }
+//                     if (m_objectID != 0xbd9) {
+//                         flag_a = m_objectID == 0xe10;
+//                         goto LAB_0036808a;
+//                     }
+//                 }
+//             } else if (m_objectID != 0xe47) {
+//                 if (m_objectID < 0xe48) {
+//                     m_objectID = m_objectID + -0xe1c;
+//                     goto LAB_0036807e;
+//                 }
+//                 iVar8 = 0xe4e;
+//             LAB_00368088:
+//                 flag_a = m_objectID == iVar8;
+//             LAB_0036808a:
+//                 if (!flag_a)
+//                     goto LAB_003680a0;
+//             }
+//         LAB_0036809a:
+//             m_isTriggerGroup = true;
+//         }
+//     LAB_003680a0:
+//         if (m_classID == 1) {
+//             bVar1 = ignoreEditorDuration(this);
+//             bVar1 = bVar1 ^ 1;
+//         } else {
+//             bVar1 = false;
+//         }
+//         m_ignoreEditorDuration = (bool)bVar1;
+//         flag_a = (bool)isEditorSpawnableTrigger(this);
+//         m_isEditorSpawnableTrigger = flag_a;
+//     }
+//     if (m_hasAudioScale != false) {
+//         *(undefined *)&m_particleScale = 1;
+//     }
+//     if (m_objectType != 7) {
+//         setupSpriteSize(this);
+//     }
+    
+//     if (m_objectID < 0x120) {
+//         if ((m_objectID < 0x11e) && (m_objectID != 0x54)) {
+//             if (m_objectID < 0x55) {
+//                 if (m_objectID < 0x25) {
+//                     if (m_objectID < 0x23) {
+//                         iVar8 = -10;
+//                         goto LAB_00368124;
+//                     }
+//                 } else {
+//                     if (m_objectID < 0x2d)
+//                         goto EXIT;
+//                     if (0x2f < m_objectID) {
+//                         flag_a = m_objectID == 0x43;
+//                         goto LAB_003681a4;
+//                     }
+//                 }
+//             } else if (m_objectID < 0x8e) {
+//                 if (((m_objectID < 0x8c) && (m_objectID != 0x65)) && (m_objectID != 0x6f)) {
+//                     flag_a = m_objectID == 99;
+//                     goto LAB_003681a4;
+//                 }
+//             } else {
+//                 iVar8 = -200;
+//             LAB_00368124:
+//                 if (3 < (uint)(m_objectID + iVar8))
+//                     goto EXIT;
+//             }
+//         }
+//     } else if (m_objectID != 0x6a8) {
+//         if (m_objectID < 0x6a9) {
+//             if (m_objectID != 0x3fe) {
+//                 if (m_objectID < 0x3ff) {
+//                     if ((m_objectID != 0x2e9) && (m_objectID != 0x2eb)) {
+//                         flag_a = m_objectID == 0x294;
+//                         goto LAB_003681a4;
+//                     }
+//                 } else {
+//                     if (m_objectID < 0x532)
+//                         goto EXIT;
+//                     if (0x536 < m_objectID) {
+//                         iVar8 = 0x63a;
+//                         goto LAB_003681a2;
+//                     }
+//                 }
+//             }
+//         } else if (m_objectID != 0xb56) {
+//             if (m_objectID < 0xb57) {
+//                 if ((m_objectID == 0x78d) || (m_objectID == 0x80f))
+//                     goto SET_0X486;
+//                 iVar8 = 0x6d7;
+//             } else if (m_objectID < 0xbbe) {
+//                 if (0xbbb < m_objectID)
+//                     goto SET_0X486;
+//                 iVar8 = 0xb6e;
+//             } else {
+//                 iVar8 = 0xbd3;
+//             }
+//         LAB_003681a2:
+//             flag_a = m_objectID == iVar8;
+//         LAB_003681a4:
+//             if (!flag_a)
+//                 goto EXIT;
+//         }
+//     }
+// SET_0X486:
+//     m_isSpecialObject = true;
+// EXIT:
+//     return;
+// }
 
-void GameObject::customSetup()
-{
-    return;
+
+
+void __thiscall GameObject::deactivateObject(bool hide) {
+
+    if (hide && (!m_isHidden)) {
+        m_isHidden = true;
+    } else if (m_isActivated != false) {
+        m_isActivated = false;
+        setVisible(false);
+        removeFromParentAndCleanup(0);
+        m_isBlendingBatchNode = false;
+        if (m_enterValueY != -1) {
+            m_enterValueX = -1;
+            m_enterValueY = -1;
+            m_enterReset = true;
+            setRScaleX(1.0f);
+            setRScaleY(1.0f);
+        }
+    
+        if (m_glowSpriteMain != nullptr) {
+            m_glowSpriteMain->removeFromParentAndCleanup(false);
+        }
+        
+        if ((m_colorSprite != nullptr) && (m_isGroupDisabled == false)) {
+            m_colorSprite->removeFromParentAndCleanup(false);
+        }
+    }
 }
-
-
-void GameObject::deactivateObject(bool p0)
-{
-    return;
-}
-
 
 void GameObject::deselectObject()
 {
-    return;
+    m_isSelected = false;
+    updateObjectEditorColor();
 }
 
-
-void GameObject::determineSlopeDirection()
+void GameObject::destroyObject()
 {
-    return;
+    m_isDisabled = true;
+    m_previewIsDisabled = true;
+    setOpacity(0);
 }
 
 
+void __thiscall GameObject::determineSlopeDirection() {
+    bool flipX;
+    bool flipY;
+    float rotation;
+    bool is270;
+    int r, r2;
 
-/* Unknown Return: GameObject::didScaleXChange(){}; */
+    flipX = isFlipX();
+    flipY = isFlipY();
+    rotation = static_cast<int>(getObjectRotation()) % 360;
+
+    if (rotation == 180.0) {
+        r = 1;
+    }
+    if (rotation != 180.0) {
+        r = 0;
+    }
+    if (rotation == 90.0) {
+        r2 = 1;
+    CHECK_FOR_270_ANGLE:
+        is270 = rotation == 270.0;
+    } else {
+        if (rotation == -270.0) {
+            r2 = 1;
+        }
+        if (rotation != -270.0) {
+            r2 = 0;
+        }
+        if (rotation != -90.0)
+            goto CHECK_FOR_270_ANGLE;
+        is270 = true;
+    }
+    m_upSlope = false;
+    if (flipX == 0) {
+        if (flipY != 0) {
+            if (rotation != 0.0) {
+                if (r == 0) {
+                    if (is270) {
+                    LAB_0035d6dc:
+                        m_upSlope = true;
+                        m_slopeDirection = 6;
+                        return;
+                    }
+                    if (r2 == 0) {
+                        return;
+                    }
+                LAB_0035d6ec:
+                    m_upSlope = true;
+                    m_slopeDirection = 7;
+                    return;
+                }
+            LAB_0035d6a6:
+                m_slopeDirection = 2;
+                return;
+            }
+        LAB_0035d694:
+            m_slopeDirection = 1;
+            return;
+        }
+        if (rotation != 0.0) {
+            if (r == 0) {
+                if (r2 != 0) {
+                    LAB_0035d6c8:
+                        m_slopeDirection = 4;
+                        return;
+                }
+                if (!is270) {
+                    return;
+                }
+            LAB_0035d6d2:
+                m_slopeDirection = 5;
+                return;
+            }
+        LAB_0035d6b8:
+            m_upSlope = true;
+            m_slopeDirection = 3;
+            return;
+        }
+    } else {
+        if (!flipY) {
+            if (!r) {
+                if (rotation != 0.0) {
+                    if (r2)
+                        goto LAB_0035d6dc;
+                    if (!is270) {
+                        return;
+                    }
+                    goto LAB_0035d6ec;
+                }
+                goto LAB_0035d6a6;
+            }
+            goto LAB_0035d694;
+        }
+        if (!r) {
+            if (rotation != 0.0) {
+                if (is270)
+                    goto LAB_0035d6c8;
+                if (!r2) {
+                    return;
+                }
+                goto LAB_0035d6d2;
+            }
+            goto LAB_0035d6b8;
+        }
+    }
+    m_upSlope = true;
+    m_slopeDirection = 0;
+}
+
+bool GameObject::didScaleXChange(){
+    return ((m_scaleX * 10000.0) - (m_customScaleX * 10000.0)) != 0;
+}
+
+bool GameObject::didScaleYChange(){
+    return ((m_scaleY * 10000.0) - (m_customScaleY * 10000.0)) != 0;
+};
 
 
-/* Unknown Return: GameObject::didScaleYChange(){}; */
-
-
-/* Unknown Return: GameObject::dirtifyObjectPos(){}; */
-
-
-/* Unknown Return: GameObject::dirtifyObjectRect(){}; */
-
-
-/* Unknown Return: GameObject::disableObject(){}; */
-
-
-/* Unknown Return: GameObject::dontCountTowardsLimit(){}; */
-
-
-/* Unknown Return: GameObject::duplicateAttributes(GameObject* p0){}; */
-
-
-/* Unknown Return: GameObject::duplicateColorMode(GameObject* p0){}; */
-
-void GameObject::duplicateValues(GameObject* p0)
+void GameObject::dirtifyObjectPos()
 {
-    return;
+    m_isObjectPosDirty = true;
+    m_isUnmodifiedPositionsDirty = true;
+}
+
+
+void GameObject::dirtifyObjectRect()
+{
+    m_isObjectRectDirty = true;
+    m_isOrientedBoxDirty = true;
+}
+
+void GameObject::disableObject(){
+    m_isDisabled = true;
+    m_previewIsDisabled = true;
+    setOpacity(0);
+    triggerActivated(0);
+}
+
+bool __thiscall GameObject::dontCountTowardsLimit(){
+    return m_objectID == 31;
+}
+
+
+void GameObject::duplicateAttributes(GameObject *object)
+{
+    m_zOrder = object->getObjectZOrder();
+    setCustomZLayer(static_cast<int>(object->getObjectZLayer()));
+    m_editorLayer = object->m_editorLayer;
+    m_editorLayer2 = object->m_editorLayer2;
+    m_isDontFade = object->m_isDontFade;
+    m_isHighDetail = object->m_isHighDetail;
+    m_iceBlock = object->m_iceBlock;
+    m_isDontEnter = object->m_isDontEnter;
+    m_isNoTouch = object->m_isNoTouch;
+    m_isGripSlope = object->m_isGripSlope;
+    m_hasNoEffects = object->m_hasNoEffects;
+    m_isPassable = object->m_isPassable;
+    m_disableGlow = object->m_disableGlow;
+    m_isHide = object->m_isHide;
+    m_isNonStickX = object->m_isNonStickX;
+    m_isNonStickY = object->m_isNonStickY;
+    m_isDontBoostY = object->m_isDontBoostY;
+    m_isExtraSticky = object->m_isExtraSticky;
+    m_isScaleStick = object->m_isScaleStick;
+    m_isDontBoostX = object->m_isDontBoostX;
+    m_hasNoParticles = object->m_hasNoParticles;
+    m_hasNoAudioScale = object->m_hasNoAudioScale;
+}
+
+
+void GameObject::duplicateColorMode(GameObject *obj) {
+
+    if((((m_isDetailOnly != false) && (m_detailColor == nullptr) &&
+        (obj->m_detailColor != nullptr) && (obj->m_detailColor->getColorMode() != 0)))) {
+        obj->m_baseColor = obj->m_detailColor;
+    }
+    m_baseColor->setColorMode(obj->m_baseColor->getColorMode());
+    m_baseColor->m_hsv = obj->m_baseColor->m_hsv;
+    if ((obj->m_detailColor != nullptr) && (m_detailColor != nullptr)) {
+        /* setColorMode is not defined on andriod but it's possible to find at FUN_0035b004 */
+        m_detailColor->setColorMode(m_detailColor->getColorMode());
+        m_detailColor->m_hsv = obj->m_detailColor->m_hsv;
+    }
+};
+
+
+void GameObject::duplicateValues(GameObject *object)
+{
+    if (getRotationX() == getRotationY()) {
+        setRotation(object->getRotation());
+    }
+    else {
+        setRotationX(getRotationX());
+        setRotationY(getRotationY());
+    }
+    setFlipX(object->isFlipX());
+    setFlipY(object->isFlipY());
+    duplicateColorMode(object);
+    m_zOrder = object->m_zOrder;
+    setCustomZLayer(static_cast<int>(object->getCustomZLayer()));
+    m_isDontFade = object->m_isDontFade;
+    m_isDontEnter = object->m_isDontEnter;
+    m_hasNoEffects = object->m_hasNoEffects;
+
+    for (short i = 0; i < object->m_groupCount; i++) {
+        addToGroup(object->getGroupID(i));
+    }
+  
+    updateCustomScaleX(object->m_scaleX);
+    updateCustomScaleY(object->m_scaleY);
 }
 
 
 
-/* Unknown Return: GameObject::editorColorForCustomMode(int p0){}; */
+
+// TODO: DAT_009a0458, DAT_009a0464, DAT_009a0470 Are Unknown therefore I cannot reverse it yet...
+// _ccColor3B * __thiscall GameObject::editorColorForCustomMode(GameObject *this,int colorID)
+
+// {
+//   uint extraout_r1;
+//   uint uVar1;
+//   uint uVar2;
+//   uint uVar3;
+  
+//   if (4 < colorID) {
+//     colorID = colorID + -5;
+//   }
+//   __aeabi_idivmod(colorID,0xc);
+//   if (extraout_r1 < 0xc) {
+//     uVar3 = (uint)(byte)(&DAT_009a0458)[extraout_r1];
+//     uVar1 = (uint)(byte)(&DAT_009a0464)[extraout_r1];
+//     uVar2 = (uint)(byte)(&DAT_009a0470)[extraout_r1];
+//   }
+//   else {
+//     uVar2 = 0xff;
+//     uVar1 = 0xff;
+//     uVar3 = 0xff;
+//   }
+//   return (_ccColor3B *)(uVar3 | uVar1 << 8 | uVar2 << 0x10);
+// }
+
+cocos2d::ccColor3B GameObject::editorColorForMode(int mode)
+
+{
+    unsigned int r;
+    unsigned int g;
+    unsigned int b;
+
+    if(mode == 4) {
+        b = 0x96;
+    LAB_0035e558:
+        g = 0xff;
+        r = 0x96;
+        goto EXIT;
+    }
+    if(mode < 5) {
+        if(mode == 2) {
+            g = 0xff;
+            b = 0x96;
+            r = 0xff;
+            goto EXIT;
+        }
+        if(2 < mode) {
+            b = 0xff;
+            goto LAB_0035e558;
+        }
+        if(mode != 1)
+            goto LAB_0035e562;
+        g = 0x96;
+    LAB_0035e594:
+        r = 0xff;
+        b = r;
+    } else {
+        if(mode == 0x3ed) {
+            b = 0xff;
+            g = 0x96;
+            r = 0xaf;
+            goto EXIT;
+        }
+        if(mode < 0x3ee) {
+            if(mode == 0x3eb) {
+                b = 0;
+                g = 0xff;
+            } else {
+            LAB_0035e562:
+                if(m_doesntFade == false) {
+                    if(mode - 5U < 0x3e2) {
+                        // TODO:
+                        // r = editorColorForCustomMode(mode) & 0xff;
+                        // g = (editorColorForCustomMode(mode) << 0x10) >> 0x18;
+                        // b = (editorColorForCustomMode(mode) << 8) >> 0x18;
+                        goto EXIT;
+                    }
+                    g = 0xff;
+                    goto LAB_0035e594;
+                }
+                b = 0;
+                g = 0x7f;
+            }
+        } else {
+            if(mode != 0x3ee) {
+                if(mode == 0x3ef) {
+                    b = 0xff;
+                    g = 0xaf;
+                    r = 0x4b;
+                    goto EXIT;
+                }
+                goto LAB_0035e562;
+            }
+            b = 0x96;
+            g = 0x96;
+        }
+        r = 0xff;
+    }
+EXIT:
+    return cocos2d::ccc3(r, g, b);
+}
 
 
-/* Unknown Return: GameObject::editorColorForMode(int p0){}; */
+void GameObject::fastRotateObject(float rotation)
+{
+    m_rotationXOffset += rotation;
+    m_rotationYOffset += rotation;
+    addRotation(rotation);
+    if ((m_objectType != 7) && (m_shouldUseOuterOb == false)) {
+        calculateOrientedBox();
+    }
+}
 
-
-/* Unknown Return: GameObject::fastRotateObject(float p0){}; */
-
+/* NOOP */
 void GameObject::firstSetup()
 {
     return;
 }
 
 
-// GameObject::GameObject()
+GameObject::GameObject(){
+    m_someOtherIndex = -1;
+    m_innerSectionIndex = 0;
+    m_outerSectionIndex = 0;
+    m_hasExtendedCollision = false;
+    m_hasExtendedCollision2 = false;
+    m_maybeGroupColor = cocos2d::ccc3(0, 0, 0);
+    m_useBlackOpacity = false;
+    m_maybeBlackChildIsBlendable = false;
+    m_blackChildOpacity = cocos2d::ccc3(0, 0, 0);
+    m_inLevelEditor = false;
+    m_groupEnabled = false;
+    m_editorEnabled = false;
+    m_isGroupDisabled = false;
+    m_activeMainColorID = 0;
+    m_activeDetailColorID = 0;
+    m_baseColorUsesHSV = false;
+    m_detailColorUsesHSV = false;
+    m_positionXOffset = 0.0;
+    m_postionYOffset = 0.0;
+    m_rotationXOffset = 0.0;
+    m_endRotationX = 0.0;
+    m_rotationYOffset = 0.0;
+    m_endRotationY = 0.0;
+    m_scaleXOffset = 0.0;
+    m_scaleYOffset = 0.0;
+    m_realPositionX = 0.0;
+    m_realPositionY = 0.0;
+    m_shouldLockX = false;
+    m_isFlipX = false;
+    m_isFlipY = false;
+    m_customBoxOffset = cocos2d::CCPointZero;
+    m_boxOffsetCalculated = true;
+    m_boxOffset = cocos2d::CCPointZero;
+    m_width = 0.0;
+    m_OBB2D = nullptr;
+    m_shouldUseOuterOb = false;
+    m_glowSpriteMain = nullptr;
+    m_glowSpriteDetail = nullptr;
+    m_height = 0.0;
+    m_hasSepcialChild = false;
+    m_isActivated = false;
+    m_previewIsDisabled = false;
+    m_particles = nullptr;
+    m_particleString = "";
+    m_hasParticles = false;
+    m_particleUseObjectColor = false;
+    m_hasColorSprite = false;
+    m_ParticlePostion = cocos2d::CCPointZero;
+    m_particleScale = 0;
+    m_textureRect = cocos2d::CCRectZero;
+    m_isDirty = false;
+    m_isObjectPosDirty = false;
+    m_isUnmodifiedPositionsDirty = true;
+    m_objectTextureRectHeight = 0.0;
+    m_objectRect =  cocos2d::CCRectZero;
+    m_unkObjectType = 7;
+    m_isObjectRectDirty = false;
+    m_isOrientedBoxDirty = false;
+    m_colorSpriteLocked = false;
+    m_isBlendable = false;
+    m_canRoateFree = false;
+    m_isMirroredByScale = false;
+    m_linkedGroup = 0;
+    m_unkObject = nullptr;
+    m_mainColorMode = 0;
+    m_mainChildColorMode = 0;
+    m_shouldBlendBaseColor = false;
+    m_shouldBlendDetailColor = false;
+    m_hasCustomChild = false;
+    m_isAnimatedObject = false;
+    m_colorSprite = nullptr;
+    m_isParticleObject = false;
+    m_objectRadius = 0.0;
+    m_isRotationAligned = false;
+    m_spriteWidthScale = 0.0;
+    m_spriteHeightScale = 0.0;
+    m_uniqueID = 0;
+    m_objectType = 0;
+    m_unmodifiedPositionX = 0.0;
+    m_unmodifiedPositionY = 0.0;
+    m_lastPositionX = 0.0;
+    m_lastPositionY = 0.0;
+    m_startPosition =  CCPointMake(0, 0);
+    m_hasAudioScale = false;
+    m_maybeAnimationScaleValue = -1;
+    m_hasNoAudioScale = false;
+    m_colorIdx = 1;
+    m_isDisabled = false;
+    m_startRotationX = 0.0;
+    m_startRotationY = 0.0;
+    m_startScaleX = 1.0;
+    m_startScaleY = 1.0;
+    m_customScaleX = 0.0;
+    m_customScaleY = 0.0;
+    m_startFlipX = false;
+    m_startFlipY = false;
+    m_isHidden = false;
+    m_isInvisible = false;
+    m_someAngleValue = 0.0;
+    m_unkBool = false;
+    m_enterValueX = 0;
+    m_enterValueY = 0;
+    m_enterChannel = 0;
+    m_objectMaterial = 0;
+    m_enterReset = false;
+    m_disableGlow = false;
+    m_objectID = 0;
+    m_dontTransfrom = false;
+    m_isSolid = false;
+    m_ignoreEnter = false;
+    m_ignoreFade = false;
+    m_dontFadeTinted = false;
+    m_isTintObject = false;
+    m_isDetailOnly = false;
+    m_customColorType = 0;
+    m_isDontEnter = false;
+    m_isDontFade = false;
+    m_hasNoEffects = false;
+    m_hasNoParticles = false;
+    m_defaultZOrder = 0;
+    m_isPortalObject = false;
+    m_colorZLayerRelated = false;
+    m_isAudioScale = false;
+    m_minAudioScale = 0.0;
+    m_maxAudioScale = 0.0;
+    m_particleLocked = false;
+    m_property53 = 0;
+    m_doesntFade = false;
+    m_useGlowBGColor = false;
+    m_useGlowColor = false;
+    m_cantColorGlow = false;
+    m_opacityMod = 0.0;
+    m_upSlope = false;
+    m_slopeDirection = 0;
+    m_maybeShouldFixSlopes = false;
+    m_colorOpacityMod2 = 0.0;
+    m_baseColor = nullptr;
+    m_detailColor = nullptr;
+    m_isBlendingBatchNode = false;
+    m_defaultZLayer = 5;
+    m_zFixedZLayer = false;
+    m_zLayer = 0;
+    m_zOrder = 0;
+    m_selected = false;
+    m_isSelected = false;
+    m_unk460 = 0;
+    m_unk46d = cocos2d::CCPointZero;
+    m_shouldUpdateColorSprite = false;
+    m_maybeToggleColorParent = false;
+    m_toggleGroupParent = false;
+    m_toggleAreaParent = false;
+    m_scaleX = 1.0;
+    m_scaleY = 1.0;
+    m_groups = nullptr;
+    m_groupCount = 0;
+    m_hasGroupParentsString = false;
+    m_colorGroups = nullptr;
+    m_colorgroupCount = 0;
+    m_opacityGroups = nullptr;
+    m_opacityGroupSize = 0;
+    m_editorLayer = 0;
+    m_editorLayer2 = 0;
+    m_enabledGroupsCounter = 0;
+    m_updateCustomContentSize = false;
+    m_hasContentSize = false;
+    m_isNoTouch = false;
+    m_lastSize = cocos2d::CCSizeZero;
+    m_lastPosition = cocos2d::CCPointZero;
+    m_classID = 0;
+    m_unkState1 = -1;
+    m_followActionState = -1;
+    m_unkState2 = -1;
+    m_someGameStateValue = true;
+    m_color2.r = 0xff;
+    m_color2.g = 0xff;
+    m_color2.b = 0xff;
+    m_isTrigger = false;
+    m_isTriggerGroup = false;
+    m_isTriggerObject = false;
+    m_ignoreEditorDuration = false;
+    m_isStoppableTrigger = false;
+    m_isEditorSpawnableTrigger = false;
+    m_isHighDetail = false;
+    m_colorSprite1 = nullptr;
+    m_colorSprite2 = nullptr;
+    m_goEffectManager = nullptr;
+    m_maybeIsGoEffectObject = false;
+    m_isMainDecoration = false;
+    m_isDetailDecoration = false;
+    m_isNotDamaging = false;
+    m_maybeNotColorable = false;
+    m_isPassable = false;
+    m_isHide = false;
+    m_isNonStickX = false;
+    m_isNonStickY = false;
+    m_iceBlock = false;
+    m_isGripSlope = false;
+    m_isScaleStick = false;
+    m_isExtraSticky = false;
+    m_isDontBoostY = false;
+    m_isDontBoostX = false;
+    m_isTeleportObject = false;
+    m_objectRotated = false;
+    m_pixelScaleXY = 1.0;
+    m_pixelScaleX = 1.0;
+    m_pixelScaleY = 1.0;
+    m_areaOpacityGlu = 0xff;
+    m_property155 = 0;
+    m_property156 = 0;
+    m_areaOpacityFloat = 0.0;
+    m_areaOpacityInt = 0;
+    m_maybeSavedPositionState = 0;
+    m_maybeIgnoreTempOffset = false;
+    m_isUIObject = false;
+    m_isSpecialObject = false;
+}
 
+
+/* =================== We Are here, Will do these after work today ===================*/
 
 /* Unknown Return: GameObject::getActiveColorForMode(int p0, bool p1){}; */
 
@@ -2997,4 +7084,5 @@ void GameObject::updateStartValues()
 
 
 /* Unknown Return: GameObject::usesSpecialAnimation(){}; */
+
 
