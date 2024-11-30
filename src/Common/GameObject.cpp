@@ -26,7 +26,7 @@ void GameObject::activateObject()
 
 /* TODO: Macro For Expressing Noops? */
 
-void GameObject::activatedByPlayer(PlayerObject* player){};
+// bool GameObject::activatedByPlayer(PlayerObject* player){};
 
 
 // SMJS Told me Robtop Likely is using macros for customSetup and I thought the same for addColorSprite
@@ -1607,7 +1607,7 @@ cocos2d::CCSprite* GameObject::addInternalGlowChild(std::string frame, cocos2d::
 
     if (m_glowSpriteMain != nullptr) {
         auto new_pos = m_glowSpriteMain->convertToNodeSpace(cocos2d::CCPointZero);
-        m_glowSpriteMain = cocos2d::CCSprite::createWithSpriteFrameName(frame->c_str());
+        m_glowSpriteMain = cocos2d::CCSprite::createWithSpriteFrameName(frame.c_str());
         m_glowSpriteMain->setPosition(pos + new_pos);
         /* Not sure exactly WTF Robtop wanted here... */
         m_glowSpriteMain->addChild(m_glowSpriteMain , -1);
@@ -1679,7 +1679,7 @@ void GameObject::addNewSlope02(bool dontDraw)
 
 
 /* And Another One */
-void GameObject::addNewSlope01Glow(bool dontDraw)
+void GameObject::addNewSlope02Glow(bool dontDraw)
 {
     if (m_glowSpriteMain != nullptr) {
         if (dontDraw) {
@@ -1713,17 +1713,16 @@ void GameObject::addRotation(float angle)
 
 void GameObject::addToColorGroup(int groupID)
 {
-    size_t i;
 
     if ((m_colorgroupCount < 10) && (groupID <= 9999)) {
         createColorGroupContainer(10);
-        for (i = 0; i < m_colorgroupCount; i++){
+        for (short i = 0; i < m_colorgroupCount; i++){
             if (m_colorGroups->at(i) == groupID){
                 return;
             }
         }
         // Robtop, Please Tell me why you write code this way?
-        m_colorGroups->operator[](i) = static_cast<short>(groupID);
+        m_colorGroups->operator[](m_colorgroupCount) = static_cast<short>(groupID);
         m_colorgroupCount++;
     }
 }
@@ -1774,7 +1773,7 @@ void GameObject::addToOpacityGroup(int groupID)
                 return;
             }
         }
-        m_opacityGroups->operator[](m_opacityGroupSize) = groupID;
+        m_opacityGroups->operator[](m_opacityGroupSize) = static_cast<short>(groupID);
         m_opacityGroupSize++;
     }   
     return;
@@ -1869,50 +1868,258 @@ bool GameObject::canReverse(){
 
 
 bool GameObject::canRotateFree(){
+
     int ot = static_cast<int>(m_objectType);
-    /* if someone wants to fix this, be my guest... */
+    /* if someone wants to fix this be my guest... */
     if ((ot < 0x1a) && ((1 << (ot & 0xff) & 0x2200001U) != 0)) {
         return m_isNoTouch;
     }
     return true;
 }; 
 
-// TODO: claimParticle and then the rest...
 
-/* Unknown Return: GameObject::claimParticle(){}; */
+/* TODO: claimParticle... */
 
+void GameObject::claimParticle(){
+    /* I don't think I need to say it again but blame Geode... */
+    int zLayer = static_cast<int>(getObjectZLayer());
+    auto parent = parentForZLayer(zLayer, true, getParentMode());
+    auto order = parent->getZOrder();
+    m_particles = ((m_inLevelEditor == false) ? 
+        GameManager::sharedState()->m_playLayer->claimParticle(m_particleString, zLayer) : 
+        GameManager::sharedState()->m_levelEditorLayer->claimParticle(m_particleString, zLayer)
+    );
 
-/* Unknown Return: GameObject::colorForMode(int p0, bool p1){}; */
+ 
+    setPosition(cocos2d::CCNode::getPosition());
 
+    if (m_particles != nullptr) {
+        if (m_particleScale == 0) {
+            m_particles->setScaleX(getScaleX());
+            m_particles->setScaleY(getScaleY());
+        } else {
+            m_particles->setScale(1);
+        }
+   
+        m_particles->setRotation((m_particleLocked == false) ? getRotation(): 0.0f);
+       
+        if (m_particleUseObjectColor != false) {
+            /* this may be a switchcase but I am uncertain of that at the moment... */
+            if ((m_objectID == 0x62f) || (m_objectID == 0x632)) {
+                if (m_particles != nullptr) {
+                    /* Absolute Cancer... */
+                    cocos2d::ccColor3B color = (m_colorSprite != nullptr) ? m_colorSprite->getColor() : getColor(); 
+                    cocos2d::ccColor4F start_color4;
+                    start_color4.r = color.r / 255.0f;
+                    start_color4.g = color.g / 255.0f;
+                    start_color4.b = color.b / 255.0f;
+                    start_color4.a = 1.0f;
+                    m_particles->setStartColor(start_color4);
+                    cocos2d::ccColor4F end_color4;
+                    end_color4.r = color.r / 255.0f;
+                    end_color4.g = color.g / 255.0f;
+                    end_color4.b = color.b / 255.0f;
+                    end_color4.a = 0.0f;
+                    m_particles->setEndColor(end_color4);
 
-/* Unknown Return: GameObject::commonInteractiveSetup(){}; */
+                    if (m_objectID == 0x632) {
+                        m_particles->loadScaledDefaults(m_scaleX);
+                    }
+                }
+            } else if (zLayer == 0x6a4) {
+                /* Same Cancer I believe... */
+                if (m_particles != nullptr) {
+                    cocos2d::ccColor3B color = (m_colorSprite != nullptr) ? m_colorSprite->getColor() : getColor(); 
+                    cocos2d::ccColor4F start_color4;
+                    start_color4.r = color.r / 255.0f;
+                    start_color4.g = color.g / 255.0f;
+                    start_color4.b = color.b / 255.0f;
+                    start_color4.a = 1.0f;
+                    m_particles->setStartColor(start_color4);
+                    cocos2d::ccColor4F end_color4;
+                    end_color4.r = color.r / 255.0f;
+                    end_color4.g = color.g / 255.0f;
+                    end_color4.b = color.b / 255.0f;
+                    end_color4.a = 0.0f;
+                    m_particles->setEndColor(end_color4);
+                }
+            } else {
+                if ((m_hasColorSprite == false) || (m_colorSprite == nullptr)) {
+                    /* I can't unsee this X-X */
+                    m_colorSprite = this;
+                }
+                updateParticleColor(getColor());
+            }
+        }
+    }
+};  
+
+/* TODO: Deoptimize function? I don't think Robtop codes this way unless I'm somehow smart than him. */
+cocos2d::ccColor3B GameObject::colorForMode(int colorID,bool useMain){
+
+    bool unk;
+    GJSpriteColor *spriteColor;
+    cocos2d::ccColor3B color = m_groupColor;
+    if (!colorID) {
+        m_groupColor.r = 255;
+        m_groupColor.g = 255;
+        m_groupColor.b = 255;
+    }
+    else {
+        m_groupColor = getActiveColorForMode(colorID, useMain);
+    }
+    if (!m_colorgroupCount) {
+        UseBaseColor:
+            if (useMain) {
+                if (m_baseColorUsesHSV == false) {
+                  return color;
+                }
+                spriteColor = m_baseColor;
+                goto TransformColor;
+            }
+    } else {
+        if (useMain) {
+            unk = m_isDetailOnly ^ 1;
+            SetGroupColor:
+                m_groupColor = groupColor(color, unk);
+                goto UseBaseColor;
+        }
+        unk = useMain;
+        if (m_activeDetailColorID != 0x3f4) 
+            goto SetGroupColor;
+    }
+    if (m_detailColorUsesHSV == false) {
+        return color;
+    }
+    spriteColor = m_detailColor;
+    TransformColor: {
+        return GameToolbox::transformColor
+                    (color,(spriteColor->m_hsv).h,(spriteColor->m_hsv).s,(spriteColor->m_hsv).v);
+    }
+
+}
+
+void GameObject::commonInteractiveSetup()
+{
+    m_colorZLayerRelated = true;
+    m_isGroupDisabled = true;
+    m_colorSpriteLocked = true;
+    m_particleUseObjectColor = true;
+    m_objectType = 30;
+    m_defaultZOrder = 9;
+    setDefaultMainColorMode(1);
+    if (((!m_inLevelEditor) && (!m_hasNoEffects)) && (m_objectID != 0x64e)) {
+        createAndAddParticle(m_objectType,"keyEffect.plist",0, cocos2d::kCCPositionTypeGrouped);
+        m_ParticlePostion = CCPointMake(0.0,-5.0);
+    }
+}
+
 
 void GameObject::commonSetup()
 {
-    return;
+    // Commented out because this class member is not defined yet...
+    // m_inLevelEditor = GameManager::sharedState()->m_inLevelEditor;
+    if ((m_inLevelEditor == false) && (GameManager::sharedState()->m_playLayer != nullptr)) {
+        // m_goEffectManager = (GJEffectManager*)GameManager::sharedState()->m_playLayer->field1500_0x66c;
+    }
+    createSpriteColor(1);
+    m_baseColor->m_defaultColorID = 1004;
+    m_baseColor->m_colorID = 0;
+    m_defaultZOrder = 2;
+    m_enterValueX = -1;
+    m_enterValueY = -1;
+    m_opacityMod = 1.0;
+    // Not Sure how to apporch m_random yet so I am commenting it out...
+    //   uVar2 = (ulonglong)DAT_00abbc28;
+    //   uVar4 = (uint)(uVar2 * 0x343fd);
+    m_enterReset = true;
+    m_spriteWidthScale = 1.0;
+    m_spriteHeightScale = 1.0;
+    //   DAT_00abbc28 = uVar4 + 0x269ec3;
+    //   DAT_00abbc2c = DAT_00abbc2c * 0x343fd + (int)(uVar2 * 0x343fd >> 0x20) +
+    //                  (uint)(0xffd9613c < uVar4);
+    // m_random = (short)(int)(((float)(longlong)(int)(DAT_00abbc28 >> 0x10 & 0x7fff) / 32767.0) * 1900.0);
+    m_width = m_obRect.size.width;
+    m_height = m_obRect.size.height;
+    assignUniqueID();
+    m_startRotationX = 0.0;
+    m_startRotationY = 0.0;
+    m_startScaleX = 1.0;
+    m_startScaleY = 1.0;
+    setScaleX(1.0);
+    setScaleY(1.0);
+    m_isActivated = false;
+    m_isDirty = true;
+    m_isObjectRectDirty = true;
 }
 
 
 
-/* Unknown Return: GameObject::copyGroups(GameObject* p0){}; */
+void GameObject::copyGroups(GameObject* copy){
+    if (!copy->m_groupCount) {
+        return;
+    }
+    for (short i = 0; i < copy->m_groupCount; i++) {
+        addToGroup(copy->getGroupID(i));
+    }
+};
 
 
-/* Unknown Return: GameObject::createAndAddParticle(int p0, char const* p1, int p2, cocos2d::tCCPositionType p3){}; */
-
-
-/* Unknown Return: GameObject::createColorGroupContainer(int p0){}; */
-
-
-/* Unknown Return: GameObject::createGlow(std::string p0){}; */
-
-void GameObject::createGroupContainer(int p0)
-{
-    return;
+cocos2d::CCParticleSystemQuad * GameObject::createAndAddParticle(int param_1, const char *plistName, int param_3,cocos2d::tCCPositionType positionType){
+    cocos2d::CCParticleSystemQuad * particle;
+    if ( GameManager::sharedState()->m_playLayer != nullptr) {
+        if (m_hasNoParticles == false) {
+            particle = GameManager::sharedState()->m_playLayer->createParticle(param_1,plistName,param_3, positionType);
+            m_particleString = GameManager::sharedState()->m_playLayer->getParticleKey(param_1, plistName, param_3, positionType);
+            m_hasParticles = true;
+        }
+        else {
+            particle = nullptr;
+        }
+    }
+    return particle;
 }
 
+void GameObject::createColorGroupContainer(int groups){
+    if (m_colorGroups == nullptr) {
+        // Would be this but geode forces std::array
+        // auto s = new short[groups];
+        for (int i = 0; i < groups; i++){
+            /* fucking hate this.. */
+            m_colorGroups->operator[](i) = 0;
+        }
+    }
+};
 
 
-/* Unknown Return: GameObject::createOpacityGroupContainer(int p0){}; */
+void GameObject::createGlow(std::string frame){
+    if (m_glowSpriteMain != nullptr) {
+      m_glowSpriteMain->release();
+      m_glowSpriteMain->removeMeAndCleanup();
+      m_glowSpriteMain = nullptr;
+    }
+    m_glowSpriteMain = cocos2d::CCSprite::createWithSpriteFrameName(frame.c_str());
+    m_glowSpriteMain->retain();
+    m_glowSpriteMain->setPosition(getPosition());
+    m_glowSpriteMain->setOpacity(0xff);
+}
+
+// inlined lol...
+// void GameObject::createGroupContainer(int p0)
+// {
+//     return;
+// }
+
+
+
+void GameObject::createOpacityGroupContainer(int size){
+    /* Unless Robtop wrote his code this way the other way is cancer... */
+    if (!m_opacityGroups) {
+        auto groups = new short[size];
+        memset(groups, 0, size * sizeof(short));
+        m_opacityGroups = reinterpret_cast<decltype(m_opacityGroups)>(groups);
+    }
+};
 
 
 void GameObject::createSpriteColor(int id){
@@ -1927,22 +2134,30 @@ void GameObject::createSpriteColor(int id){
     }
 }
 
-GameObject* GameObject::createWithFrame(char const* p0)
+GameObject* GameObject::createWithFrame(char const* name)
 {
-    return;
+    GameObject* obj = new GameObject;
+    if (obj->initWithSpriteFrameName(name)){
+        obj->autorelease();
+        return obj;
+    }
+    delete obj;
+    return nullptr;
 }
 
+// When all the other Objects Associated with GameObject are complete we will come back to this function and complete it...
+// GameObject* GameObject::createWithKey(int p0)
+// {
+//     return;
+// }
 
-GameObject* GameObject::createWithKey(int p0)
-{
-    return;
-}
+// I am not mentally prepared for this one...
+// void GameObject::customObjectSetup(std::vector<std::string>& p0, std::vector<void*>& p1)
+// {
+//     return;
+// }
 
-
-void GameObject::customObjectSetup(std::vector<std::string>& p0, std::vector<void*>& p1)
-{
-    return;
-}
+// Mental Break:  We are here at customSetup. We will need to make several macros for it...
 
 
 void GameObject::customSetup()
