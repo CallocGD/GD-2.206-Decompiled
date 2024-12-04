@@ -6,6 +6,12 @@
  An attempt to get the source code for Geometry Dash through reverse engineering and decompiling the game.  
 
 
+## On Strike Currently
+There was some nasty things said behind my back so I have currently not been doing anything. All the deocmp of GameObject is being paused for that reason.
+It was meant as a gift for the community but as I had seen people be very quick to coming to conclusions before seeing the bigger picture hence why I am going 
+on strike. If the geode community wants to be mean then you will recieve no help until you apoligize to me.
+
+
 ## Tools Used
 See this [repo](https://github.com/CallocGD/Geometry-Dash-Miscellaneous-Decomp-Tools) I try to post new scripts regularly for ghidra and more in here.
 - [GD-Decomp-Deploy](https://github.com/CallocGD/GD-Decomp-Deploy) Built me this repository and all the currently found signatures since the repo's creation date.
