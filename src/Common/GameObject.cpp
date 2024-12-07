@@ -1214,7 +1214,7 @@ void GameObject::addEmptyGlow()
  * However feel free to make a Pull request if you manage to solve this puzzle and 
  * create switch-cases instead of there being a cascade if-statements...
  */
-void __thiscall GameObject::addGlow(std::string frame)
+void GameObject::addGlow(std::string frame)
 {
     GameManager *GM;
     int extraObjectID;
@@ -2038,13 +2038,13 @@ void GameObject::commonSetup()
     m_opacityMod = 1.0;
     // Not Sure how to apporch m_random yet so I am commenting it out...
     //   uVar2 = (ulonglong)DAT_00abbc28;
-    //   uVar4 = (uint)(uVar2 * 0x343fd);
+    //   uVar4 = (unsigned int)(uVar2 * 0x343fd);
     m_enterReset = true;
     m_spriteWidthScale = 1.0;
     m_spriteHeightScale = 1.0;
     //   DAT_00abbc28 = uVar4 + 0x269ec3;
     //   DAT_00abbc2c = DAT_00abbc2c * 0x343fd + (int)(uVar2 * 0x343fd >> 0x20) +
-    //                  (uint)(0xffd9613c < uVar4);
+    //                  (unsigned int)(0xffd9613c < uVar4);
     // m_random = (short)(int)(((float)(longlong)(int)(DAT_00abbc28 >> 0x10 & 0x7fff) / 32767.0) * 1900.0);
     m_width = m_obRect.size.width;
     m_height = m_obRect.size.height;
@@ -5075,7 +5075,7 @@ GameObject* GameObject::createWithFrame(char const* name)
 //             goto LAB_00367974;
 //         iVar8 = -0xe21;
 //     LAB_0036795e:
-//         bVar14 = 2 < (uint)(m_objectID + iVar8);
+//         bVar14 = 2 < (unsigned int)(m_objectID + iVar8);
 //         flag_a = m_objectID + iVar8 == 3;
 //     LAB_00367972:
 //         if (!bVar14 || flag_a)
@@ -5459,7 +5459,7 @@ GameObject* GameObject::createWithFrame(char const* name)
 //                 if (0xe19 < m_objectID) {
 //                     iVar8 = -0xe1c;
 //                 LAB_00367e6e:
-//                     bVar14 = 2 < (uint)(m_objectID + iVar8);
+//                     bVar14 = 2 < (unsigned int)(m_objectID + iVar8);
 //                     flag_a = m_objectID + iVar8 == 3;
 //                     goto LAB_00367e88;
 //                 }
@@ -5546,7 +5546,7 @@ GameObject* GameObject::createWithFrame(char const* name)
 //                         if (0x650 < m_objectID) {
 //                             iVar8 = -0x778;
 //                         LAB_00368036:
-//                             bVar14 = 1 < (uint)(m_objectID + iVar8);
+//                             bVar14 = 1 < (unsigned int)(m_objectID + iVar8);
 //                             flag_a = m_objectID + iVar8 == 2;
 //                             goto LAB_00368080;
 //                         }
@@ -5679,7 +5679,7 @@ GameObject* GameObject::createWithFrame(char const* name)
 //             } else {
 //                 iVar8 = -200;
 //             LAB_00368124:
-//                 if (3 < (uint)(m_objectID + iVar8))
+//                 if (3 < (unsigned int)(m_objectID + iVar8))
 //                     goto EXIT;
 //             }
 //         }
@@ -5727,7 +5727,7 @@ GameObject* GameObject::createWithFrame(char const* name)
 
 
 
-void __thiscall GameObject::deactivateObject(bool hide) {
+void GameObject::deactivateObject(bool hide) {
 
     if (hide && (!m_isHidden)) {
         m_isHidden = true;
@@ -5768,7 +5768,7 @@ void GameObject::destroyObject()
 }
 
 
-void __thiscall GameObject::determineSlopeDirection() {
+void GameObject::determineSlopeDirection() {
     bool flipX;
     bool flipY;
     float rotation;
@@ -5906,7 +5906,7 @@ void GameObject::disableObject(){
     triggerActivated(0);
 }
 
-bool __thiscall GameObject::dontCountTowardsLimit(){
+bool GameObject::dontCountTowardsLimit(){
     return m_objectID == 31;
 }
 
@@ -5984,22 +5984,22 @@ void GameObject::duplicateValues(GameObject *object)
 
 
 // TODO: DAT_009a0458, DAT_009a0464, DAT_009a0470 Are Unknown therefore I cannot reverse it yet...
-// _ccColor3B * __thiscall GameObject::editorColorForCustomMode(GameObject *this,int colorID)
+// _ccColor3B * GameObject::editorColorForCustomMode(GameObject *this,int colorID)
 
 // {
-//   uint extraout_r1;
-//   uint uVar1;
-//   uint uVar2;
-//   uint uVar3;
+//   unsigned int extraout_r1;
+//   unsigned int uVar1;
+//   unsigned int uVar2;
+//   unsigned int uVar3;
   
 //   if (4 < colorID) {
 //     colorID = colorID + -5;
 //   }
 //   __aeabi_idivmod(colorID,0xc);
 //   if (extraout_r1 < 0xc) {
-//     uVar3 = (uint)(byte)(&DAT_009a0458)[extraout_r1];
-//     uVar1 = (uint)(byte)(&DAT_009a0464)[extraout_r1];
-//     uVar2 = (uint)(byte)(&DAT_009a0470)[extraout_r1];
+//     uVar3 = (unsigned int)(byte)(&DAT_009a0458)[extraout_r1];
+//     uVar1 = (unsigned int)(byte)(&DAT_009a0464)[extraout_r1];
+//     uVar2 = (unsigned int)(byte)(&DAT_009a0470)[extraout_r1];
 //   }
 //   else {
 //     uVar2 = 0xff;
@@ -6547,7 +6547,7 @@ GJSpriteColor* GameObject::getMainColor(){
 
 #define GAMEOBJECT_GET_COLOR_MODE(GETTER) \
     GJSpriteColor* color = ##GETTER(); \
-    return (color != nullptr) ? color->getColorMode() : 0; \
+    return (color != nullptr) ? color->getColorMode() : 0 \
 
 
 int GameObject::getMainColorMode(){
@@ -6751,19 +6751,19 @@ int GameObject::getParentMode()
         goto ANIMATED_SCALEVALUE_BELOW_ZERO;
     if(m_hasSepcialChild == false) {
         if(m_isPortalObject == false) {
-            if(m_objectID < 0xad3) {
-                if(m_objectID < 0xa94) {
-                    if(m_objectID < 0x743) {
-                        if(m_objectID < 0x734) {
-                            if(m_objectID < 0x531) {
-                                if(m_objectID < 0x52f) {
-                                    if(m_objectID < 0x39a) {
-                                        if(m_objectID < 0x398) {
-                                            if(m_objectID == 0x392) {
+            if (m_objectID < 0xad3) {
+                if (m_objectID < 0xa94) {
+                    if (m_objectID < 0x743) {
+                        if (m_objectID < 0x734) {
+                            if (m_objectID < 0x531) {
+                                if (m_objectID < 0x52f) {
+                                    if (m_objectID < 0x39a) {
+                                        if (m_objectID < 0x398) {
+                                            if (m_objectID == 0x392) {
                                                 mode = 2;
                                                 goto LAB_0035d474;
                                             }
-                                            if(m_objectID != 0x396) {
+                                            if (m_objectID != 0x396) {
                                                 bVar2 = m_objectID == 0x8e;
                                                 goto LAB_0035d428;
                                             }
@@ -6771,24 +6771,24 @@ int GameObject::getParentMode()
                                     } else if(1 < m_objectID - 0x39bU)
                                         goto LAB_0035d472;
                                 }
-                            } else if(m_objectID != 0x64e) {
-                                if(m_objectID < 0x64f) {
-                                    if(m_objectID != 0x531) {
+                            } else if (m_objectID != 0x64e) {
+                                if (m_objectID < 0x64f) {
+                                    if (m_objectID != 0x531) {
                                         bVar2 = m_objectID == 0x630;
                                         goto LAB_0035d33c;
                                     }
                                     goto LAB_0035d466;
                                 }
                                 if((m_objectID != 0x652) && (m_objectID != 0x718)) {
-                                    if(m_objectID == 0x64f)
+                                    if (m_objectID == 0x64f)
                                         goto LAB_0035d45e;
                                     goto LAB_0035d472;
                                 }
                             }
                         }
-                    } else if(m_objectID != 0x7dc) {
-                        if(m_objectID < 0x7dd) {
-                            if(m_objectID < 0x789) {
+                    } else if (m_objectID != 0x7dc) {
+                        if (m_objectID < 0x7dd) {
+                            if (m_objectID < 0x789) {
                                 if(0x77e < m_objectID)
                                     goto LAB_0035d466;
                                 bVar2 = m_objectID == 0x744;
@@ -6796,7 +6796,7 @@ int GameObject::getParentMode()
                                 if(bVar2)
                                     goto LAB_0035d462;
                             } else if(0x78f < m_objectID) {
-                                if(m_objectID < 0x794)
+                                if (m_objectID < 0x794)
                                     goto LAB_0035d462;
                                 iVar1 = 0x7ac;
                             LAB_0035d426:
@@ -6805,7 +6805,7 @@ int GameObject::getParentMode()
                                 if(bVar2)
                                     goto LAB_0035d466;
                             }
-                        } else if(m_objectID < 0xa8d) {
+                        } else if (m_objectID < 0xa8d) {
                             if(0x815 < m_objectID)
                                 goto LAB_0035d46a;
                             if(0x7e3 < m_objectID) {
@@ -6828,10 +6828,10 @@ int GameObject::getParentMode()
                 }
             } else {
                 if(0xc19 < m_objectID) {
-                    if(m_objectID < 0xed8) {
+                    if (m_objectID < 0xed8) {
                         if(0xe73 < m_objectID)
                             goto LAB_0035d46a;
-                        if(m_objectID < 0xe47) {
+                        if (m_objectID < 0xe47) {
                             if(0xe3d < m_objectID) {
                             LAB_0035d46e:
                                 mode = 8;
@@ -6844,9 +6844,9 @@ int GameObject::getParentMode()
                                 }
                                 goto LAB_0035d46a;
                             }
-                        } else if(m_objectID - 0xe48U < 4)
+                        } else if (m_objectID - 0xe48U < 4)
                             goto LAB_0035d46e;
-                    } else if(m_objectID < 0x1130) {
+                    } else if (m_objectID < 0x1130) {
                         if(3999 < m_objectID) {
                         LAB_0035d46a:
                             mode = 6;
@@ -6854,7 +6854,7 @@ int GameObject::getParentMode()
                         }
                         if(0xed8 < m_objectID)
                             goto LAB_0035d46e;
-                    } else if(m_objectID - 0x1131U < 0x8b)
+                    } else if (m_objectID - 0x1131U < 0x8b)
                         goto LAB_0035d46a;
                 LAB_0035d472:
                     mode = 0;
@@ -6862,11 +6862,11 @@ int GameObject::getParentMode()
                 }
                 if(0xc13 < m_objectID)
                     goto LAB_0035d46a;
-                if(m_objectID < 0xb52) {
-                    if(m_objectID < 0xb4f) {
-                        if(m_objectID < 0xb32) {
-                            if(m_objectID < 0xb30) {
-                                if(m_objectID != 0xad5) {
+                if (m_objectID < 0xb52) {
+                    if (m_objectID < 0xb4f) {
+                        if (m_objectID < 0xb32) {
+                            if (m_objectID < 0xb30) {
+                                if (m_objectID != 0xad5) {
                                     if(0xad4 < m_objectID) {
                                         iVar1 = 0xad8;
                                         goto LAB_0035d3ee;
@@ -6875,15 +6875,15 @@ int GameObject::getParentMode()
                                 }
                                 goto LAB_0035d466;
                             }
-                        } else if(m_objectID < 0xb33)
+                        } else if (m_objectID < 0xb33)
                             goto LAB_0035d472;
                     LAB_0035d462:
                         mode = 3;
                         goto LAB_0035d474;
                     }
                 } else {
-                    if(m_objectID < 0xbbb) {
-                        if(m_objectID < 3000) {
+                    if (m_objectID < 0xbbb) {
+                        if (m_objectID < 3000) {
                             bVar3 = 0x46 < m_objectID - 0xb6fU;
                             bVar2 = m_objectID - 0xb6fU == 0x47;
                             goto LAB_0035d3e6;
@@ -6892,7 +6892,7 @@ int GameObject::getParentMode()
                     }
                     iVar1 = 0xbda;
                 LAB_0035d3ee:
-                    if(m_objectID < iVar1)
+                    if (m_objectID < iVar1)
                         goto LAB_0035d472;
                 }
             }
@@ -6930,6 +6930,13 @@ cocos2d::CCPoint GameObject::getRealPosition()
 GJSpriteColor * GameObject::getRelativeSpriteColor(int ID)
 {
     return (isColorObject() && (ID == 2)) ? m_detailColor : m_baseColor;
+}
+
+
+/* FUN_0035b070 */
+bool __SUBROUTINE_UNK_HSV(cocos2d::ccHSVValue *hsv)
+{
+    return ((hsv->h != 0.0) && (hsv->s == 1.0)) && (hsv->v == 1.0) && (hsv->absoluteSaturation && hsv->absoluteBrightness);
 }
 
 
@@ -7075,8 +7082,9 @@ std::string GameObject::getSaveString(GJBaseGameLayer* base)
         WRITE_PROPERTY(0x117, m_toggleAreaParent);
     }
     
-//     if ((m_baseColor)->m_hsv) {
-//         // TODO MAKE A FUCKING MACRO!...
+//         // TODO MAKE A FUCKING MACRO!.
+//  if (__SUBROUTINE_UNK_HSV(&m_baseColor->m_hsv)) {
+// 
 //         local_23c = (GJBaseGameLayer_vtable *)&DAT_0093fb84;
 //         local_238 = m_objectID;
 //         fmt::BasicWriter<char>::operator<<((BasicWriter<char> *)local_234,",");
@@ -7141,16 +7149,50 @@ std::string GameObject::getSaveString(GJBaseGameLayer* base)
 
 
 
-/* Unknown Return: GameObject::getScalePosDelta(){}; */
+cocos2d::CCPoint GameObject::getScalePosDelta()
+{
 
 
-/* Unknown Return: GameObject::getSecondaryColor(){}; */
+    cocos2d::CCPoint pos = cocos2d::CCPointZero;
+    cocos2d::CCRect rect = getObjectRect();
+
+    
+    if (m_isRotationAligned) {
+        rect.size.height = rect.size.width;
+        rect.size.width = rect.size.height;
+    }
+    
+    if (didScaleXChange()) {
+        pos.x = (rect.size.width - (rect.size.width / m_scaleX) * m_customScaleX) * 0.5;
+    }
+    
+    if (didScaleYChange()) {
+        pos.y = (rect.size.height - (rect.size.height / m_scaleY) * m_customScaleY) * 0.5;
+    }
+    if (m_isRotationAligned) {
+        pos.y = pos.x;
+        pos.x = pos.y;
+    }
+    return pos;
+}
 
 
-/* Unknown Return: GameObject::getSecondaryColorMode(){}; */
+GJSpriteColor * GameObject::getSecondaryColor(){
+    return m_detailColor;
+}
+
+int GameObject::getSecondaryColorMode(){
+    // Knew the Macro came in handy later...
+    GAMEOBJECT_GET_COLOR_MODE(getSecondaryColor);
+};
+
+float GameObject::getSlopeAngle()
+{
+    auto rect = getObjectRect();
+    return atan(rect.size.height / rect.size.width);
+}
 
 
-/* Unknown Return: GameObject::getSlopeAngle(){}; */
 
 cocos2d::CCPoint GameObject::getStartPos()
 {
@@ -7158,135 +7200,799 @@ cocos2d::CCPoint GameObject::getStartPos()
 }
 
 
-
+// UNSURE...
 /* Unknown Return: GameObject::getTextKerning(){}; */
+
 
 GameObjectType GameObject::getType()
 {
-    return;
+    return static_cast<GameObjectType>(m_objectType);
 }
 
 
 
-/* Unknown Return: GameObject::getUnmodifiedPosition(){}; */
+cocos2d::CCPoint GameObject::getUnmodifiedPosition(){
+    return CCPointMake(m_lastPositionX - m_positionXOffset, m_lastPositionY - m_postionYOffset);
+};
 
 
-/* Unknown Return: GameObject::groupColor(cocos2d::ccColor3B const& p0, bool p1){}; */
-
-
-/* Unknown Return: GameObject::groupOpacityMod(){}; */
-
-
-/* Unknown Return: GameObject::groupWasDisabled(){}; */
-
-
-/* Unknown Return: GameObject::groupWasEnabled(){}; */
-
-
-/* Unknown Return: GameObject::hasBeenActivated(){}; */
-
-
-/* Unknown Return: GameObject::hasBeenActivatedByPlayer(PlayerObject* p0){}; */
-
-
-/* Unknown Return: GameObject::hasSecondaryColor(){}; */
-
-bool GameObject::ignoreEditorDuration()
+cocos2d::ccColor3B GameObject::groupColor(cocos2d::ccColor3B const& color, bool detail)
 {
-    return;
+    for (int i = 0; i < m_colorgroupCount; i = i + 1) {
+        m_groupColor = m_goEffectManager->colorForGroupID(m_colorGroups->at(i) , m_groupColor, detail);
+    }
+    return m_groupColor;
 }
 
+float GameObject::groupOpacityMod(){
+    float opacityMod = 1.0;
+    for (int i = 0; i < m_opacityGroupSize; i++){
+        opacityMod *= m_goEffectManager->opacityModForGroup(m_opacityGroups->at(i));
+        if (opacityMod <= 0.0) 
+            return 0.0;
+    }
+    return opacityMod;
+};  
 
 
-/* Unknown Return: GameObject::ignoreEnter(){}; */
+void GameObject::groupWasDisabled(){
+    m_enabledGroupsCounter--;
+    m_groupEnabled = m_enabledGroupsCounter > 0;
+};
 
 
-/* Unknown Return: GameObject::ignoreFade(){}; */
+void GameObject::groupWasEnabled(){
+    m_enabledGroupsCounter++;
+    m_groupEnabled = m_enabledGroupsCounter > 0;
+};
 
-bool GameObject::init(char const* p0)
+
+bool GameObject::hasBeenActivated(){
+    return false;
+};
+
+
+bool GameObject::hasBeenActivatedByPlayer(PlayerObject *player)
 {
-    return;
+    return false;
 }
 
 
-bool GameObject::initWithTexture(cocos2d::CCTexture2D* p0)
+bool GameObject::hasSecondaryColor(){
+    return m_colorSprite != nullptr;
+};
+
+
+// FUCK THESE PUZZLES!!! I HATE THEM!!!
+
+bool GameObject::ignoreEditorDuration() {
+    int a;
+    unsigned int b;
+    bool c;
+    bool d;
+
+    if(m_objectType == 0x1e) {
+        return true;
+    }
+    if(0x71b < m_objectID) {
+        if (m_objectID < 0xb6f) {
+            if(0xb6c < m_objectID) {
+                return true;
+            }
+            if (m_objectID < 0x811) {
+                if(0x80d < m_objectID) {
+                    return true;
+                }
+                if (m_objectID == 0x77b) {
+                    return true;
+                }
+                if (m_objectID < 0x77c) {
+                    if (m_objectID == 0x743) {
+                        return true;
+                    }
+                    if (m_objectID == 0x778) {
+                        return true;
+                    }
+                    a = 0x725;
+                } else {
+                    if(0x78f < m_objectID) {
+                        c = m_objectID == 0x7e0;
+                        goto LAB_0036143c;
+                    }
+                    if(0x78a < m_objectID) {
+                        return true;
+                    }
+                    a = 0x77d;
+                }
+            } else if (m_objectID < 0xb55) {
+                if(0xb52 < m_objectID) {
+                    return true;
+                }
+                if (m_objectID < 0x816) {
+                    if(0x813 < m_objectID) {
+                        return true;
+                    }
+                    a = 0x812;
+                } else {
+                    a = 0xb32;
+                }
+            } else {
+                if (m_objectID < 0xb56) {
+                    return false;
+                }
+                if (m_objectID < 0xb5a) {
+                    return true;
+                }
+                a = 0xb5b;
+            }
+        } else if (m_objectID < 0xe1a) {
+            if(0xe15 < m_objectID) {
+                return true;
+            }
+            if (m_objectID == 0xbd3) {
+                return true;
+            }
+            if (m_objectID < 0xbd4) {
+                if (m_objectID < 0xbbc) {
+                    return false;
+                }
+                if (m_objectID < 0xbc3) {
+                    return true;
+                }
+                d = 7 < m_objectID - 0xbc8U;
+                c = m_objectID - 0xbc8U == 8;
+                goto LAB_003614e2;
+            }
+            if (m_objectID == 0xe10) {
+                return true;
+            }
+            if (m_objectID < 0xe11) {
+                d = 3 < m_objectID - 0xbd5U;
+                c = m_objectID - 0xbd5U == 4;
+                goto LAB_003614e2;
+            }
+            a = 0xe14;
+        } else {
+            if (m_objectID < 0xe3c) {
+                if(0xe37 < m_objectID) {
+                    return true;
+                }
+                if (m_objectID < 0xe1c) {
+                    return false;
+                }
+                if (m_objectID < 0xe20) {
+                    return true;
+                }
+                a = -0xe21;
+                goto LAB_003614c8;
+            }
+            if (m_objectID == 0xe47) {
+                return true;
+            }
+            if (0xe47 < m_objectID) {
+                b = m_objectID - 0xe4c;
+                goto LAB_003614e0;
+            }
+            a = 0xe3d;
+        }
+    LAB_0036143a:
+        c = m_objectID == a;
+    LAB_0036143c:
+        if(!c) {
+            return false;
+        }
+        return true;
+    }
+    if (0x716 < m_objectID) {
+        return true;
+    }
+    if (m_objectID < 0x120) {
+        if(0x11d < m_objectID) {
+            return true;
+        }
+        if(0x3b < m_objectID) {
+            if (m_objectID == 0x6f) {
+                return true;
+            }
+            if (m_objectID < 0x70) {
+                if (m_objectID == 0x54) {
+                    return true;
+                }
+                if (m_objectID < 0x55) {
+                    c = m_objectID == 0x43;
+                } else {
+                    if (m_objectID == 99) {
+                        return true;
+                    }
+                    c = m_objectID == 0x65;
+                }
+                goto LAB_0036143c;
+            }
+            if (m_objectID < 0x8c) {
+                return false;
+            }
+            if (m_objectID < 0x8f) {
+                return true;
+            }
+            a = -200;
+        LAB_003614c8:
+            d = 2 < (unsigned int)(m_objectID + a);
+            c = m_objectID + a == 3;
+            goto LAB_003614e2;
+        }
+        if(0x36 < m_objectID) {
+            return true;
+        }
+        if (m_objectID < 0x22) {
+            if(0x1e < m_objectID) {
+                return true;
+            }
+            if (m_objectID < 10) {
+                return false;
+            }
+            if (m_objectID < 0xe) {
+                return true;
+            }
+            d = 5 < m_objectID - 0x16U;
+            c = m_objectID - 0x16U == 6;
+            goto LAB_003614e2;
+        }
+        if (m_objectID < 0x23) {
+            return false;
+        }
+        if (m_objectID < 0x25) {
+            return true;
+        }
+        b = m_objectID - 0x2d;
+    } else {
+        if (m_objectID == 0x631) {
+            return true;
+        }
+        if (m_objectID < 0x632) {
+            if (m_objectID == 0x3fe) {
+                return true;
+            }
+            if (m_objectID < 0x3ff) {
+                if (m_objectID == 0x2e9) {
+                    return true;
+                }
+                if (m_objectID < 0x2ea) {
+                    c = m_objectID == 0x294;
+                    goto LAB_0036143c;
+                }
+                if (m_objectID == 0x2eb) {
+                    return true;
+                }
+                a = 0x2ed;
+            } else {
+                if (m_objectID == 0x4f4) {
+                    return true;
+                }
+                if(0x4f4 < m_objectID) {
+                    d = 4 < m_objectID - 0x531U;
+                    c = m_objectID - 0x531U == 5;
+                    goto LAB_003614e2;
+                }
+                a = 0x419;
+            }
+            goto LAB_0036143a;
+        }
+        if (m_objectID == 0x650) {
+            return true;
+        }
+        if (m_objectID < 0x651) {
+            if (m_objectID < 0x63a) {
+                return false;
+            }
+            if (m_objectID < 0x63c) {
+                return true;
+            }
+            b = m_objectID - 0x64b;
+        } else {
+            if (m_objectID == 0x6db) {
+                return true;
+            }
+            if (m_objectID < 0x6dc) {
+                if (m_objectID == 0x6a8) {
+                    return true;
+                }
+                a = 0x6d7;
+                goto LAB_0036143a;
+            }
+            b = m_objectID - 0x713;
+        }
+    }
+LAB_003614e0:
+    d = 1 < b;
+    c = b == 2;
+LAB_003614e2:
+    if(d && !c) {
+        return false;
+    }
+    return true;
+}
+
+
+bool GameObject::ignoreEnter(){
+    return m_ignoreEnter;
+};
+
+
+bool GameObject::ignoreFade(){
+    return m_ignoreFade;
+};
+
+
+bool GameObject::init(const char *frame)
 {
-    return;
+    if (CCSpritePlus::initWithSpriteFrameName(frame)) {
+        commonSetup();
+        // Recently added to CCNode as one of the final Robtop Added flags...
+        m_hasNoManagement = true;
+        return true;
+    }
+    return false;
+}   
+
+
+
+bool GameObject::initWithTexture(cocos2d::CCTexture2D *texture){
+    if (CCSpritePlus::initWithTexture(texture)) {
+        commonSetup();
+        return true;
+    }
+    return false;
 }
 
 
-bool GameObject::isBasicEnterEffect(int p0)
+// Static Function... effectID was placed at r0
+bool GameObject::isBasicEnterEffect(int effectID)
 {
-    return;
+    // if (effectID < 0x3c) {
+    //   if ((effectID < 0x37) && (6 < effectID - 0x16U)) {
+    //     return false;
+    //   }
+    // }
+    // else if (effectID != 0x77b) {
+    //   return false;
+    // }
+    // return true;
+
+    // My Best Estimate of above's code...
+    switch(effectID){
+        case 1915:
+            return true;
+        case 60:
+            return true;
+        case 55:
+            return true;
+        default:
+            return false;
+    }
 }
 
-
+// TODO: Deoptimize
 bool GameObject::isBasicTrigger()
 {
-    return;
-}
+    int m_objectID;
+    bool a;
+    bool b;
 
+    if (m_objectID < 0x64e) {
+        if (0x64b < m_objectID) {
+            return true;
+        }
+        if (m_objectID < 0x22) {
+            if (0x1f < m_objectID) {
+                return true;
+            }
+            b = 5 < m_objectID - 0x16U;
+            a = m_objectID - 0x16U == 6;
+        } else {
+            b = 3 < m_objectID - 0x37U;
+            a = m_objectID - 0x37U == 4;
+        }
+    } else {
+        if (m_objectID == 0x77b) {
+            return true;
+        }
+        if (0x77b < m_objectID) {
+            if (m_objectID < 0xbc9) {
+                return false;
+            }
+            if (0xbcd < m_objectID) {
+                if (m_objectID != 0xbcf) {
+                    return false;
+                }
+                return true;
+            }
+            return true;
+        }
+        b = m_objectID != 0x71a;
+        a = m_objectID == 0x71b;
+    }
+    if (!b || a) {
+        return true;
+    }
+    return false;
+}
 
 bool GameObject::isColorObject()
 {
-    return;
+    m_maybeNotColorable = m_customColorType == 1;
+    return ((m_maybeNotColorable == false) && (!hasSecondaryColor()) && (m_baseColor->m_defaultColorID != 0x3ec));
 }
 
 
-bool GameObject::isColorTrigger()
-{
-    return;
+bool GameObject::isColorTrigger() {
+    bool b;
+    // TODO: Deoptimize to this...
+    // switch (m_objectID){
+    //     case 744:
+    //         return true;
+    //     case 105:
+    //         return false;
+    //     case 915:
+    //         return true;
+
+    //     default:
+    //         return true;
+    // }
+    if (m_objectID != 0x2e8) {
+        if (m_objectID < 0x2e9) {
+            if (m_objectID < 0x1d) {
+                return false;
+            }
+            if (m_objectID < 0x1f) {
+                return true;
+            }
+            b = m_objectID == 0x69;
+        } else {
+            if (m_objectID < 899) {
+                return false;
+            }
+            if (m_objectID < 0x385) {
+                return true;
+            }
+            b = m_objectID == 0x393;
+        }
+        if (!b) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
-bool GameObject::isConfigurablePortal()
-{
-    return;
+// also needs deoptimizing...
+bool GameObject::isConfigurablePortal(){
+    bool b;
+
+    if (m_objectID < 0x120) {
+        if (0x11d < m_objectID) {
+            return true;
+        }
+        if (m_objectID == 0x2f) {
+            return true;
+        }
+        if (m_objectID < 0x30) {
+            if (1 < m_objectID - 0xcU) {
+                return false;
+            }
+            return true;
+        }
+        b = m_objectID == 0x6f;
+    } else {
+        if (m_objectID == 0x2e9) {
+            return true;
+        }
+        if (m_objectID < 0x2ea) {
+            b = m_objectID == 0x294;
+        } else {
+            if (m_objectID == 0x533) {
+                return true;
+            }
+            b = m_objectID == 0x78d;
+        }
+    }
+    if (b) {
+        return true;
+    }
+    return false;
 }
 
+// Fuck these unsolvable switches!!!
 
-bool GameObject::isEditorSpawnableTrigger()
-{
-    return;
+bool GameObject::isEditorSpawnableTrigger(){
+    int i;
+    unsigned int ui;
+    bool a, b;
+
+    if (m_objectID == 0x80e) {
+        return true;
+    }
+    if (0x80e < m_objectID) {
+        if (m_objectID == 0xbce) {
+            return true;
+        }
+        if (m_objectID < 0xbcf) {
+            if (m_objectID == 0xb5b) {
+                return true;
+            }
+            if (0xb5b < m_objectID) {
+                if (m_objectID < 0xb6e) {
+                    if (0xb66 < m_objectID) {
+                        return true;
+                    }
+                    b = 7 < m_objectID - 0xb5dU;
+                    a = m_objectID - 0xb5dU == 8;
+                } else {
+                    if (m_objectID == 2999) {
+                        return true;
+                    }
+                    if (m_objectID < 2999) {
+                        return false;
+                    }
+                    b = 9 < m_objectID - 0xbbeU;
+                    a = m_objectID - 0xbbeU == 10;
+                }
+                goto LAB_00360ba6;
+            }
+            if (m_objectID < 0xb56) {
+                if (0xb52 < m_objectID) {
+                    return true;
+                }
+                ui = m_objectID - 0x812;
+            } else {
+                ui = m_objectID - 0xb57;
+            }
+        } else {
+            if (m_objectID < 0xe20) {
+                if (0xe1b < m_objectID) {
+                    return true;
+                }
+                if (m_objectID < 0xbd8) {
+                    if (0xbd4 < m_objectID) {
+                        return true;
+                    }
+                    a = m_objectID == 0xbd0;
+                    goto LAB_00360b66;
+                }
+                if (m_objectID == 0xbd9) {
+                    return true;
+                }
+                if (m_objectID < 0xbd9) {
+                    return false;
+                }
+                b = 6 < m_objectID - 0xe12U;
+                a = m_objectID - 0xe12U == 7;
+                goto LAB_00360ba6;
+            }
+            if (m_objectID < 0xe3a) {
+                if (0xe37 < m_objectID) {
+                    return true;
+                }
+                b = 2 < m_objectID - 0xe21U;
+                a = m_objectID - 0xe21U == 3;
+                goto LAB_00360ba6;
+            }
+            if (m_objectID == 0xe47) {
+                return true;
+            }
+            if (m_objectID < 0xe47) {
+                return false;
+            }
+            ui = m_objectID - 0xe4c;
+        }
+    LAB_00360ba4:
+        b = 1 < ui;
+        a = ui == 2;
+    LAB_00360ba6:
+        if (b && !a) {
+            return false;
+        }
+        return true;
+    }
+    if (m_objectID == 0x63b) {
+        return true;
+    }
+    if (m_objectID < 0x63c) {
+        if (m_objectID == 0x393) {
+            return true;
+        }
+        if (m_objectID < 0x394) {
+            if (m_objectID == 0x69) {
+                return true;
+            }
+            if (m_objectID < 0x6a) {
+                i = -0x1d;
+            LAB_00360ad2:
+                b = m_objectID + i != 0;
+                a = m_objectID + i == 1;
+                goto LAB_00360ba6;
+            }
+            if (m_objectID == 0x2e8) {
+                return true;
+            }
+            if (m_objectID < 0x2e8) {
+                return false;
+            }
+            ui = m_objectID - 899;
+            goto LAB_00360ba4;
+        }
+        if (m_objectID == 0x4f4) {
+            return true;
+        }
+        if (m_objectID < 0x4f5) {
+            if (m_objectID < 0x3ee) {
+                return false;
+            }
+            if (m_objectID < 0x3f0) {
+                return true;
+            }
+            i = 0x419;
+        } else {
+            if (m_objectID < 0x542) {
+                return false;
+            }
+            if (m_objectID < 0x544) {
+                return true;
+            }
+            i = 0x631;
+        }
+    } else if (m_objectID < 0x77b) {
+        if (0x777 < m_objectID) {
+            return true;
+        }
+        if (m_objectID == 0x713) {
+            return true;
+        }
+        if (m_objectID < 0x714) {
+            if (m_objectID < 0x64b) {
+                return false;
+            }
+            if (m_objectID < 0x64e) {
+                return true;
+            }
+            a = m_objectID == 0x650;
+            goto LAB_00360b66;
+        }
+        if (m_objectID < 0x716) {
+            return false;
+        }
+        if (m_objectID < 0x718) {
+            return true;
+        }
+        i = 0x719;
+    } else {
+        if (m_objectID == 0x78c) {
+            return true;
+        }
+        if (m_objectID < 0x78d) {
+            i = -0x77c;
+            goto LAB_00360ad2;
+        }
+        if (m_objectID < 0x78e) {
+            return false;
+        }
+        if (m_objectID < 0x790) {
+            return true;
+        }
+        i = 0x7df;
+    }
+    a = m_objectID == i;
+LAB_00360b66:
+    if (!a) {
+        return false;
+    }
+    return true;
 }
+
 
 
 bool GameObject::isFacingDown()
 {
-    return;
+    bool down;
+    unsigned int u = (unsigned int)getObjectRotation();
+    bool flipY = isFlipY();
+    if ((u % 90) == 0) {
+      down = u == 180;
+    }
+    else if ((u - 90) <= 180) {
+      down = true;
+    }
+    else {
+      down = (u + 270) <= 180;
+    }
+    return (flipY) ? (down ^ 1) : down;
 }
 
-
-bool GameObject::isFacingLeft()
-{
-    return;
-}
+// Lost my Motivation... 
+bool GameObject::isFacingLeft(){}
+// {
+//   bool iVar3;
+//   byte bVar1;
+//   float fVar2;
+//   int iVar5;
+//   uint uVar6;
+//   uint uVar7;
+//   int extraout_r1;
+//   int iVar8;
+//   int iVar4;
+  
+//   fVar2 = (float)(*(code *)this->vtable->GameObject_getObjectRotation)();
+//   iVar8 = (int)fVar2;
+//   iVar4 = (*(code *)this->vtable->GameObject_isFlipY)(this);
+//   iVar5 = __aeabi_idivmod(iVar8,0x5a);
+//   if (extraout_r1 == 0) {
+//     if (iVar8 < 0) {
+//       iVar8 = iVar8 + 0x168;
+//     }
+//     if (iVar8 == 0x10e) {
+//       return (bool)((byte)iVar4 ^ 1);
+//     }
+//     if (iVar8 == 0x5a) {
+//       iVar5 = iVar4;
+//     }
+//     bVar1 = (byte)iVar5;
+//     if (iVar8 != 0x5a) {
+//       bVar1 = 0;
+//     }
+//   }
+//   else {
+//     if (iVar8 - 0x5bU < 0xb3) {
+//       bVar1 = 1;
+//     }
+//     else {
+//       uVar6 = iVar8 + 0x10d;
+//       uVar7 = uVar6;
+//       if (0xb2 < uVar6) {
+//         uVar7 = 0;
+//       }
+//       bVar1 = (byte)uVar7;
+//       if (uVar6 < 0xb3) {
+//         bVar1 = 1;
+//       }
+//     }
+//     if (iVar4 != 0) {
+//       return (bool)(bVar1 ^ 1);
+//     }
+//   }
+//   return (bool)bVar1;
+// }
 
 
 bool GameObject::isFlipX()
 {
-    return;
+    return m_isFlipX;
 }
 
 
 bool GameObject::isFlipY()
 {
-    return;
+    return m_isFlipY;
 }
 
 
 bool GameObject::isSettingsObject()
 {
-    return;
+    switch (m_objectID){
+        case 3613:
+            return false;
+        case 3622:
+            return true;
+        default:
+            return true;
+    }
 }
 
-
+// I think you know why I'm skipping these for now until I can find a deoptimizing expert...
 bool GameObject::isSpawnableTrigger()
 {
     return;
 }
 
-
+// Doesn't look as bad as isSpawnableTrigger if someone wants to solve it...
 bool GameObject::isSpecialObject()
 {
     return;
@@ -7295,28 +8001,29 @@ bool GameObject::isSpecialObject()
 
 bool GameObject::isSpecialSpawnObject()
 {
-    return;
+    return false;
 }
 
-
+// Personally I am not in the mood for unsolvable switchblocks
 bool GameObject::isSpeedObject()
 {
     return;
 }
 
-
+// And Another one
 bool GameObject::isStoppableTrigger()
 {
     return;
 }
 
-
+// Same Problem as all the above...
 bool GameObject::isTrigger()
 {
     return;
 }
 
-
+// Has a bunch of inlined slop, Find out what FUN_0076e56c, FUN_0076e5a4, and FUN_0076d7b8 is and I'll reconsider...
+// or unless robtop pulls out a new twitch stream where this function is visable there's no hope...
 void GameObject::loadGroupsFromString(std::string p0)
 {
     return;
@@ -7324,7 +8031,18 @@ void GameObject::loadGroupsFromString(std::string p0)
 
 
 
-/* Unknown Return: GameObject::makeInvisible(){}; */
+void GameObject::makeInvisible(){
+    m_previewIsDisabled = true;
+    m_isInvisible = true;
+    setOpacity(0);
+};
+
+void GameObject::makeVisible()
+{
+    m_previewIsDisabled = false;
+    m_isInvisible = false;
+    setOpacity(0xff);
+}
 
 /* Mentally not prepared and don't know how to approch these... */
 GameObject* GameObject::objectFromVector(std::vector<std::string>& p0, std::vector<void*>& p1, GJBaseGameLayer* p2, bool p3)
@@ -7333,7 +8051,7 @@ GameObject* GameObject::objectFromVector(std::vector<std::string>& p0, std::vect
 }
 
 
-
+// Makes a bad code generation where CCRGBAProtocol_vtable* is thrown out of wack...
 /* Unknown Return: GameObject::opacityModForMode(int p0, bool p1){}; */
 
 
