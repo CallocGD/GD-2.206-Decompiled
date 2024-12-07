@@ -5,11 +5,8 @@
 # GD-Decompiled
  An attempt to get the source code for Geometry Dash through reverse engineering and decompiling the game.  
 
-
-## On Strike Currently
-There was some nasty things said behind my back so I have currently not been doing anything. All the deocmp of GameObject is being paused for that reason.
-It was meant as a gift for the community but as I had seen people be very quick to coming to conclusions before seeing the bigger picture hence why I am going 
-on strike. If the geode community wants to be mean then you will recieve no help until you apoligize to me.
+## TODOS
+- Port to gd-re's new repo.
 
 
 ## Tools Used
