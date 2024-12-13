@@ -54,10 +54,10 @@ bool SpriteDescription::initDescription(DS_Dictionary* dict){
     m_usesCustomTag = atoi(dict->getStringForKey("usesCustomTag").c_str()) == 1;
     
     if (m_usesCustomTag) {
-      std::string frameName = dict->getStringForKey("texture");
-      m_texture = cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName.c_str());
-      m_texture->retain();
-      m_texture->m_textureName = frameName;
+        std::string frameName = dict->getStringForKey("texture");
+        m_texture = cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName.c_str());
+        m_texture->retain();
+        m_texture->m_textureName = frameName;
     }
     return true;
 }
