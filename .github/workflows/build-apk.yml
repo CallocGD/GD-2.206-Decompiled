@@ -1,0 +1,161 @@
+name: Build DS Game (Android APK)
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-android:
+    name: Build Android APK (Android 8-15 arm64+arm32+x86_64)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check package consistency
+        run: |
+          grep -q 'package="com.derka.gd"'      game/AndroidManifest.xml
+          grep -q 'android:versionCode="[0-9]\+"'  game/AndroidManifest.xml
+          grep -q 'android:value="gd_derka"'    game/AndroidManifest.xml
+          grep -q 'android_main'                game/game.c
+          ! grep -rq 'com\.cb4\|dimscript'      game/
+
+      - name: Headless level test (host gcc)
+        run: |
+          gcc -std=c99 -O2 -Wall -DGD_SIM game/gd_core.c -o /tmp/gdsim -lm
+          /tmp/gdsim 0        # автопилот обязан пройти уровень
+          /tmp/gdsim -0.6     # и с опозданием прыжка на 0.6 блока
+
+      - uses: android-actions/setup-android@v4
+
+      - name: Install Android SDK packages
+        run: sdkmanager "platforms;android-35" "build-tools;34.0.0"
+
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1
+        id: ndk
+        with:
+          ndk-version: r25c
+
+      - name: Build native libraries
+        env:
+          NDK_ROOT: ${{ steps.ndk.outputs.ndk-path }}
+        run: |
+          TOOLCHAIN="$NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin"
+          GLUE="$NDK_ROOT/sources/android/native_app_glue"
+
+          for ABI in "arm64-v8a aarch64-linux-android26-clang" \
+                     "armeabi-v7a armv7a-linux-androideabi26-clang" \
+                     "x86_64 x86_64-linux-android26-clang"; do
+            set -- $ABI
+            mkdir -p "staging/lib/$1"
+            "$TOOLCHAIN/$2" -O3 -std=gnu99 -s -fPIC -shared \
+              -Wl,-z,max-page-size=16384 -Wl,--no-undefined \
+              game/game.c game/gd_core.c "$GLUE/android_native_app_glue.c" \
+              -Igame -I"$GLUE" -landroid -llog -lm -lGLESv2 -lEGL \
+              -o "staging/lib/$1/libgd_derka.so"
+          done
+
+      - name: Prepare signing key (secrets or throwaway CI key)
+        env:
+          P12_BASE64: ${{ secrets.GD_P12_BASE64 || secrets.CB4_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.GD_P12_PASSWORD || secrets.CB4_P12_PASSWORD }}
+        run: |
+          set -euo pipefail
+          umask 077
+          KEY_DIR="$RUNNER_TEMP/derka-signing"; mkdir -p "$KEY_DIR"; chmod 700 "$KEY_DIR"
+          if [[ -n "${P12_BASE64:-}" && -n "${P12_PASSWORD:-}" ]] \
+             && printf '%s' "$P12_BASE64" | tr -d '[:space:]' \
+                  | base64 --decode > "$KEY_DIR/gd.p12" 2>/dev/null \
+             && keytool -list -storetype PKCS12 -keystore "$KEY_DIR/gd.p12" \
+                  -storepass:env P12_PASSWORD > /dev/null 2>&1; then
+            chmod 600 "$KEY_DIR/gd.p12"
+            echo "KS_FILE=$KEY_DIR/gd.p12" >> "$GITHUB_ENV"
+            echo "KS_USING_DEBUG=0" >> "$GITHUB_ENV"
+            echo "Repository signing key OK - release signature will be used."
+          else
+            echo "::warning::No usable signing secrets (GD_P12_BASE64 / GD_P12_PASSWORD)."
+            echo "::warning::Signing with a throwaway CI key: APK installs on devices but is NOT for store upload."
+            keytool -genkeypair -keystore "$KEY_DIR/debug.p12" -storetype PKCS12 \
+              -storepass android -keypass android -alias debug -keyalg RSA \
+              -keysize 2048 -validity 3650 -dname "CN=Geometry Dash for Derka CI"
+            chmod 600 "$KEY_DIR/debug.p12"
+            echo "KS_FILE=$KEY_DIR/debug.p12" >> "$GITHUB_ENV"
+            echo "KS_USING_DEBUG=1" >> "$GITHUB_ENV"
+          fi
+
+      - name: Package and align APK
+        run: |
+          BT="$ANDROID_HOME/build-tools/34.0.0"
+          "$BT/aapt" package -f \
+            -M game/AndroidManifest.xml \
+            -S game/res \
+            -I "$ANDROID_HOME/platforms/android-35/android.jar" \
+            -F unsigned.apk ./staging/
+          "$BT/zipalign" -f -p 4 unsigned.apk aligned.apk
+
+      - name: Sign APK
+        env:
+          P12_PASSWORD: ${{ secrets.GD_P12_PASSWORD || secrets.CB4_P12_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.GD_KEY_ALIAS || secrets.CB4_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.GD_KEY_PASSWORD || secrets.CB4_KEY_PASSWORD || secrets.GD_P12_PASSWORD || secrets.CB4_P12_PASSWORD }}
+        run: |
+          BT="$ANDROID_HOME/build-tools/34.0.0"
+          SIGN=(--ks "$KS_FILE" --ks-type PKCS12)
+          if [[ "$KS_USING_DEBUG" == "1" ]]; then
+            SIGN+=(--ks-pass pass:android --key-pass pass:android --ks-key-alias debug)
+          else
+            SIGN+=(--ks-pass env:P12_PASSWORD --key-pass env:KEY_PASSWORD)
+            [[ -n "$KEY_ALIAS" ]] && SIGN+=(--ks-key-alias "$KEY_ALIAS")
+          fi
+          "$BT/apksigner" sign "${SIGN[@]}" --out Game.apk aligned.apk
+
+      - name: Verify APK metadata and signature
+        run: |
+          BT="$ANDROID_HOME/build-tools/34.0.0"
+          "$BT/aapt" dump badging Game.apk | head -n 5
+          "$BT/aapt" dump badging Game.apk | grep -q "versionCode='[0-9]\+'" \
+            || { echo "::error::APK has no versionCode - stores will reject it."; exit 1; }
+          "$BT/apksigner" verify --print-certs Game.apk
+          [[ "$KS_USING_DEBUG" == "1" ]] \
+            && echo "::notice::Signed with throwaway CI key. Add GD_P12_BASE64/GD_P12_PASSWORD secrets for a store-ready signature." \
+            || echo "Signed with the repository key."
+
+      - name: Inspect APK contents
+        run: |
+          unzip -l Game.apk | grep -E 'lib/|arsc|AndroidManifest|ic_launcher' || true
+          N=$(unzip -l Game.apk | grep -c 'lib/.*/libgd_derka.so' || true)
+          if [[ "$N" != "3" ]]; then
+            echo "::error::APK contains $N native libs, expected 3 (arm64/arm32/x86_64) - this crashes on launch."
+            exit 1
+          fi
+          echo "::notice::APK libs OK: $(unzip -l Game.apk | grep -o 'lib/[a-z0-9_-]*/' | sort -u | tr -d '\n')"
+
+      - name: Emulator smoke test (boot the game, capture logcat)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: default
+          arch: x86_64
+          disable-animations: true
+          script: bash tools/smoke.sh
+      - name: Delete temporary signing key
+        if: ${{ always() }}
+        run: rm -rf -- "${RUNNER_TEMP:?}/derka-signing"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: GeometryDashForDerka-APK-Android8-15
+          path: Game.apk
+          if-no-files-found: error

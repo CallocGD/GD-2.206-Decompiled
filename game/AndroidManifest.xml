@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.derka.gd"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <!-- Android 8 (API 26) — Android 15 (API 35), arm64 / arm32 / x86_64 -->
+    <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35" />
+
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="true" />
+
+    <!-- hasCode="false": ни строчки Java и ни одного classes.dex,
+         игру целиком тянет системный NativeActivity из libgd_derka.so -->
+    <application
+        android:label="Geometry Dash for Derka"
+        android:icon="@drawable/ic_launcher"
+        android:hasCode="false"
+        android:extractNativeLibs="true"
+        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+
+        <activity
+            android:name="android.app.NativeActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize|screenLayout|smallestScreenSize|uiMode|layoutDirection|density|fontScale|navigation"
+            android:screenOrientation="landscape"
+            android:exported="true">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="gd_derka" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
